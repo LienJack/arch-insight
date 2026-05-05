@@ -4,13 +4,15 @@
 
 ## 一句话用法
 
-先用 `01_repo_intake.md` 定边界，再用 `02_design_philosophy_brain_dump.md` 建立系统脑图并提炼作者意图；如果是 monorepo、多服务或平台生态，再补 `03_ecosystem_atlas.md`；最后用 `04_architecture_report.md` 收束成主报告和学习附件。
+先做”交付形态判定”（分析包 / 深度解读文章 / 源码导览），再用 `01_repo_intake.md` 定边界、`02_design_philosophy_brain_dump.md` 建脑图；复杂生态补 `03_ecosystem_atlas.md`；最后根据模式走 `04_architecture_report.md`（分析包）、`05_narrative_article.md`（深度解读）或 `06_repo_overview_article.md`（源码导览）。
 
-需要上下文材料时，直接使用内置 CLI：
+需要上下文材料时，默认直接使用官方 `repomix`：
 
 ```bash
-node tools/context-pack/bin/context-pack.js --help
+npx repomix@latest --help
 ```
+
+如果本机已经安装了 `repomix`，下文示例里的 `npx repomix@latest` 可以直接替换成 `repomix`。
 
 ## 能力来源映射
 
@@ -18,7 +20,7 @@ node tools/context-pack/bin/context-pack.js --help
 
 | 来源能力 | 原始价值 | 在本 skill 中的位置 | 使用边界 |
 | --- | --- | --- | --- |
-| 上下文打包能力 | 打包仓库、统计 token、生成 AI-friendly 上下文 | `01_repo_intake.md` 的上下文策略，必要时服务于 `02` | 只做上下文准备，不替代设计判断 |
+| `repomix` 上下文打包能力 | 打包仓库、统计 token、生成 AI-friendly 上下文 | `01_repo_intake.md` 的上下文策略，必要时服务于 `02` | 只做上下文准备，不替代设计判断 |
 | 分阶段脑图分析提示策略 | 分阶段浏览代码库，先整体再局部，形成系统脑图 | `02_design_philosophy_brain_dump.md` | 用来找主流程、核心抽象、设计原则和下一步深挖点 |
 | 生态级扩展分析方法 | 多仓、多服务、企业级依赖流、数据流、安全和 CI/CD 视角 | `03_ecosystem_atlas.md` | 只在复杂生态里启用，不设为默认路径 |
 | 叙事化架构报告方法 | `Why > What`、架构叙事、Mermaid 图、设计取舍和正式报告 | `04_architecture_report.md` 与模板体系 | 负责最终报告质量，不复制它更重的整套流程 |
@@ -32,9 +34,9 @@ node tools/context-pack/bin/context-pack.js --help
 
 ## 默认路径与扩展路径
 
-### 路径 A：单仓源码思想解读
+### 路径 A：分析包（主报告 + 学习附件）
 
-适用于一个普通仓库、库、SDK、CLI、Web 应用或框架。这是默认路径。
+适用于需要结构化沉淀、后续检索复用、团队知识库归档的场景。
 
 执行顺序：
 
@@ -56,7 +58,55 @@ node tools/context-pack/bin/context-pack.js --help
 - `outputs/TRADEOFFS.md`
 - `outputs/BORROWABLE_PATTERNS.md`
 
-### 路径 B：大仓库 / 上下文受限
+### 路径 B：文章模式 - 深度解读（叙事长文）
+
+适用于用户明确要”像技术博客/专栏那样”的成文交付，而不是模板包。
+
+执行顺序：
+
+1. `prompts/01_repo_intake.md`
+2. `prompts/02_design_philosophy_brain_dump.md`
+3. （复杂生态可选）`prompts/03_ecosystem_atlas.md`
+4. `prompts/05_narrative_article.md`
+
+建议产物：
+
+- `outputs/NARRATIVE_ARTICLE.md`
+- 可选：文末附”证据路径索引”
+
+质量闸门（写作前必须通过）：
+
+1. 是否已给出风格契约（受众、语气、密度、证据方式、禁止项）？
+2. 是否先有明确论点，再组织材料（而不是从目录讲起）？
+3. 是否把”设计意图 -> 机制实现 -> 代价风险”串成主线？
+4. 是否避免模板腔与流水账？
+
+### 路径 C：文章模式 - 源码导览（仓库百科）
+
+适用于用户要一份中文源码仓库导览，快速建立仓库地图和阅读路径。
+
+执行顺序：
+
+1. `prompts/01_repo_intake.md`
+2. `prompts/02_design_philosophy_brain_dump.md`
+3. （复杂生态可选）`prompts/03_ecosystem_atlas.md`
+4. `prompts/06_repo_overview_article.md`
+
+建议产物：
+
+- `outputs/REPO_OVERVIEW_ARTICLE.md`
+- 可选：`outputs/REPO_OVERVIEW_SOURCES.md`
+
+质量闸门（写作前必须通过）：
+
+1. 开篇是否让读者快速知道”这个仓库是什么、值不值得看”？
+2. 是否能用结构导航和模块表 30 秒定位到目标信息？
+3. 主流程是否带关键文件路径，而不是纯文字描述？
+4. 关键判断是否有 Sources 索引可追溯？
+5. 是否避免了长篇评论和故事化推进？
+6. 结尾是否给出了明确的下一步阅读路径？
+
+### 路径 D：大仓库 / 上下文受限
 
 适用于仓库很大、上下文窗口有限、需要先做文件筛选或打包。
 
@@ -75,19 +125,17 @@ node tools/context-pack/bin/context-pack.js --help
 推荐命令顺序：
 
 ```bash
-# 1) 先看 token 树，确认范围（默认 cl100k_base）
-node tools/context-pack/bin/context-pack.js --token-count-tree --include "prompts/**/*,templates/**/*"
+# 1) 先看 token 树，确认范围（默认 o200k_base）
+npx repomix@latest --token-count-tree --include "prompts/**/*,templates/**/*"
 
 # 2) 再做范围打包（支持 stdin 精选，stdin 选择优先）
-printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | node tools/context-pack/bin/context-pack.js --stdin --output outputs/context-pack.md
+printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | npx repomix@latest --stdin -o outputs/repo-context.xml
 
 # 3) 体量大时做分片/压缩
-node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**/*" --split 120000 --compress --output outputs/context-pack.md
+npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --compress -o outputs/repo-context.xml
 ```
 
-### 路径 C：Monorepo / 多服务 / 平台生态
-
-适用于 monorepo、多 package、多服务、平台工程、跨仓依赖、部署链路、安全边界或数据流分析。
+### 路径 E：Monorepo / 多服务 / 平台生态
 
 执行顺序：
 
@@ -106,7 +154,7 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 - `outputs/BORROWABLE_PATTERNS.md`
 - 可选补充生态附件，例如依赖图、跨边界主链说明、重力中心清单
 
-### 路径 D：知识沉淀 / Onboarding
+### 路径 F：知识沉淀 / Onboarding
 
 适用于想给新同事、后续 AI session 或长期知识库复用的分析。
 
@@ -125,6 +173,19 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 - 把“仍需验证”的判断留在 `drafts/`，不要混进正式产物。
 
 ## 分阶段执行
+
+### Stage 0：交付形态判定（新增强制阶段）
+
+目标：
+
+- 判定本轮产物是 `分析包`、`文章模式 - 深度解读` 还是 `文章模式 - 源码导览`。
+- 若有样例，提炼风格契约（受众、语气、密度、证据呈现、禁止项）；overview/仓库导览风格样例默认导向源码导览模式。
+- 源码导览模式关注事实密度、结构可扫描性、源码证据和阅读导航；深度解读模式关注观点推进、设计取舍和批判性判断。
+
+停止条件：
+
+- 已确定模式并写明理由。
+- 已明确“本轮不做的交付形态”（例如：本轮不拆 6 份模板附件）。
 
 ### Step 1：Intake
 
@@ -178,7 +239,7 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 
 ### Step 4：Architecture Report
 
-使用 `prompts/04_architecture_report.md`。
+仅 `分析包模式` 使用 `prompts/04_architecture_report.md`。
 
 目标：
 
@@ -194,9 +255,44 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 - 展开至少 2 个具体设计取舍。
 - 给出至少 1 组诚实风险判断。
 
+### Step 5：Narrative Article（深度解读）
+
+仅 `文章模式 - 深度解读` 使用 `prompts/05_narrative_article.md`。
+
+目标：
+
+- 交付一篇可直接阅读/发布的叙事化技术长文。
+- 保留代码证据与路径依据，但不采用模板拆分文档形态。
+- 主线必须是：问题定义 -> 架构意图 -> 关键机制 -> 设计取舍 -> 风险判断 -> 总体评价。
+
+停止条件：
+
+- 开头 3 段内讲清“为什么值得读”。
+- 至少 1 条主流程被讲透，且有证据路径支撑。
+- 至少 2 处取舍有“收益 + 代价 + 边界”。
+- 明确 1 条批判性判断，不只赞美。
+
+### Step 6：Repo Overview Article（源码导览）
+
+仅 `文章模式 - 源码导览` 使用 `prompts/06_repo_overview_article.md`。
+
+目标：
+
+- 交付一篇中文源码仓库导览，帮助读者快速建立仓库地图。
+- 优先服务可扫描性：项目定位、结构导航、关键模块表、主流程、Sources 索引和下一步阅读路径。
+- 降低主观评论密度，判断服务导览而非成为文章主线。
+
+停止条件：
+
+- 开篇讲清项目定位与核心价值。
+- 能用结构导航和模块表快速定位关键信息。
+- 主流程带关键文件路径，不只是文字描述。
+- 关键判断有 Sources 索引可追溯。
+- 结尾给出明确的下一步阅读路径。
+
 ## 输出契约
 
-目标不是把分析越写越多，而是把稳定结论沉淀成“主报告 + 学习附件”。
+目标不是把分析越写越多，而是按所选模式输出正确形态。
 
 ### drafts/
 
@@ -214,7 +310,7 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 - `drafts/02-design-philosophy-brain-dump.md`
 - 复杂生态补 `drafts/03-ecosystem-overview.md`
 
-### outputs/
+### outputs/（分析包模式）
 
 推荐文件：
 
@@ -224,6 +320,16 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 - `outputs/MAIN_FLOW.md`
 - `outputs/TRADEOFFS.md`
 - `outputs/BORROWABLE_PATTERNS.md`
+
+### outputs/（文章模式 - 深度解读）
+
+- `outputs/NARRATIVE_ARTICLE.md`
+- 可选：`outputs/NARRATIVE_EVIDENCE_INDEX.md`
+
+### outputs/（文章模式 - 源码导览）
+
+- `outputs/REPO_OVERVIEW_ARTICLE.md`
+- 可选：`outputs/REPO_OVERVIEW_SOURCES.md`
 
 如果只是一次窄范围聊天分析，可以省略文件产物，但最终回答仍应包含范围说明、主流程摘要、核心抽象、设计取舍和风险判断。
 
@@ -249,6 +355,18 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 
 不要把它们写成同一份长报告的不同抄写版本。
 
+文章模式 - 深度解读 使用：
+
+- `templates/NARRATIVE_ARTICLE.md`
+
+不要把文章模式强行拆回 6 份模板附件。
+
+文章模式 - 源码导览 使用：
+
+- `templates/REPO_OVERVIEW_ARTICLE.md`
+
+不要把源码导览写成叙事化深度评论长文。
+
 ## 示例质量锚点
 
 `examples/sample-analysis.md` 用一个紧凑示例展示目标语气、结构和判断力度。它不是唯一答案模板，但应帮助维护者快速判断：
@@ -257,6 +375,42 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 - 主流程是否真的体现了系统哲学
 - 设计取舍有没有写出代价
 - 学习附件之间是否职责清晰
+
+## 文章模式回归检查清单
+
+此清单用于手动验证两种文章模式不会互相漂移。每次修改文章相关 prompt / template / 路由规则后，对照检查：
+
+### 深度解读 vs 源码导览 区分检查
+
+| 维度 | 深度解读（通过条件） | 源码导览（通过条件） |
+| --- | --- | --- |
+| 开篇 | 3 段内讲清"为什么值得读"，给出观点 | 3 段内讲清项目定位与核心价值，不展开评论 |
+| 结构可扫描性 | 章节推进自然，允许连续段落叙事 | 有明显的信息层级（表格/分层列表/短段落），30 秒可定位到目标信息 |
+| 主观评论密度 | 高：有观点推进、设计取舍分析、批判性判断 | 低：判断仅服务导览理解，主线不走评论推进 |
+| 证据呈现 | 关键判断附代码路径，分散在文中 | 关键判断附代码路径，且有集中的 Sources 索引 |
+| 结尾 | 给出总体评价（有判断力的一句话） | 给出下一步阅读路径（具体文件/文档/测试） |
+
+### 源码导览典型失败模式
+
+以下症状表示源码导览退化成了深度解读：
+
+- 开篇连续 5+ 段观点推进后才出现仓库结构信息
+- 缺少模块表或分层结构导航，以连续散文段落为主
+- 大量"令人惊叹""非常巧妙""设计精良"等评价性语言
+- 没有集中的 Sources 索引或证据路径
+- 结尾是总体评价而非下一步阅读路径
+
+以下症状表示源码导览过于空洞：
+
+- 只有目录复述，没有关键模块的设计意图说明
+- 主流程缺少关键文件路径
+- 所有判断都标注为"推断"而没有任何源码依据
+
+### 对比参考
+
+`docs/test/compound-engineering-plugin-深度解读.md` 是当前深度解读模式的输出样例，可作为源码导览不应长成什么样的对比参照。
+
+文章模式的示例产出（深度解读、源码导览各一）属于后续跟进工作，当前 `examples/sample-analysis.md` 仅覆盖分析包模式。
 
 ## 上下文打包使用原则
 
@@ -280,16 +434,18 @@ node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**
 2. 判断最值得学习的入口和主流程。
 3. 再决定是否做上下文打包、筛哪些文件、是否压缩。
 
-`context-pack` 参数要点（v1）：
+`repomix` 参数要点（当前默认路径）：
 
 - `--include` / `--ignore`：控制文件范围
-- `--stdin`：从标准输入读取文件列表（优先于默认全量遍历）
+- `--stdin`：从标准输入读取文件列表，直接处理这些文件
 - `--token-count-tree`：仅输出 token 分布，不产出打包文件
-- `--split <max-chars>`：按字符预算切分为可消费分片
-- `--compress`：输出 gzip 产物
+- `--split-output <size>`：按体量切分为多个编号输出文件
+- `--compress`：提取更适合分析的代码结构，而不是输出 gzip 文件
+- `-o` / `--output`：指定输出路径；默认文件名是 `repomix-output.xml`
+- `--token-count-encoding <encoding>`：默认是 `o200k_base`，只有需要兼容其他 tokenizer 时再显式覆盖
 
 ## 维护规则
 
-1. 不再新增或恢复第二套重叠的仓库研究 skill。
+1. 不再新增或恢复第二套重叠的仓库研究 skill，也不要重新引入本地打包 CLI 主路径。
 2. 任何路径、模板和产物调整，统一改这里和 `prompts/`、`templates/`。
 3. 若需要兼容旧名称或旧产物名，必须显式标注为历史兼容，不要让它继续充当默认故事。
