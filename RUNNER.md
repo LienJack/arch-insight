@@ -9,7 +9,7 @@
 需要上下文材料时，直接使用内置 CLI：
 
 ```bash
-node bin/context-pack.js --help
+node tools/context-pack/bin/context-pack.js --help
 ```
 
 ## 能力来源映射
@@ -76,13 +76,13 @@ node bin/context-pack.js --help
 
 ```bash
 # 1) 先看 token 树，确认范围（默认 cl100k_base）
-node bin/context-pack.js --token-count-tree --include "prompts/**/*,templates/**/*"
+node tools/context-pack/bin/context-pack.js --token-count-tree --include "prompts/**/*,templates/**/*"
 
 # 2) 再做范围打包（支持 stdin 精选，stdin 选择优先）
-printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | node bin/context-pack.js --stdin --output outputs/context-pack.md
+printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | node tools/context-pack/bin/context-pack.js --stdin --output outputs/context-pack.md
 
 # 3) 体量大时做分片/压缩
-node bin/context-pack.js --include "prompts/**/*,templates/**/*" --split 120000 --compress --output outputs/context-pack.md
+node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**/*" --split 120000 --compress --output outputs/context-pack.md
 ```
 
 ### 路径 C：Monorepo / 多服务 / 平台生态

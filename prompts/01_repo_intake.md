@@ -123,9 +123,9 @@
 如果需要上下文打包，优先按以下顺序执行：
 
 1. 先看 token 分布（默认 `cl100k_base`）：
-   `node bin/context-pack.js --token-count-tree --include "<关键目录 glob>"`
+   `node tools/context-pack/bin/context-pack.js --token-count-tree --include "<关键目录 glob>"`
 2. 再用 include / ignore 或 stdin 精选文件范围：
-   `node bin/context-pack.js --include "..." --ignore "..."` 或 `... | node bin/context-pack.js --stdin`
+   `node tools/context-pack/bin/context-pack.js --include "..." --ignore "..."` 或 `... | node tools/context-pack/bin/context-pack.js --stdin`
 3. 仅在体量需要时启用分片/压缩：
    `--split <max-chars>` 与 `--compress`
 

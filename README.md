@@ -70,19 +70,19 @@ curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/
 快速开始：
 
 ```bash
-npm install
-node bin/context-pack.js --help
+npm --prefix tools/context-pack install
+node tools/context-pack/bin/context-pack.js --help
 ```
 
 常用命令：
 
 ```bash
 # 先看 token 分布（默认 cl100k_base）
-node bin/context-pack.js --token-count-tree --include "prompts/**/*,templates/**/*"
+node tools/context-pack/bin/context-pack.js --token-count-tree --include "prompts/**/*,templates/**/*"
 
 # 使用 stdin 精选文件（stdin 选择优先）
-printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | node bin/context-pack.js --stdin --output outputs/context-pack.md
+printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | node tools/context-pack/bin/context-pack.js --stdin --output outputs/context-pack.md
 
 # 打包并分片 + 压缩
-node bin/context-pack.js --include "prompts/**/*,templates/**/*" --split 120000 --compress --output outputs/context-pack.md
+node tools/context-pack/bin/context-pack.js --include "prompts/**/*,templates/**/*" --split 120000 --compress --output outputs/context-pack.md
 ```

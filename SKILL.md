@@ -57,7 +57,7 @@ description: "当用户要系统性研究单个代码仓库，提炼设计理念
 - 优先用 `rg`、`ls`、`sed`、精读关键文件来建立事实。
 - 仓库很大时，先做 intake 和文件筛选，再决定是否需要上下文打包。
 - 使用上下文打包工具时优先走“小步筛选”：
-  1. 先查看 token 分布树：`node bin/context-pack.js --token-count-tree ...`
+  1. 先查看 token 分布树：`node tools/context-pack/bin/context-pack.js --token-count-tree ...`
   2. 用 include / ignore 或 stdin 精选文件：`--include` / `--ignore` / `--stdin`
   3. 再决定是否压缩或拆分输出：`--compress` / `--split`
 - 不要默认使用 subagent；只有用户明确要求时才委派。
