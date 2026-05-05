@@ -1,6 +1,31 @@
 # arch-insight
 
-## 给用户一键安装到 Codex
+`arch-insight` 现在以 `plugins/arch-insight/` 作为唯一权威源，再从这套 `Claude` 兼容插件源生成 `Claude`、`Codex`、`Gemini` 三个平台 bundle，并提供两条正式安装入口：
+
+- npm 分发包入口：`npx arch-insight install --platform <claude|codex|gemini>`
+- shell 入口：`curl -fsSL .../scripts/install.sh | ARCH_INSIGHT_PLATFORM=<platform> bash`
+
+根目录的 `SKILL.md`、`RUNNER.md`、`prompts/`、`templates/` 仍保留兼容姿态，但维护主路径已经迁移到 [`plugins/arch-insight`](./plugins/arch-insight)。
+
+## 多平台安装
+
+### npm / npx / pnpm dlx / bunx
+
+```bash
+npx arch-insight install --platform codex
+pnpm dlx arch-insight install --platform claude
+bunx arch-insight install --platform gemini
+```
+
+### curl | sh
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/install.sh | ARCH_INSIGHT_PLATFORM=codex bash
+curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/install.sh | ARCH_INSIGHT_PLATFORM=claude bash
+curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/install.sh | ARCH_INSIGHT_PLATFORM=gemini bash
+```
+
+### 兼容入口：给用户一键安装到 Codex
 
 用户在终端执行下面这条命令即可安装到 `~/.codex/skills/arch-insight`：
 
@@ -8,7 +33,7 @@
 curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/install-codex-skill.sh | bash
 ```
 
-安装完成后重启 Codex。
+安装完成后重启对应平台。
 
 `arch-insight` 是一个面向团队工程师的源码研究 skill，用来把“看一个或多个参考仓库”收束成“学到它为什么这样设计、哪些抽象值得借鉴、哪些场景不该照搬、迁移时要警惕什么”。
 
@@ -89,10 +114,12 @@ curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/
 
 ## 入口文件
 
-- `SKILL.md`：什么时候使用这个 skill，以及最短路径
-- `RUNNER.md`：完整执行手册、路径选择和输出契约
-- `prompts/`：分阶段 prompt
-- `templates/`：主报告与学习附件模板
+- `plugins/arch-insight/.claude-plugin/plugin.json`：权威源 manifest
+- `plugins/arch-insight/skills/arch-insight/SKILL.md`：权威 skill 入口
+- `plugins/arch-insight/RUNNER.md`：权威执行手册、路径选择和输出契约
+- `plugins/arch-insight/prompts/`：权威分阶段 prompt
+- `plugins/arch-insight/templates/`：权威主报告与学习附件模板
+- `SKILL.md` / `RUNNER.md` / 根目录 `prompts/` / `templates/`：迁移期兼容入口
 - `examples/sample-analysis.md`：目标质量示例
 
 ## 默认上下文准备：`repomix`
@@ -117,3 +144,30 @@ printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | npx repomix@latest 
 # 打包并按需分片 + 压缩
 npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --compress -o outputs/repo-context.xml
 ```
+
+如果你只是想要“下次继续问时能直接复用”的最省事方式，直接用仓库内脚本：
+
+```bash
+# 生成一个更轻量、适合重复复用的上下文包
+./scripts/build-repomix-context.sh
+
+# 需要更大范围时再用 full
+./scripts/build-repomix-context.sh full
+```
+
+默认行为：
+
+- 自动创建 `outputs/`
+- 默认输出到 `outputs/repo-context.xml`
+- 优先使用本机已安装的 `repomix`，否则自动回退到 `npx repomix@latest`
+
+下次继续提问时，直接明确说明要复用这个文件即可，例如：
+
+```text
+请先读取 /Users/lienli/Documents/GitHub/arch-insight/outputs/repo-context.xml，再继续分析
+```
+
+注意：
+
+- `outputs/repo-context.xml` 会保留在本地，除非你手动删除或覆盖它
+- 它适合作为可复用的上下文缓存，但仍属于辅助性中间文件，不是正式报告产物

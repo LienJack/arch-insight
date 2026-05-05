@@ -1,5 +1,7 @@
 node_modules/
+dist/
 docs/*
 !docs/test/
 docs/test/*
 !docs/test/narrative-design-reference-regression.md
+!docs/test/multi-platform-install-smoke-test.md

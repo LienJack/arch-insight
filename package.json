@@ -1,0 +1,23 @@
+{
+  "name": "arch-insight",
+  "version": "0.2.0",
+  "description": "Multi-platform distribution tooling for the arch-insight skill.",
+  "type": "module",
+  "bin": {
+    "arch-insight": "./bin/arch-insight.js"
+  },
+  "files": [
+    "bin",
+    "plugins",
+    "scripts",
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.spec.js",
+    "build:bundles": "node ./bin/arch-insight.js build",
+    "build:release": "node ./bin/arch-insight.js release"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
