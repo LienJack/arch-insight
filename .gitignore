@@ -1,2 +1,5 @@
 node_modules/
-docs/
+docs/*
+!docs/test/
+docs/test/*
+!docs/test/narrative-design-reference-regression.md

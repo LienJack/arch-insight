@@ -1,10 +1,10 @@
 # arch-insight Runner
 
-这份文档是 `arch-insight` 的执行手册。它把仓库统一收束成一个清晰产品契约：默认服务单仓源码思想解读，重点帮助工程师从源码里学设计理念、核心抽象、主流程、设计取舍和可迁移模式。
+这份文档是 `arch-insight` 的执行手册。它把仓库统一收束成一个清晰产品契约：默认服务“单仓源码思想解读 + 多仓对照式设计参考”，重点帮助工程师从源码里学设计理念、核心抽象、主流程、设计取舍和可迁移模式。
 
 ## 一句话用法
 
-先做”交付形态判定”（分析包 / 深度解读文章 / 源码导览），再用 `01_repo_intake.md` 定边界、`02_design_philosophy_brain_dump.md` 建脑图；复杂生态补 `03_ecosystem_atlas.md`；最后根据模式走 `04_architecture_report.md`（分析包）、`05_narrative_article.md`（深度解读）或 `06_repo_overview_article.md`（源码导览）。
+先做“交付形态判定”（分析包 / 深度解读文章 / 源码导览），再用 `01_repo_intake.md` 定边界并记录参考来源锚点、`02_design_philosophy_brain_dump.md` 建脑图；复杂生态补 `03_ecosystem_atlas.md`；最后根据模式走 `04_architecture_report.md`（分析包）、`05_narrative_article.md`（深度解读）或 `06_repo_overview_article.md`（源码导览）。
 
 需要上下文材料时，默认直接使用官方 `repomix`：
 
@@ -60,7 +60,7 @@ npx repomix@latest --help
 
 ### 路径 B：文章模式 - 深度解读（叙事长文）
 
-适用于用户明确要”像技术博客/专栏那样”的成文交付，而不是模板包。
+适用于用户明确要“像技术博客/专栏那样”的成文交付，或明确要“参考别人项目做自己设计判断”，而不是模板包。
 
 执行顺序：
 
@@ -79,7 +79,11 @@ npx repomix@latest --help
 1. 是否已给出风格契约（受众、语气、密度、证据方式、禁止项）？
 2. 是否先有明确论点，再组织材料（而不是从目录讲起）？
 3. 是否把”设计意图 -> 机制实现 -> 代价风险”串成主线？
-4. 是否避免模板腔与流水账？
+4. 是否显式产出可借鉴设计点，并写明适用条件、不适用场景和迁移注意事项？
+5. 多仓输入时，是否形成共同模式、差异选择、适用背景和局部启发范围？
+6. 是否避免模板腔与流水账？
+
+说明：深度解读可吸收 `templates/BORROWABLE_PATTERNS.md` 的问题意识，但不得退化成“主报告 + 五附件”或 checklist 填空。
 
 ### 路径 C：文章模式 - 源码导览（仓库百科）
 
@@ -194,14 +198,20 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 目标：
 
 - 判定研究对象、项目类型和分析边界。
+- 记录每个参考来源（本地路径 / GitHub URL / `owner/repo`）及版本锚点（branch/tag/commit）。
+- 远程来源默认按 `Remote First -> Auto Fallback -> Minimal Clone Fallback` 执行，并在 intake 记录远端采集状态：`remote attempted` / `remote succeeded` / `fallback triggered` / `blocked`。
+- 版本锚点要写清来源：用户指定、仓库默认主分支、tag、commit 或未能确认。
 - 找到最值得先读的 3 到 5 个入口。
 - 判断默认走 `01 -> 02 -> 04` 还是升级到 `01 -> 02 -> 03 -> 04`。
 - 判断是否需要上下文打包、文件筛选、子系统切片。
+- 对大型远程仓库先产出范围策略，再决定 include / ignore / `--compress` / `--split-output`。
 
 停止条件：
 
 - 能说清本轮范围和暂缓范围。
 - 能说清项目类型及判断依据。
+- 能说清每个来源的版本锚点与访问限制（若缺失需显式写明）。
+- 能说清远端链路是否成功、是否触发 fallback、触发原因、回退后范围与剩余边界。
 - 已知道后续分析路径。
 
 ### Step 2：Design Philosophy Brain Dump
@@ -408,9 +418,19 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 ### 对比参考
 
-`docs/test/compound-engineering-plugin-深度解读.md` 是当前深度解读模式的输出样例，可作为源码导览不应长成什么样的对比参照。
+`docs/test/compound-engineering-工作流如何提升-llm-编码质量-深度解读.md` 是当前深度解读模式的输出样例，可作为源码导览不应长成什么样的对比参照。
 
 文章模式的示例产出（深度解读、源码导览各一）属于后续跟进工作，当前 `examples/sample-analysis.md` 仅覆盖分析包模式。
+
+## 参考来源与版本锚点检查
+
+每次涉及远程仓库输入时，手动确认：
+
+1. Intake 是否记录来源类型（本地 / URL / `owner/repo`）与版本锚点（branch/tag/commit）。
+2. Intake 是否记录远端采集状态：`remote attempted` / `remote succeeded` / `fallback triggered` / `blocked`。
+3. 是否明确了访问限制（公开可读、权限不足、网络受限），并区分“远端链路失败可回退”与“仓库读权限不可用需阻塞”。
+4. 多仓输入是否逐仓记录启发范围（主参考 / 对照参考 / 边界案例）。
+5. 深度解读正文是否把来源与锚点纳入分析对象说明，而不是省略为“某开源仓库”。
 
 ## 上下文打包使用原则
 
@@ -433,6 +453,15 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 1. 先 intake。
 2. 判断最值得学习的入口和主流程。
 3. 再决定是否做上下文打包、筛哪些文件、是否压缩。
+
+远程仓库补充：
+
+- URL 或 shorthand 输入默认先走 `--remote`（Remote First），不是先 clone。
+- branch/tag/commit 默认用 `--remote-branch` 记录版本锚点；缺省时以仓库默认主分支或用户语境明确分支为锚点并注明来源。
+- 远端失败（打包失败、远端鉴权失败、归档下载失败且无法恢复）且仓库仍可读时，自动回退到最小化 clone。
+- 远端成功但证据不足（关键文件缺失、token/打包约束导致核心片段缺失、无法建立源码路径到结论证据链）时，自动回退到最小化 clone。
+- 仓库读权限本身不可用时，必须标记 `blocked`，不得承诺 clone 可恢复。
+- 回退默认采用浅克隆与关键路径优先，按证据缺口逐步扩范围，不进入完整历史审计。
 
 `repomix` 参数要点（当前默认路径）：
 

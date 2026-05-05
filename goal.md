@@ -2,9 +2,9 @@
 
 ## 目标
 
-`arch-insight` 是面向团队工程师的源码研究 skill，把"看一个仓库"收束成"学到它为什么这样设计、哪些抽象值得借鉴、主流程如何体现作者意图、这些选择付出了什么代价"。
+`arch-insight` 是面向团队工程师的源码研究 skill，把“看一个或多个参考仓库”收束成“学到它为什么这样设计、哪些抽象值得借鉴、适用条件是什么、哪里不该照搬、迁移时要警惕什么”。
 
-默认服务单仓源码思想解读。保留生态级扩展能力，但仅在 monorepo、多服务或平台工程场景下激活。
+默认服务“单仓源码思想解读 + 多仓对照式设计参考”。保留生态级扩展能力，但仅在 monorepo、多服务或平台工程场景下激活。
 
 ---
 
@@ -13,14 +13,16 @@
 ### 覆盖
 
 - 为单仓源码提供分阶段分析流程：从上下文准备到叙事化架构报告
+- 支持一个或多个参考仓库输入（本地、GitHub URL、`owner/repo` shorthand）
 - 定义每个阶段的输入、输出和验收条件（DoD）
 - 将四段能力映射到 `prompts/` 与 `templates/` 的输入输出契约
 - 支持默认单仓路径的连续交付
+- 支持多仓对照式设计参考（共同模式、差异取舍、适用背景、局部启发范围）
 - 支持生态扩展路径的条件触发与增量产物
 
 ### 不覆盖（Non-Goals）
 
-- 不做泛化架构咨询或任意代码分析任务；默认不做多仓企业生态尽调
+- 不做泛化架构咨询或任意代码分析任务；默认不做生态级企业尽调
 - 不替代单文件解释、bug 排查、日常代码 review
 - 不提供里程碑排期、执行计划拆分与任务分配
 - 不定义 `prompts/` 与 `templates/` 的内部内容，只定义映射关系与责任
@@ -32,13 +34,14 @@
 
 ### 阶段 1：上下文准备与范围筛选
 
-- **输入：** 本地仓库路径、include/ignore 规则、可选 stdin 文件列表、token 预算
-- **输出：** 分析范围界定、项目类型判断、后续路径选择结论
+- **输入：** 一个或多个参考仓库来源（本地路径 / GitHub URL / `owner/repo`）、可选版本锚点（branch/tag/commit）、include/ignore 规则、可选 stdin 文件列表、token 预算
+- **输出：** 分析范围界定、项目类型判断、参考来源与版本锚点记录、后续路径选择结论
 - **验收条件：**
   - 能说清本轮分析范围和暂缓范围
   - 能说清项目类型及判断依据
+  - 已记录每个参考来源及版本锚点（若缺失则标注未知）
   - 已确定后续分析路径（默认路径或生态扩展路径）
-- **未完成判定：** 若仅描述了"做了 intake 步骤"但无法回答范围、类型、路径三要素中的任一项，该阶段判定为未完成
+- **未完成判定：** 若仅描述了“做了 intake 步骤”但无法回答范围、类型、路径或来源锚点中的关键项，该阶段判定为未完成
 - **对应 Prompt：** `prompts/01_repo_intake.md`
 
 ### 阶段 2：分阶段脑图分析
@@ -93,6 +96,18 @@
 | 1 | `prompts/01_repo_intake.md` | `drafts/01-intake.md` | — |
 | 2 | `prompts/02_design_philosophy_brain_dump.md` | `drafts/02-design-philosophy-brain-dump.md` | — |
 | 3 | `prompts/04_architecture_report.md` | — | `outputs/ARCHITECTURE_REPORT.md`、`outputs/DESIGN_PHILOSOPHY.md`、`outputs/CORE_ABSTRACTIONS.md`、`outputs/MAIN_FLOW.md`、`outputs/TRADEOFFS.md`、`outputs/BORROWABLE_PATTERNS.md` |
+
+### 多仓对照式设计参考路径
+
+适用于两个或以上参考仓库，目标是形成“可借鉴设计判断”，而不是默认做生态级尽调。
+
+执行顺序与产物映射：
+
+| 步骤 | Prompt | 中间产物 | 最终产物（templates） |
+| --- | --- | --- | --- |
+| 1 | `prompts/01_repo_intake.md` | `drafts/01-intake.md`（需记录每个仓库来源、版本锚点、启发范围） | — |
+| 2 | `prompts/02_design_philosophy_brain_dump.md` | `drafts/02-design-philosophy-brain-dump.md`（按仓库分别建模） | — |
+| 3 | `prompts/05_narrative_article.md` | — | `outputs/NARRATIVE_ARTICLE.md`（单篇对照式深度解读） |
 
 ### 生态扩展路径
 
