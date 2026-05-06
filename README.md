@@ -117,6 +117,14 @@ The Skill auto-detects output format from your wording:
 - **Narrative Article** → single `NARRATIVE_ARTICLE.md` — opinionated, design-focused, considers migration cost
 - **Repo Overview** → single `REPO_OVERVIEW_ARTICLE.md` — fact-dense, scannable, with source paths and reading navigation
 
+## Examples
+
+You can reference sample outputs in [`examples/`](examples/). Use examples that match your target language.
+
+- English examples:
+  - [`examples/llm-coding-workflow-comparison.md`](examples/llm-coding-workflow-comparison.en.md)
+  - [`examples/agent-memory-design-philosophy.en.md`](examples/agent-memory-design-philosophy.en.md)
+
 ## Workflow
 
 The Skill follows a phased pipeline:

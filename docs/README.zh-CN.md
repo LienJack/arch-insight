@@ -111,6 +111,14 @@ Skill 会根据你的措辞自动判断输出格式：
 - **叙事文章** → 单篇 `NARRATIVE_ARTICLE.md` — 有观点、聚焦设计、考虑迁移成本
 - **仓库概览** → 单篇 `REPO_OVERVIEW_ARTICLE.md` — 信息密集、可扫描、带源码路径和阅读导航
 
+## 示例
+
+示例输出在 [`../examples/`](../examples/)。中文内容请优先参考中文示例。
+
+- 中文示例:
+  - [`../examples/llm-coding-workflow-comparison.zh.md`](../examples/llm-coding-workflow-comparison.zh.md)
+  - [`../examples/agent-memory-design-philosophy.zh.md`](../examples/agent-memory-design-philosophy.zh.md)
+
 ## 工作流程
 
 Skill 遵循分阶段 pipeline：
