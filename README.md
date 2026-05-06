@@ -122,8 +122,8 @@ The Skill auto-detects output format from your wording:
 You can reference sample outputs in [`examples/`](examples/). Use examples that match your target language.
 
 - English examples:
-  - [`examples/llm-coding-workflow-comparison.md`](examples/llm-coding-workflow-comparison.en.md)
-  - [`examples/agent-memory-design-philosophy.en.md`](examples/agent-memory-design-philosophy.en.md)
+  - [Deep Comparative Analysis of Five LLM Coding Assistant Workflows](examples/llm-coding-workflow-comparison.en.md)
+  - [Design Philosophy of Agent Memory Systems: Extractable Patterns from Five Paradigms](examples/agent-memory-design-philosophy.en.md)
 
 ## Workflow
 

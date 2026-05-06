@@ -116,8 +116,8 @@ Skill 会根据你的措辞自动判断输出格式：
 示例输出在 [`../examples/`](../examples/)。中文内容请优先参考中文示例。
 
 - 中文示例:
-  - [`../examples/llm-coding-workflow-comparison.zh.md`](../examples/llm-coding-workflow-comparison.zh.md)
-  - [`../examples/agent-memory-design-philosophy.zh.md`](../examples/agent-memory-design-philosophy.zh.md)
+  - [五个 LLM 编码助理工作流的深度对比分析](../examples/llm-coding-workflow-comparison.zh.md)
+  - [代理记忆系统的设计哲学：从五个范式中提取模式](../examples/agent-memory-design-philosophy.zh.md)
 
 ## 工作流程
 
