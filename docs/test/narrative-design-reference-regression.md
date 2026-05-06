@@ -5,7 +5,7 @@
 
 ## 使用方式
 
-1. 每次修改以下任一文件后执行本清单：`.agents/skills/arch-insight/SKILL.md`、`README.md`、`goal.md`、`.agents/skills/arch-insight/references/RUNNER.md`、`.agents/skills/arch-insight/references/prompts/01_repo_intake.md`、`.agents/skills/arch-insight/references/prompts/05_narrative_article.md`、`.agents/skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md`。
+1. 每次修改以下任一文件后执行本清单：`.agents/skills/arch-insight/SKILL.md`、`README.md`、`.agents/skills/arch-insight/references/RUNNER.md`、`.agents/skills/arch-insight/references/prompts/01_repo_intake.md`、`.agents/skills/arch-insight/references/prompts/05_narrative_article.md`、`.agents/skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md`。
 2. 对每个场景逐项核对，标记 `PASS / FAIL / BLOCKED`。
 3. 若出现 `FAIL`，先修正文档契约，再继续功能扩展。
 
@@ -59,7 +59,7 @@
 
 检查项：
 
-- `.agents/skills/arch-insight/SKILL.md` / `README.md` / `goal.md` 是否把多仓默认目标定义为“对照式设计参考”。
+- `.agents/skills/arch-insight/SKILL.md` / `README.md` 是否把多仓默认目标定义为“对照式设计参考”。
 - `.agents/skills/arch-insight/references/prompts/01_repo_intake.md` 是否要求逐仓记录来源、版本锚点和启发范围。
 - `.agents/skills/arch-insight/references/prompts/05_narrative_article.md` 是否要求输出共同模式、差异选择、适用背景、局部启发范围。
 
