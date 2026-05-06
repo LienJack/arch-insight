@@ -168,6 +168,10 @@ When a style sample is provided, the Agent establishes a **Style Contract** (aud
 - Generated reports should be reviewed by project maintainers
 - Multi-repo input defaults to comparative design reference, not full ecosystem audit
 
+## Release
+
+For maintainers, follow the standardized release process in [`docs/RELEASE.md`](docs/RELEASE.md).
+
 ## Directory Structure
 
 ```txt
