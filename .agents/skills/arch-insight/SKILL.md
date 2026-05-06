@@ -52,58 +52,58 @@ description: "当用户要系统性研究一个或多个参考仓库，提炼设
 
 ## 最短路径
 
-先读 `RUNNER.md`，再按交付模式选择路径：
+先读 `references/RUNNER.md`，再按交付模式选择路径：
 
 ### A. 分析包模式（默认技术研究路径）
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. `prompts/04_architecture_report.md`
+1. `references/prompts/01_repo_intake.md`
+2. `references/prompts/02_design_philosophy_brain_dump.md`
+3. `references/prompts/04_architecture_report.md`
 
 如果 intake 判断这是 monorepo、多服务或平台生态，再补：
 
-4. `prompts/03_ecosystem_atlas.md`
+4. `references/prompts/03_ecosystem_atlas.md`
 
 ### B. 文章模式 - 深度解读（叙事长文路径）
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. `prompts/05_narrative_article.md`
+1. `references/prompts/01_repo_intake.md`
+2. `references/prompts/02_design_philosophy_brain_dump.md`
+3. `references/prompts/05_narrative_article.md`
 
 若是复杂生态，再在 2 和 3 之间补：
 
-4. `prompts/03_ecosystem_atlas.md`
+4. `references/prompts/03_ecosystem_atlas.md`
 
 ### C. 文章模式 - 源码导览（中文仓库百科路径）
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. `prompts/06_repo_overview_article.md`
+1. `references/prompts/01_repo_intake.md`
+2. `references/prompts/02_design_philosophy_brain_dump.md`
+3. `references/prompts/06_repo_overview_article.md`
 
 若是复杂生态，再在 2 和 3 之间补：
 
-4. `prompts/03_ecosystem_atlas.md`
+4. `references/prompts/03_ecosystem_atlas.md`
 
 ## 你最终要交付什么
 
 `分析包模式` 的默认产物是：
 
-- 一份主报告：`templates/ARCHITECTURE_REPORT.md`
+- 一份主报告：`references/templates/ARCHITECTURE_REPORT.md`
 - 一组学习附件：
-  - `templates/DESIGN_PHILOSOPHY.md`
-  - `templates/CORE_ABSTRACTIONS.md`
-  - `templates/MAIN_FLOW.md`
-  - `templates/TRADEOFFS.md`
-  - `templates/BORROWABLE_PATTERNS.md`
+  - `references/templates/DESIGN_PHILOSOPHY.md`
+  - `references/templates/CORE_ABSTRACTIONS.md`
+  - `references/templates/MAIN_FLOW.md`
+  - `references/templates/TRADEOFFS.md`
+  - `references/templates/BORROWABLE_PATTERNS.md`
 
 `文章模式 - 深度解读` 的默认产物是：
 
-- 一篇单文：`templates/NARRATIVE_ARTICLE.md`
+- 一篇单文：`references/templates/NARRATIVE_ARTICLE.md`
 - 可选附录：证据路径清单（非必拆分）
 
 `文章模式 - 源码导览` 的默认产物是：
 
-- 一篇单文：`templates/REPO_OVERVIEW_ARTICLE.md`
+- 一篇单文：`references/templates/REPO_OVERVIEW_ARTICLE.md`
 - 可选附录：Sources 与证据路径索引（非必拆分）
 
 ## 核心原则

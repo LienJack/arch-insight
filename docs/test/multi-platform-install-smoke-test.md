@@ -4,7 +4,7 @@
 
 - 权威源生成的 bundle 能被 `Claude`、`Codex`、`Gemini` 正常消费
 - npm CLI 安装链路与 `curl | sh` 安装链路都能落到真实平台目录
-- 安装后不仅有 `SKILL.md`，也有运行时需要的 `RUNNER.md`、`templates/`、`prompts/`
+- 安装后不仅有 `.agents/skills/arch-insight/SKILL.md`，也有运行时需要的 `.agents/skills/arch-insight/references/RUNNER.md`、`.agents/skills/arch-insight/references/templates/`、`.agents/skills/arch-insight/references/prompts/`
 
 ## 预备条件
 
@@ -26,8 +26,8 @@ node ./bin/arch-insight.js release --output-dir dist/release --base-url https://
 三平台真实安装目标按当前实现约定分别为：
 
 - Claude: `~/.claude/plugins/local/arch-insight`
-- Codex: `~/.codex/skills/arch-insight` 与 `~/.codex/prompts`
-- Gemini: `~/.gemini/skills/arch-insight` 与 `~/.gemini/arch-insight-prompts`
+- Codex: `~/.codex/skills/arch-insight` 与 `~/.codex/skills/arch-insight/references/prompts`
+- Gemini: `~/.gemini/skills/arch-insight` 与 `~/.gemini/skills/arch-insight/references/prompts`
 
 ## Smoke Test A: npm CLI 安装链路
 
@@ -48,8 +48,8 @@ node ./bin/arch-insight.js install --platform claude --bundle-dir dist
 ```bash
 test -f ~/.claude/plugins/local/arch-insight/.claude-plugin/plugin.json
 test -f ~/.claude/plugins/local/arch-insight/skills/arch-insight/SKILL.md
-test -f ~/.claude/plugins/local/arch-insight/RUNNER.md
-test -f ~/.claude/plugins/local/arch-insight/templates/ARCHITECTURE_REPORT.md
+test -f ~/.claude/plugins/local/arch-insight/skills/arch-insight/references/RUNNER.md
+test -f ~/.claude/plugins/local/arch-insight/skills/arch-insight/references/templates/ARCHITECTURE_REPORT.md
 ```
 
 ### A2. Codex
@@ -61,10 +61,10 @@ node ./bin/arch-insight.js install --platform codex --bundle-dir dist
 检查：
 
 ```bash
-test -f ~/.codex/skills/arch-insight/arch-insight/SKILL.md
-test -f ~/.codex/skills/arch-insight/RUNNER.md
-test -f ~/.codex/skills/arch-insight/templates/ARCHITECTURE_REPORT.md
-test -f ~/.codex/prompts/arch-insight-01_repo_intake.md
+test -f ~/.codex/skills/arch-insight/SKILL.md
+test -f ~/.codex/skills/arch-insight/references/RUNNER.md
+test -f ~/.codex/skills/arch-insight/references/templates/ARCHITECTURE_REPORT.md
+test -f ~/.codex/skills/arch-insight/references/prompts/01_repo_intake.md
 ```
 
 ### A3. Gemini
@@ -77,9 +77,9 @@ node ./bin/arch-insight.js install --platform gemini --bundle-dir dist
 
 ```bash
 test -f ~/.gemini/skills/arch-insight/SKILL.md
-test -f ~/.gemini/skills/arch-insight/RUNNER.md
-test -f ~/.gemini/skills/arch-insight/templates/ARCHITECTURE_REPORT.md
-test -f ~/.gemini/arch-insight-prompts/01_repo_intake.md
+test -f ~/.gemini/skills/arch-insight/references/RUNNER.md
+test -f ~/.gemini/skills/arch-insight/references/templates/ARCHITECTURE_REPORT.md
+test -f ~/.gemini/skills/arch-insight/references/prompts/01_repo_intake.md
 ```
 
 ## Smoke Test B: curl | sh 安装链路
@@ -115,8 +115,8 @@ bash ./scripts/install.sh
 检查：
 
 ```bash
-test -f ~/.codex/skills/arch-insight/arch-insight/SKILL.md
-test -f ~/.codex/skills/arch-insight/RUNNER.md
+test -f ~/.codex/skills/arch-insight/SKILL.md
+test -f ~/.codex/skills/arch-insight/references/RUNNER.md
 ```
 
 ### B3. Gemini
@@ -131,7 +131,7 @@ bash ./scripts/install.sh
 
 ```bash
 test -f ~/.gemini/skills/arch-insight/SKILL.md
-test -f ~/.gemini/skills/arch-insight/RUNNER.md
+test -f ~/.gemini/skills/arch-insight/references/RUNNER.md
 ```
 
 ## 功能级最小人工验收
@@ -139,7 +139,7 @@ test -f ~/.gemini/skills/arch-insight/RUNNER.md
 目录检查通过后，分别在三平台确认：
 
 - 能看到 `arch-insight` 入口
-- 读取 skill 时不会因缺少 `RUNNER.md` 或模板文件而失效
+- 读取 skill 时不会因缺少 `.agents/skills/arch-insight/references/RUNNER.md` 或模板文件而失效
 - 默认分析路径还能引用到 `01_repo_intake.md` 与 `ARCHITECTURE_REPORT.md`
 
 最小验收提示词建议：
@@ -156,11 +156,11 @@ test -f ~/.gemini/skills/arch-insight/RUNNER.md
 
 ## 常见失败信号
 
-- 只有 `SKILL.md`，但没有 `RUNNER.md` 或 `templates/`
+- 只有 `.agents/skills/arch-insight/SKILL.md`，但没有 `.agents/skills/arch-insight/references/RUNNER.md` 或 `.agents/skills/arch-insight/references/templates/`
 - Codex / Gemini 安装后找不到 prompt 目录
 - shell 链路报 `install-manifest.json` 或 tarball 缺失
 - shell 链路实际依赖 `npm` / `npx`
-- 根目录兼容入口与 `plugins/arch-insight` 内容漂移
+- 根目录兼容入口与 `.agents` 权威源内容漂移
 
 ## 记录建议
 
@@ -169,5 +169,5 @@ test -f ~/.gemini/skills/arch-insight/RUNNER.md
 - 安装入口：npm CLI 还是 shell
 - 平台：Claude / Codex / Gemini
 - 实际检查过的目标目录
-- 是否能成功读取 `SKILL.md`、`RUNNER.md`、模板、prompt
+- 是否能成功读取 `.agents/skills/arch-insight/SKILL.md`、`.agents/skills/arch-insight/references/RUNNER.md`、模板、prompt
 - 是否完成一条最小提示词验收

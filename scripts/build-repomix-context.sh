@@ -19,12 +19,12 @@ mkdir -p "$OUTPUT_DIR"
 
 case "$MODE" in
   lean)
-    printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" \
+    printf "README.md\n.agents/skills/arch-insight/references/RUNNER.md\n.agents/skills/arch-insight/references/prompts/01_repo_intake.md\n" \
       | run_repomix --stdin -o "$OUTPUT_FILE"
     ;;
   full)
     run_repomix \
-      --include "prompts/**/*,templates/**/*" \
+      --include ".agents/skills/arch-insight/references/prompts/**/*,.agents/skills/arch-insight/references/templates/**/*" \
       --split-output 1mb \
       --compress \
       -o "$OUTPUT_FILE"

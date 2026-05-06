@@ -6,9 +6,6 @@ export function buildGeminiBundle(source) {
     skills: {
       directory: "./skills"
     },
-    prompts: {
-      directory: "./prompts"
-    },
     agents: {
       directory: "./agents"
     }
@@ -27,14 +24,6 @@ export function buildGeminiBundle(source) {
       },
       ...source.skillEntries.map((entry) => ({
         path: `skills/${entry.relativePath}`,
-        content: entry.content
-      })),
-      ...source.promptEntries.map((entry) => ({
-        path: `prompts/${entry.relativePath}`,
-        content: entry.content
-      })),
-      ...source.templateEntries.map((entry) => ({
-        path: `templates/${entry.relativePath}`,
         content: entry.content
       }))
     ]

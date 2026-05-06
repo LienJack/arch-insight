@@ -76,27 +76,18 @@ case "${PLATFORM}" in
     ;;
   codex)
     skill_dir="${HOME}/.codex/skills/arch-insight"
-    prompts_dir="${HOME}/.codex/prompts"
     rm -rf "${skill_dir}"
-    mkdir -p "${skill_dir}" "${prompts_dir}"
-    cp -R "${extract_dir}/codex/skills/." "${skill_dir}/"
-    cp "${extract_dir}/codex/RUNNER.md" "${skill_dir}/RUNNER.md"
-    cp -R "${extract_dir}/codex/templates" "${skill_dir}/templates"
-    find "${extract_dir}/codex/prompts" -type f -name '*.md' -print0 | while IFS= read -r -d '' file; do
-      cp "${file}" "${prompts_dir}/arch-insight-$(basename "${file}")"
-    done
-    test -f "${skill_dir}/arch-insight/SKILL.md"
-    test -f "${skill_dir}/RUNNER.md"
+    mkdir -p "${skill_dir}"
+    cp -R "${extract_dir}/codex/skills/arch-insight/." "${skill_dir}/"
+    test -f "${skill_dir}/SKILL.md"
+    test -f "${skill_dir}/references/RUNNER.md"
     ;;
   gemini)
     skill_dir="${HOME}/.gemini/skills/arch-insight"
-    prompts_dir="${HOME}/.gemini/arch-insight-prompts"
-    rm -rf "${skill_dir}" "${prompts_dir}"
+    rm -rf "${skill_dir}"
     mkdir -p "$(dirname "${skill_dir}")"
     cp -R "${extract_dir}/gemini/skills/arch-insight" "${skill_dir}"
-    cp "${extract_dir}/gemini/GEMINI.md" "${skill_dir}/RUNNER.md"
-    cp -R "${extract_dir}/gemini/templates" "${skill_dir}/templates"
-    cp -R "${extract_dir}/gemini/prompts" "${prompts_dir}"
+    cp "${extract_dir}/gemini/skills/arch-insight/references/RUNNER.md" "${skill_dir}/RUNNER.md"
     test -f "${skill_dir}/SKILL.md"
     test -f "${skill_dir}/RUNNER.md"
     ;;

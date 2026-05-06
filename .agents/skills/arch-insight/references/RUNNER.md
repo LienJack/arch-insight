@@ -40,9 +40,9 @@ npx repomix@latest --help
 
 执行顺序：
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. `prompts/04_architecture_report.md`
+1. `references/prompts/01_repo_intake.md`
+2. `references/prompts/02_design_philosophy_brain_dump.md`
+3. `references/prompts/04_architecture_report.md`
 
 建议中间产物：
 
@@ -64,10 +64,10 @@ npx repomix@latest --help
 
 执行顺序：
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. （复杂生态可选）`prompts/03_ecosystem_atlas.md`
-4. `prompts/05_narrative_article.md`
+1. `references/prompts/01_repo_intake.md`
+2. `references/prompts/02_design_philosophy_brain_dump.md`
+3. （复杂生态可选）`references/prompts/03_ecosystem_atlas.md`
+4. `references/prompts/05_narrative_article.md`
 
 建议产物：
 
@@ -83,7 +83,7 @@ npx repomix@latest --help
 5. 多仓输入时，是否形成共同模式、差异选择、适用背景和局部启发范围？
 6. 是否避免模板腔与流水账？
 
-说明：深度解读可吸收 `templates/BORROWABLE_PATTERNS.md` 的问题意识，但不得退化成“主报告 + 五附件”或 checklist 填空。
+说明：深度解读可吸收 `references/templates/BORROWABLE_PATTERNS.md` 的问题意识，但不得退化成“主报告 + 五附件”或 checklist 填空。
 
 ### 路径 C：文章模式 - 源码导览（仓库百科）
 
@@ -91,10 +91,10 @@ npx repomix@latest --help
 
 执行顺序：
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. （复杂生态可选）`prompts/03_ecosystem_atlas.md`
-4. `prompts/06_repo_overview_article.md`
+1. `references/prompts/01_repo_intake.md`
+2. `references/prompts/02_design_philosophy_brain_dump.md`
+3. （复杂生态可选）`references/prompts/03_ecosystem_atlas.md`
+4. `references/prompts/06_repo_overview_article.md`
 
 建议产物：
 
@@ -116,10 +116,10 @@ npx repomix@latest --help
 
 执行顺序：
 
-1. `prompts/01_repo_intake.md`
+1. `references/prompts/01_repo_intake.md`
 2. 根据 intake 结论决定是否做上下文打包或精选文件集
-3. `prompts/02_design_philosophy_brain_dump.md`
-4. `prompts/04_architecture_report.md`
+3. `references/prompts/02_design_philosophy_brain_dump.md`
+4. `references/prompts/04_architecture_report.md`
 
 额外要求：
 
@@ -143,10 +143,10 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 执行顺序：
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. `prompts/03_ecosystem_atlas.md`
-4. `prompts/04_architecture_report.md`
+1. `references/prompts/01_repo_intake.md`
+2. `references/prompts/02_design_philosophy_brain_dump.md`
+3. `references/prompts/03_ecosystem_atlas.md`
+4. `references/prompts/04_architecture_report.md`
 
 建议最终产物：
 
@@ -164,10 +164,10 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 执行顺序：
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. 按复杂度决定是否补 `prompts/03_ecosystem_atlas.md`
-4. `prompts/04_architecture_report.md`
+1. `references/prompts/01_repo_intake.md`
+2. `references/prompts/02_design_philosophy_brain_dump.md`
+3. 按复杂度决定是否补 `references/prompts/03_ecosystem_atlas.md`
+4. `references/prompts/04_architecture_report.md`
 5. 用模板把稳定结论拆成主报告和学习附件
 
 关键要求：
@@ -193,7 +193,7 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 ### Step 1：Intake
 
-使用 `prompts/01_repo_intake.md`。
+使用 `references/prompts/01_repo_intake.md`。
 
 目标：
 
@@ -216,7 +216,7 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 ### Step 2：Design Philosophy Brain Dump
 
-使用 `prompts/02_design_philosophy_brain_dump.md`。
+使用 `references/prompts/02_design_philosophy_brain_dump.md`。
 
 目标：
 
@@ -233,7 +233,7 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 ### Step 3：Ecosystem Atlas
 
-只有复杂生态才使用 `prompts/03_ecosystem_atlas.md`。
+只有复杂生态才使用 `references/prompts/03_ecosystem_atlas.md`。
 
 目标：
 
@@ -249,7 +249,7 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 ### Step 4：Architecture Report
 
-仅 `分析包模式` 使用 `prompts/04_architecture_report.md`。
+仅 `分析包模式` 使用 `references/prompts/04_architecture_report.md`。
 
 目标：
 
@@ -267,7 +267,7 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 ### Step 5：Narrative Article（深度解读）
 
-仅 `文章模式 - 深度解读` 使用 `prompts/05_narrative_article.md`。
+仅 `文章模式 - 深度解读` 使用 `references/prompts/05_narrative_article.md`。
 
 目标：
 
@@ -284,7 +284,7 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 ### Step 6：Repo Overview Article（源码导览）
 
-仅 `文章模式 - 源码导览` 使用 `prompts/06_repo_overview_article.md`。
+仅 `文章模式 - 源码导览` 使用 `references/prompts/06_repo_overview_article.md`。
 
 目标：
 
@@ -345,14 +345,14 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 ## 模板速记
 
-需要落文档时，优先使用 `templates/` 里的真实模板文件，而不是再临时发明第二套结构：
+需要落文档时，优先使用 `references/templates/` 里的真实模板文件，而不是再临时发明第二套结构：
 
-- `templates/ARCHITECTURE_REPORT.md`
-- `templates/DESIGN_PHILOSOPHY.md`
-- `templates/CORE_ABSTRACTIONS.md`
-- `templates/MAIN_FLOW.md`
-- `templates/TRADEOFFS.md`
-- `templates/BORROWABLE_PATTERNS.md`
+- `references/templates/ARCHITECTURE_REPORT.md`
+- `references/templates/DESIGN_PHILOSOPHY.md`
+- `references/templates/CORE_ABSTRACTIONS.md`
+- `references/templates/MAIN_FLOW.md`
+- `references/templates/TRADEOFFS.md`
+- `references/templates/BORROWABLE_PATTERNS.md`
 
 这些模板分别回答不同问题：
 
@@ -367,13 +367,13 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 
 文章模式 - 深度解读 使用：
 
-- `templates/NARRATIVE_ARTICLE.md`
+- `references/templates/NARRATIVE_ARTICLE.md`
 
 不要把文章模式强行拆回 6 份模板附件。
 
 文章模式 - 源码导览 使用：
 
-- `templates/REPO_OVERVIEW_ARTICLE.md`
+- `references/templates/REPO_OVERVIEW_ARTICLE.md`
 
 不要把源码导览写成叙事化深度评论长文。
 
@@ -476,5 +476,5 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 ## 维护规则
 
 1. 不再新增或恢复第二套重叠的仓库研究 skill，也不要重新引入本地打包 CLI 主路径。
-2. 任何路径、模板和产物调整，统一改这里和 `prompts/`、`templates/`。
+2. 任何路径、模板和产物调整，统一改这里和 `references/prompts/`、`references/templates/`。
 3. 若需要兼容旧名称或旧产物名，必须显式标注为历史兼容，不要让它继续充当默认故事。

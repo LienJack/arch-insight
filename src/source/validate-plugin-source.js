@@ -2,23 +2,23 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 const REQUIRED_FILES = [
-  ".claude-plugin/plugin.json",
-  "RUNNER.md",
+  "plugin.json",
   "skills/arch-insight/SKILL.md",
-  "prompts/01_repo_intake.md",
-  "prompts/02_design_philosophy_brain_dump.md",
-  "prompts/03_ecosystem_atlas.md",
-  "prompts/04_architecture_report.md",
-  "prompts/05_narrative_article.md",
-  "prompts/06_repo_overview_article.md",
-  "templates/ARCHITECTURE_REPORT.md",
-  "templates/BORROWABLE_PATTERNS.md",
-  "templates/CORE_ABSTRACTIONS.md",
-  "templates/DESIGN_PHILOSOPHY.md",
-  "templates/MAIN_FLOW.md",
-  "templates/NARRATIVE_ARTICLE.md",
-  "templates/REPO_OVERVIEW_ARTICLE.md",
-  "templates/TRADEOFFS.md"
+  "skills/arch-insight/references/RUNNER.md",
+  "skills/arch-insight/references/prompts/01_repo_intake.md",
+  "skills/arch-insight/references/prompts/02_design_philosophy_brain_dump.md",
+  "skills/arch-insight/references/prompts/03_ecosystem_atlas.md",
+  "skills/arch-insight/references/prompts/04_architecture_report.md",
+  "skills/arch-insight/references/prompts/05_narrative_article.md",
+  "skills/arch-insight/references/prompts/06_repo_overview_article.md",
+  "skills/arch-insight/references/templates/ARCHITECTURE_REPORT.md",
+  "skills/arch-insight/references/templates/BORROWABLE_PATTERNS.md",
+  "skills/arch-insight/references/templates/CORE_ABSTRACTIONS.md",
+  "skills/arch-insight/references/templates/DESIGN_PHILOSOPHY.md",
+  "skills/arch-insight/references/templates/MAIN_FLOW.md",
+  "skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md",
+  "skills/arch-insight/references/templates/REPO_OVERVIEW_ARTICLE.md",
+  "skills/arch-insight/references/templates/TRADEOFFS.md"
 ];
 
 export async function validatePluginSource(sourceDir) {
@@ -37,9 +37,7 @@ export async function validatePluginSource(sourceDir) {
     throw new Error(`Plugin source is incomplete. Missing: ${missingFiles.join(", ")}`);
   }
 
-  const manifest = JSON.parse(
-    await fs.readFile(path.join(sourceDir, ".claude-plugin", "plugin.json"), "utf8")
-  );
+  const manifest = JSON.parse(await fs.readFile(path.join(sourceDir, "plugin.json"), "utf8"));
 
   if (!manifest.name || !manifest.version || !manifest.skills) {
     throw new Error("Plugin manifest must include name, version, and skills.");

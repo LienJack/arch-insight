@@ -8,7 +8,7 @@ import { buildReleaseArtifacts } from "../src/release/build-release-artifacts.js
 import { buildBundles } from "../src/build/build-bundles.js";
 import { installBundle } from "../src/install/install-bundle.js";
 
-const SOURCE_DIR = path.resolve("plugins/arch-insight");
+const SOURCE_DIR = path.resolve(".agents");
 
 test("三平台 x npm 安装矩阵具备最小成功面", async () => {
   const workspace = await fs.mkdtemp(path.join(os.tmpdir(), "arch-insight-matrix-"));
@@ -39,11 +39,18 @@ test("三平台 x npm 安装矩阵具备最小成功面", async () => {
   assert.match(gemini.entrypoint, /SKILL\.md$/);
 
   const codexRunner = await fs.readFile(
-    path.join(workspace, ".codex", "skills", "arch-insight", "RUNNER.md"),
+    path.join(
+      workspace,
+      ".codex",
+      "skills",
+      "arch-insight",
+      "references",
+      "RUNNER.md"
+    ),
     "utf8"
   );
   const geminiRunner = await fs.readFile(
-    path.join(workspace, ".gemini", "skills", "arch-insight", "RUNNER.md"),
+    path.join(workspace, ".gemini", "skills", "arch-insight", "references", "RUNNER.md"),
     "utf8"
   );
   const codexTemplate = await fs.readFile(
@@ -52,6 +59,7 @@ test("三平台 x npm 安装矩阵具备最小成功面", async () => {
       ".codex",
       "skills",
       "arch-insight",
+      "references",
       "templates",
       "ARCHITECTURE_REPORT.md"
     ),

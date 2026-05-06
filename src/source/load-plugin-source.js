@@ -2,18 +2,22 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 export async function loadPluginSource(sourceDir) {
-  const manifestPath = path.join(sourceDir, ".claude-plugin", "plugin.json");
+  const manifestPath = path.join(sourceDir, "plugin.json");
   const manifest = JSON.parse(await fs.readFile(manifestPath, "utf8"));
+  const skillRoot = path.join(sourceDir, "skills", "arch-insight");
+  const referencesRoot = path.join(skillRoot, "references");
 
   return {
     rootDir: sourceDir,
     manifestPath,
     manifest,
+    skillRoot,
+    referencesRoot,
     skillEntries: await loadDirectoryEntries(path.join(sourceDir, "skills")),
-    promptEntries: await loadDirectoryEntries(path.join(sourceDir, "prompts")),
-    templateEntries: await loadDirectoryEntries(path.join(sourceDir, "templates")),
-    runnerPath: path.join(sourceDir, "RUNNER.md"),
-    runnerContent: await fs.readFile(path.join(sourceDir, "RUNNER.md"), "utf8")
+    runnerPath: path.join(referencesRoot, "RUNNER.md"),
+    runnerContent: await fs.readFile(path.join(referencesRoot, "RUNNER.md"), "utf8"),
+    promptEntries: await loadDirectoryEntries(path.join(referencesRoot, "prompts")),
+    templateEntries: await loadDirectoryEntries(path.join(referencesRoot, "templates"))
   };
 }
 

@@ -6,7 +6,7 @@ import path from "node:path";
 
 import { buildBundles } from "../src/build/build-bundles.js";
 
-const SOURCE_DIR = path.resolve("plugins/arch-insight");
+const SOURCE_DIR = path.resolve(".agents");
 
 test("同一套源可稳定生成三平台 bundle", async () => {
   const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "arch-insight-build-"));

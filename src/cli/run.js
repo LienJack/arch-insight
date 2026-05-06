@@ -9,7 +9,7 @@ export async function runCli(argv, context) {
   try {
     const parsed = parseArgs(argv);
     const cwd = context.cwd;
-    const sourceDir = path.resolve(cwd, parsed.options["source-dir"] ?? "plugins/arch-insight");
+    const sourceDir = path.resolve(cwd, parsed.options["source-dir"] ?? ".agents");
     const outputDir = path.resolve(cwd, parsed.options["output-dir"] ?? "dist");
     const bundleDir = path.resolve(cwd, parsed.options["bundle-dir"] ?? "dist");
 

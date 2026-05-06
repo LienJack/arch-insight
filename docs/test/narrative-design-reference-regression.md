@@ -5,7 +5,7 @@
 
 ## 使用方式
 
-1. 每次修改以下任一文件后执行本清单：`SKILL.md`、`README.md`、`goal.md`、`RUNNER.md`、`prompts/01_repo_intake.md`、`prompts/05_narrative_article.md`、`templates/NARRATIVE_ARTICLE.md`。
+1. 每次修改以下任一文件后执行本清单：`.agents/skills/arch-insight/SKILL.md`、`README.md`、`goal.md`、`.agents/skills/arch-insight/references/RUNNER.md`、`.agents/skills/arch-insight/references/prompts/01_repo_intake.md`、`.agents/skills/arch-insight/references/prompts/05_narrative_article.md`、`.agents/skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md`。
 2. 对每个场景逐项核对，标记 `PASS / FAIL / BLOCKED`。
 3. 若出现 `FAIL`，先修正文档契约，再继续功能扩展。
 
@@ -17,9 +17,9 @@
 
 检查项：
 
-- `SKILL.md` 是否把该请求路由到“文章模式 - 深度解读”。
-- `RUNNER.md` 路径 B 是否强调“设计参考与迁移判断”，而非仓库导览。
-- `prompts/05_narrative_article.md` 是否要求可借鉴点 + 适用边界 + 不建议照搬场景。
+- `.agents/skills/arch-insight/SKILL.md` 是否把该请求路由到“文章模式 - 深度解读”。
+- `.agents/skills/arch-insight/references/RUNNER.md` 路径 B 是否强调“设计参考与迁移判断”，而非仓库导览。
+- `.agents/skills/arch-insight/references/prompts/05_narrative_article.md` 是否要求可借鉴点 + 适用边界 + 不建议照搬场景。
 
 预期：三项全部 `PASS`。
 
@@ -31,8 +31,8 @@
 
 检查项：
 
-- `prompts/05_narrative_article.md` 质量闸门是否要求至少讲透一条主流程。
-- `templates/NARRATIVE_ARTICLE.md` 是否要求关键机制与设计点附源码路径证据。
+- `.agents/skills/arch-insight/references/prompts/05_narrative_article.md` 质量闸门是否要求至少讲透一条主流程。
+- `.agents/skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md` 是否要求关键机制与设计点附源码路径证据。
 - 深度解读模板是否仍是单篇文章结构，不是附件拆分。
 
 预期：三项全部 `PASS`。
@@ -45,9 +45,9 @@
 
 检查项：
 
-- `prompts/05_narrative_article.md` 是否要求至少 1 个批判性判断。
-- `templates/NARRATIVE_ARTICLE.md` 的“设计参考与迁移判断”是否包含“不建议照搬”与“迁移验证”字段。
-- `RUNNER.md` 路径 B 闸门是否覆盖迁移边界要求。
+- `.agents/skills/arch-insight/references/prompts/05_narrative_article.md` 是否要求至少 1 个批判性判断。
+- `.agents/skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md` 的“设计参考与迁移判断”是否包含“不建议照搬”与“迁移验证”字段。
+- `.agents/skills/arch-insight/references/RUNNER.md` 路径 B 闸门是否覆盖迁移边界要求。
 
 预期：三项全部 `PASS`。
 
@@ -59,9 +59,9 @@
 
 检查项：
 
-- `SKILL.md` / `README.md` / `goal.md` 是否把多仓默认目标定义为“对照式设计参考”。
-- `prompts/01_repo_intake.md` 是否要求逐仓记录来源、版本锚点和启发范围。
-- `prompts/05_narrative_article.md` 是否要求输出共同模式、差异选择、适用背景、局部启发范围。
+- `.agents/skills/arch-insight/SKILL.md` / `README.md` / `goal.md` 是否把多仓默认目标定义为“对照式设计参考”。
+- `.agents/skills/arch-insight/references/prompts/01_repo_intake.md` 是否要求逐仓记录来源、版本锚点和启发范围。
+- `.agents/skills/arch-insight/references/prompts/05_narrative_article.md` 是否要求输出共同模式、差异选择、适用背景、局部启发范围。
 
 预期：三项全部 `PASS`。
 
@@ -73,8 +73,8 @@
 
 检查项：
 
-- `prompts/01_repo_intake.md` 是否支持 URL / `owner/repo` / branch/tag/commit 记录。
-- `RUNNER.md` 是否写明 `--remote` 与 `--remote-branch` 的语义。
+- `.agents/skills/arch-insight/references/prompts/01_repo_intake.md` 是否支持 URL / `owner/repo` / branch/tag/commit 记录。
+- `.agents/skills/arch-insight/references/RUNNER.md` 是否写明 `--remote` 与 `--remote-branch` 的语义。
 - 模板头部是否留有来源与版本锚点位置。
 
 预期：三项全部 `PASS`。
@@ -87,9 +87,9 @@
 
 检查项：
 
-- `prompts/01_repo_intake.md` 是否要求必看区 / 略读区 / 暂缓区。
-- `prompts/01_repo_intake.md` 是否要求先范围策略再 include/ignore/压缩/分片。
-- `RUNNER.md` 路径 D 是否保留“先识别主流程再打包”。
+- `.agents/skills/arch-insight/references/prompts/01_repo_intake.md` 是否要求必看区 / 略读区 / 暂缓区。
+- `.agents/skills/arch-insight/references/prompts/01_repo_intake.md` 是否要求先范围策略再 include/ignore/压缩/分片。
+- `.agents/skills/arch-insight/references/RUNNER.md` 路径 D 是否保留“先识别主流程再打包”。
 
 预期：三项全部 `PASS`。
 
@@ -97,9 +97,9 @@
 
 检查项：
 
-- `prompts/05_narrative_article.md` 明确禁止“主报告 + 五附件”。
-- `templates/NARRATIVE_ARTICLE.md` 没有拆分为附件式章节。
-- `RUNNER.md` 明确“可借鉴模式意识可吸收，但不拆回附件”。
+- `.agents/skills/arch-insight/references/prompts/05_narrative_article.md` 明确禁止“主报告 + 五附件”。
+- `.agents/skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md` 没有拆分为附件式章节。
+- `.agents/skills/arch-insight/references/RUNNER.md` 明确“可借鉴模式意识可吸收，但不拆回附件”。
 
 预期：三项全部 `PASS`。
 
@@ -111,9 +111,9 @@
 
 检查项：
 
-- `SKILL.md` 是否仍保留“文章模式 - 源码导览”独立入口。
-- `prompts/06_repo_overview_article.md` 是否继续要求结构导航、关键模块表、Sources 索引、下一步阅读路径。
-- `RUNNER.md` 文章模式回归检查清单是否仍保留深度解读 vs 源码导览差异维度。
+- `.agents/skills/arch-insight/SKILL.md` 是否仍保留“文章模式 - 源码导览”独立入口。
+- `.agents/skills/arch-insight/references/prompts/06_repo_overview_article.md` 是否继续要求结构导航、关键模块表、Sources 索引、下一步阅读路径。
+- `.agents/skills/arch-insight/references/RUNNER.md` 文章模式回归检查清单是否仍保留深度解读 vs 源码导览差异维度。
 
 预期：三项全部 `PASS`。
 

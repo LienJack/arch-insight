@@ -65,7 +65,7 @@ origin: docs/brainstorms/2026-05-05-arch-insight-multi-platform-skill-source-and
 
 - `scripts/install-codex-skill.sh` 已经提供了一个可复用的最小安装器模式：下载归档、校验关键资产、复制到目标目录。
 - `README.md` 目前只暴露 `Codex` 的单脚本安装体验，说明现有分发叙事仍然是单平台导向。
-- `SKILL.md`、`RUNNER.md`、`prompts/`、`templates/` 已形成完整的 skill 内容资产，但还没有进入插件源结构。
+- `.agents/skills/arch-insight/SKILL.md`、`.agents/skills/arch-insight/references/RUNNER.md`、`.agents/skills/arch-insight/references/prompts/`、`.agents/skills/arch-insight/references/templates/` 已形成完整的 skill 内容资产，并作为当前的单一权威源。
 - `docs/plans/2026-05-05-002-feat-context-pack-cli-v1-plan.md` 已经给出过一个适合本仓库的 Node.js CLI 结构模式，可直接借用其“包入口 + src/ + tests/”组织方式。
 
 ### Institutional Learnings
@@ -82,8 +82,8 @@ origin: docs/brainstorms/2026-05-05-arch-insight-multi-platform-skill-source-and
 
 ## Key Technical Decisions
 
-- 权威源直接落在 `plugins/arch-insight/` 下，并以 `.claude-plugin/plugin.json` 作为入口。  
-  理由：这满足 R1-R3，也与用户明确选择的 `Claude` 兼容插件结构保持一致。
+- 权威源直接落在 `.agents/` 下，并以 `plugin.json` 作为入口。  
+  理由：这满足 R1-R3，同时保持单一 skill 源码结构，再由构建层生成 `Claude` 兼容插件产物。
 
 - 平台安装不直接消费散落的仓库文件，而是统一消费构建出的平台 bundle。  
   理由：这让 R4-R6 有了清晰边界，并允许 npm 包与 `curl | sh` 共享同一批构建产物而不共享安装逻辑。
@@ -94,8 +94,8 @@ origin: docs/brainstorms/2026-05-05-arch-insight-multi-platform-skill-source-and
 - 第一阶段采用 plain Node.js ESM CLI，而不是额外引入 TypeScript 编译链。  
   理由：仓库目前还没有现成的 Node 包骨架，先用更轻的运行时形态建立安装与构建链路，更符合第一阶段的收敛目标。
 
-- 根目录现有 `SKILL.md` 入口在迁移期保留兼容姿态，但不再作为长期权威源。  
-  理由：这样可以减少迁移期间对当前使用方式的冲击，同时把维护主路径收回到插件源结构。
+- 根目录旧入口不再保留，长期权威源固定为 `.agents/skills/arch-insight/SKILL.md`。  
+  理由：这样可以避免双轨结构长期并存，保持维护主路径清晰。
 
 ---
 
@@ -104,7 +104,7 @@ origin: docs/brainstorms/2026-05-05-arch-insight-multi-platform-skill-source-and
 ### Resolved During Planning
 
 - 统一源放在哪里？  
-  结论：放在 `plugins/arch-insight/`，由 `Claude` 插件清单主导。
+  结论：放在 `.agents/`，由单一 skill 源驱动，再生成 `Claude`、`Codex`、`Gemini` 平台产物。
 
 - 两条安装入口是否各自维护一份内容？  
   结论：不维护内容副本，只共享构建好的平台 bundle 与安装元数据。
@@ -177,7 +177,7 @@ origin: docs/brainstorms/2026-05-05-arch-insight-multi-platform-skill-source-and
 
 ```mermaid
 flowchart TD
-    A["Canonical source<br/>plugins/arch-insight"] --> B["Source validation"]
+    A["Canonical source<br/>.agents"] --> B["Source validation"]
     B --> C["Platform bundle builder"]
     C --> D["Claude bundle"]
     C --> E["Codex bundle"]
@@ -236,34 +236,34 @@ flowchart TD
 **Dependencies:** U1
 
 **Files:**
-- Create: `plugins/arch-insight/.claude-plugin/plugin.json`
-- Create: `plugins/arch-insight/skills/arch-insight/SKILL.md`
-- Create: `plugins/arch-insight/RUNNER.md`
-- Create: `plugins/arch-insight/prompts/01_repo_intake.md`
-- Create: `plugins/arch-insight/prompts/02_design_philosophy_brain_dump.md`
-- Create: `plugins/arch-insight/prompts/03_ecosystem_atlas.md`
-- Create: `plugins/arch-insight/prompts/04_architecture_report.md`
-- Create: `plugins/arch-insight/prompts/05_narrative_article.md`
-- Create: `plugins/arch-insight/prompts/06_repo_overview_article.md`
-- Create: `plugins/arch-insight/templates/ARCHITECTURE_REPORT.md`
-- Create: `plugins/arch-insight/templates/BORROWABLE_PATTERNS.md`
-- Create: `plugins/arch-insight/templates/CORE_ABSTRACTIONS.md`
-- Create: `plugins/arch-insight/templates/DESIGN_PHILOSOPHY.md`
-- Create: `plugins/arch-insight/templates/MAIN_FLOW.md`
-- Create: `plugins/arch-insight/templates/NARRATIVE_ARTICLE.md`
-- Create: `plugins/arch-insight/templates/REPO_OVERVIEW_ARTICLE.md`
-- Create: `plugins/arch-insight/templates/TRADEOFFS.md`
-- Modify: `SKILL.md`
+- Create: `.agents/plugin.json`
+- Create: `.agents/skills/arch-insight/SKILL.md`
+- Create: `.agents/skills/arch-insight/references/RUNNER.md`
+- Create: `.agents/skills/arch-insight/references/prompts/01_repo_intake.md`
+- Create: `.agents/skills/arch-insight/references/prompts/02_design_philosophy_brain_dump.md`
+- Create: `.agents/skills/arch-insight/references/prompts/03_ecosystem_atlas.md`
+- Create: `.agents/skills/arch-insight/references/prompts/04_architecture_report.md`
+- Create: `.agents/skills/arch-insight/references/prompts/05_narrative_article.md`
+- Create: `.agents/skills/arch-insight/references/prompts/06_repo_overview_article.md`
+- Create: `.agents/skills/arch-insight/references/templates/ARCHITECTURE_REPORT.md`
+- Create: `.agents/skills/arch-insight/references/templates/BORROWABLE_PATTERNS.md`
+- Create: `.agents/skills/arch-insight/references/templates/CORE_ABSTRACTIONS.md`
+- Create: `.agents/skills/arch-insight/references/templates/DESIGN_PHILOSOPHY.md`
+- Create: `.agents/skills/arch-insight/references/templates/MAIN_FLOW.md`
+- Create: `.agents/skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md`
+- Create: `.agents/skills/arch-insight/references/templates/REPO_OVERVIEW_ARTICLE.md`
+- Create: `.agents/skills/arch-insight/references/templates/TRADEOFFS.md`
+- Modify: `.agents/skills/arch-insight/SKILL.md`
 - Modify: `README.md`
 - Test: `tests/plugin-source.spec.js`
 
 **Approach:**
-- 把插件根目录定义成唯一权威源，要求 skill 入口、runner、prompts、templates 都能从该目录出发被打包和安装。
-- 保留根目录 `SKILL.md` 的兼容入口，但把维护主路径显式迁移到插件源。
+- 把 `.agents/` 定义成唯一权威源，要求 skill 入口与 `references/` 资产都能从该目录出发被打包和安装。
+- 不再保留旧的插件目录兼容入口，避免维护双轨内容。
 - 在源校验阶段检查插件源是否具备最小可发布资产，避免构建时才发现缺失文件。
 
 **Patterns to follow:**
-- 延续当前 `SKILL.md` 与 `RUNNER.md` 的内容契约，不改变 `arch-insight` 的研究方法与交付形态。
+- 延续当前 `.agents/skills/arch-insight/SKILL.md` 与 `.agents/skills/arch-insight/references/RUNNER.md` 的内容契约，不改变 `arch-insight` 的研究方法与交付形态。
 
 **Test scenarios:**
 - Covers AE1. Happy path: 插件源包含可识别的 skill 入口、runner、prompts 与 templates。
@@ -386,7 +386,7 @@ flowchart TD
 
 **Files:**
 - Modify: `README.md`
-- Modify: `SKILL.md`
+- Modify: `.agents/skills/arch-insight/SKILL.md`
 - Create: `tests/release-matrix.spec.js`
 - Test: `tests/release-matrix.spec.js`
 
@@ -434,7 +434,7 @@ flowchart TD
 
 ## Alternative Approaches Considered
 
-- 保持根目录 `SKILL.md` 体系为权威源，再额外叠加三平台脚本。  
+- 保持 `.agents/skills/arch-insight/SKILL.md` 体系为权威源，再额外叠加三平台脚本。  
   未选原因：这会把当前“分散资产 + 手工拼装”的问题复制到更多入口，无法满足 R1-R3。
 
 - 先建立一套中立 manifest，再反向生成 `Claude` 源结构。  
@@ -454,7 +454,7 @@ flowchart TD
 
 - **Origin document:** [docs/brainstorms/2026-05-05-arch-insight-multi-platform-skill-source-and-install-requirements.md](docs/brainstorms/2026-05-05-arch-insight-multi-platform-skill-source-and-install-requirements.md)
 - Related code: [README.md](README.md)
-- Related code: [SKILL.md](SKILL.md)
+- Related code: [.agents/skills/arch-insight/SKILL.md](../../.agents/skills/arch-insight/SKILL.md)
 - Related code: [scripts/install-codex-skill.sh](scripts/install-codex-skill.sh)
 - Related plan: [docs/plans/2026-05-05-002-feat-context-pack-cli-v1-plan.md](docs/plans/2026-05-05-002-feat-context-pack-cli-v1-plan.md)
 - External docs: `https://github.com/google-gemini/gemini-cli/blob/main/docs/extensions/reference.md`

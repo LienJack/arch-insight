@@ -9,7 +9,7 @@ import { promisify } from "node:util";
 import { buildReleaseArtifacts } from "../src/release/build-release-artifacts.js";
 
 const execFileAsync = promisify(execFile);
-const SOURCE_DIR = path.resolve("plugins/arch-insight");
+const SOURCE_DIR = path.resolve(".agents");
 
 test("shell 链路不依赖 npm 也能完成安装", async () => {
   const workspace = await fs.mkdtemp(path.join(os.tmpdir(), "arch-insight-shell-"));
@@ -34,7 +34,7 @@ test("shell 链路不依赖 npm 也能完成安装", async () => {
   });
 
   const skillFile = await fs.readFile(
-    path.join(homeDir, ".codex", "skills", "arch-insight", "arch-insight", "SKILL.md"),
+    path.join(homeDir, ".codex", "skills", "arch-insight", "SKILL.md"),
     "utf8"
   );
   assert.match(skillFile, /# arch-insight/);

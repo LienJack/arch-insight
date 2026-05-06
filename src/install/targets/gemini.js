@@ -6,14 +6,10 @@ export async function installGeminiBundle({ bundleDir, installDir }) {
   await fs.mkdir(installDir, { recursive: true });
 
   await fs.cp(path.join(bundleDir, "skills", "arch-insight"), installDir, { recursive: true });
-  await fs.copyFile(path.join(bundleDir, "GEMINI.md"), path.join(installDir, "RUNNER.md"));
-  await fs.cp(path.join(bundleDir, "templates"), path.join(installDir, "templates"), {
-    recursive: true
-  });
-
-  const promptsTarget = path.join(path.dirname(installDir), "arch-insight-prompts");
-  await fs.rm(promptsTarget, { recursive: true, force: true });
-  await fs.cp(path.join(bundleDir, "prompts"), promptsTarget, { recursive: true });
+  await fs.copyFile(
+    path.join(bundleDir, "skills", "arch-insight", "references", "RUNNER.md"),
+    path.join(installDir, "RUNNER.md")
+  );
 
   const manifestTarget = path.join(path.dirname(installDir), "..", "arch-insight", "install-manifest.json");
   await fs.mkdir(path.dirname(manifestTarget), { recursive: true });
@@ -23,8 +19,7 @@ export async function installGeminiBundle({ bundleDir, installDir }) {
       {
         installedAt: new Date().toISOString(),
         platform: "gemini",
-        skillDir: installDir,
-        promptsDir: promptsTarget
+        skillDir: installDir
       },
       null,
       2

@@ -7,7 +7,7 @@ import path from "node:path";
 import { buildBundles } from "../src/build/build-bundles.js";
 import { installBundle } from "../src/install/install-bundle.js";
 
-const SOURCE_DIR = path.resolve("plugins/arch-insight");
+const SOURCE_DIR = path.resolve(".agents");
 
 test("统一 CLI 安装链路能定位正确 bundle 并完成 Codex 安装", async () => {
   const workspace = await fs.mkdtemp(path.join(os.tmpdir(), "arch-insight-install-"));
@@ -26,7 +26,7 @@ test("统一 CLI 安装链路能定位正确 bundle 并完成 Codex 安装", asy
   });
 
   assert.equal(result.platform, "codex");
-  const skillFile = await fs.readFile(path.join(targetDir, "arch-insight", "SKILL.md"), "utf8");
+  const skillFile = await fs.readFile(path.join(targetDir, "SKILL.md"), "utf8");
   assert.match(skillFile, /# arch-insight/);
 });
 

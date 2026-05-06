@@ -7,7 +7,7 @@ import path from "node:path";
 import { validatePluginSource } from "../src/source/validate-plugin-source.js";
 import { loadPluginSource } from "../src/source/load-plugin-source.js";
 
-const SOURCE_DIR = path.resolve("plugins/arch-insight");
+const SOURCE_DIR = path.resolve(".agents");
 
 test("插件源包含可识别的核心资产", async () => {
   const result = await validatePluginSource(SOURCE_DIR);
@@ -18,11 +18,11 @@ test("插件源包含可识别的核心资产", async () => {
 test("缺少关键资产时源校验明确失败", async () => {
   const tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "arch-insight-source-"));
   await fs.cp(SOURCE_DIR, tempDir, { recursive: true });
-  await fs.rm(path.join(tempDir, "prompts", "01_repo_intake.md"));
+  await fs.rm(path.join(tempDir, "skills", "arch-insight", "references", "prompts", "01_repo_intake.md"));
 
   await assert.rejects(
     () => validatePluginSource(tempDir),
-    /Missing: prompts\/01_repo_intake\.md/
+    /Missing: skills\/arch-insight\/references\/prompts\/01_repo_intake\.md/
   );
 });
 

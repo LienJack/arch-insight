@@ -1,11 +1,11 @@
 # arch-insight
 
-`arch-insight` 现在以 `plugins/arch-insight/` 作为唯一权威源，再从这套 `Claude` 兼容插件源生成 `Claude`、`Codex`、`Gemini` 三个平台 bundle，并提供两条正式安装入口：
+`arch-insight` 现在以 `.agents/` 作为唯一权威源，再从这套 `Claude` 兼容插件源生成 `Claude`、`Codex`、`Gemini` 三个平台 bundle，并提供两条正式安装入口：
 
 - npm 分发包入口：`npx arch-insight install --platform <claude|codex|gemini>`
 - shell 入口：`curl -fsSL .../scripts/install.sh | ARCH_INSIGHT_PLATFORM=<platform> bash`
 
-根目录的 `SKILL.md`、`RUNNER.md`、`prompts/`、`templates/` 仍保留兼容姿态，但维护主路径已经迁移到 [`plugins/arch-insight`](./plugins/arch-insight)。
+维护主路径已经迁移到 [`.agents`](./.agents)；根目录旧入口已移除。
 
 ## 多平台安装
 
@@ -41,7 +41,7 @@ curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/
 
 ## 交付形态
 
-`arch-insight` 提供三种交付形态，由 `SKILL.md` 入口统一路由：
+`arch-insight` 提供三种交付形态，由 `.agents/skills/arch-insight/SKILL.md` 入口统一路由：
 
 | 模式 | 产物 | 适用场景 |
 | --- | --- | --- |
@@ -64,12 +64,12 @@ curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/
 
 ## 默认路径（分析包模式）
 
-1. `prompts/01_repo_intake.md`
-2. `prompts/02_design_philosophy_brain_dump.md`
-3. 可选 `prompts/03_ecosystem_atlas.md`
-4. `prompts/04_architecture_report.md`
+1. `.agents/skills/arch-insight/references/prompts/01_repo_intake.md`
+2. `.agents/skills/arch-insight/references/prompts/02_design_philosophy_brain_dump.md`
+3. 可选 `.agents/skills/arch-insight/references/prompts/03_ecosystem_atlas.md`
+4. `.agents/skills/arch-insight/references/prompts/04_architecture_report.md`
 
-深度解读文章模式和源码导览文章模式的路径见 `SKILL.md` 和 `RUNNER.md`。
+深度解读文章模式和源码导览文章模式的路径见 `.agents/skills/arch-insight/SKILL.md` 和 `.agents/skills/arch-insight/references/RUNNER.md`。
 
 这四步分别对应四种职责：
 
@@ -82,17 +82,17 @@ curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/
 
 分析包模式的默认交付物是”主报告 + 学习附件”，而不是一份泛化大报告：
 
-- `templates/ARCHITECTURE_REPORT.md`
-- `templates/DESIGN_PHILOSOPHY.md`
-- `templates/CORE_ABSTRACTIONS.md`
-- `templates/MAIN_FLOW.md`
-- `templates/TRADEOFFS.md`
-- `templates/BORROWABLE_PATTERNS.md`
+- `.agents/skills/arch-insight/references/templates/ARCHITECTURE_REPORT.md`
+- `.agents/skills/arch-insight/references/templates/DESIGN_PHILOSOPHY.md`
+- `.agents/skills/arch-insight/references/templates/CORE_ABSTRACTIONS.md`
+- `.agents/skills/arch-insight/references/templates/MAIN_FLOW.md`
+- `.agents/skills/arch-insight/references/templates/TRADEOFFS.md`
+- `.agents/skills/arch-insight/references/templates/BORROWABLE_PATTERNS.md`
 
 文章模式（深度解读 / 源码导览）各有独立模板：
 
-- `templates/NARRATIVE_ARTICLE.md`
-- `templates/REPO_OVERVIEW_ARTICLE.md`
+- `.agents/skills/arch-insight/references/templates/NARRATIVE_ARTICLE.md`
+- `.agents/skills/arch-insight/references/templates/REPO_OVERVIEW_ARTICLE.md`
 
 可以先看 `examples/sample-analysis.md`，那里展示了目标语气、结构和附件之间的关系。
 
@@ -114,12 +114,12 @@ curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/
 
 ## 入口文件
 
-- `plugins/arch-insight/.claude-plugin/plugin.json`：权威源 manifest
-- `plugins/arch-insight/skills/arch-insight/SKILL.md`：权威 skill 入口
-- `plugins/arch-insight/RUNNER.md`：权威执行手册、路径选择和输出契约
-- `plugins/arch-insight/prompts/`：权威分阶段 prompt
-- `plugins/arch-insight/templates/`：权威主报告与学习附件模板
-- `SKILL.md` / `RUNNER.md` / 根目录 `prompts/` / `templates/`：迁移期兼容入口
+- `.agents/plugin.json`：权威源 manifest
+- `.agents/skills/arch-insight/SKILL.md`：权威 skill 入口
+- `.agents/skills/arch-insight/references/RUNNER.md`：权威执行手册、路径选择和输出契约
+- `.agents/skills/arch-insight/references/prompts/`：权威分阶段 prompt
+- `.agents/skills/arch-insight/references/templates/`：权威主报告与学习附件模板
+- 根目录旧入口已移除，请使用 `.agents/skills/arch-insight/SKILL.md`、`.agents/skills/arch-insight/references/RUNNER.md`、`.agents/skills/arch-insight/references/prompts/`、`.agents/skills/arch-insight/references/templates/`
 - `examples/sample-analysis.md`：目标质量示例
 
 ## 默认上下文准备：`repomix`
@@ -136,13 +136,13 @@ npx repomix@latest --help
 
 ```bash
 # 先看 token 分布（默认 o200k_base）
-npx repomix@latest --token-count-tree --include "prompts/**/*,templates/**/*"
+npx repomix@latest --token-count-tree --include ".agents/skills/arch-insight/references/prompts/**/*,.agents/skills/arch-insight/references/templates/**/*"
 
 # 使用 stdin 精选文件（stdin 选择优先）
-printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | npx repomix@latest --stdin -o outputs/repo-context.xml
+printf "README.md\n.agents/skills/arch-insight/references/RUNNER.md\n.agents/skills/arch-insight/references/prompts/01_repo_intake.md\n" | npx repomix@latest --stdin -o outputs/repo-context.xml
 
 # 打包并按需分片 + 压缩
-npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --compress -o outputs/repo-context.xml
+npx repomix@latest --include ".agents/skills/arch-insight/references/prompts/**/*,.agents/skills/arch-insight/references/templates/**/*" --split-output 1mb --compress -o outputs/repo-context.xml
 ```
 
 如果你只是想要“下次继续问时能直接复用”的最省事方式，直接用仓库内脚本：

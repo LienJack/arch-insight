@@ -37,7 +37,7 @@ flowchart TD
 
 ## 风险提醒
 
-最大的风险不是内容太少，而是各层文档重新长出第二套故事。只要 `README.md`、`SKILL.md`、`RUNNER.md` 和 `prompts/` 讲的不是同一个默认路径，这个 skill 就会重新变回“看起来什么都能做、实际上没人知道该怎么用”的状态。
+最大的风险不是内容太少，而是各层文档重新长出第二套故事。只要 `README.md`、`.agents/skills/arch-insight/SKILL.md`、`.agents/skills/arch-insight/references/RUNNER.md` 和 `.agents/skills/arch-insight/references/prompts/` 讲的不是同一个默认路径，这个 skill 就会重新变回“看起来什么都能做、实际上没人知道该怎么用”的状态。
 
 ## 总体评价
 
