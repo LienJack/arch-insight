@@ -51,31 +51,38 @@ export async function runCli(argv, context) {
         }
 
         const results = [];
+        const failures = [];
 
         for (const platform of platforms) {
-          const resolvedBundleDir = await ensureBundleDir({
-            bundleDir,
-            sourceDir,
-            platform
-          });
+          try {
+            const resolvedBundleDir = await ensureBundleDir({
+              bundleDir,
+              sourceDir,
+              platform
+            });
 
-          const result = await installBundle({
-            bundleDir: resolvedBundleDir,
-            platform,
-            targetDir: parsed.options.targetDir,
-            cwd,
-            env: context.env,
-            registerClaudePlugin: true
-          });
-          results.push(result);
+            const result = await installBundle({
+              bundleDir: resolvedBundleDir,
+              platform,
+              targetDir: parsed.options.targetDir,
+              cwd,
+              env: context.env,
+              registerClaudePlugin: true
+            });
+            results.push(result);
+          } catch (error) {
+            failures.push(formatFailure(platform, error));
+          }
         }
 
         writeResult(context.stdout, parsed.options.json, {
           command: "install",
           installed: results,
-          platformCount: results.length
+          failed: failures,
+          platformCount: results.length,
+          failureCount: failures.length
         });
-        return 0;
+        return failures.length > 0 ? 1 : 0;
       }
       case "install-release":
       case "update":
@@ -94,32 +101,37 @@ export async function runCli(argv, context) {
           tempDir: parsed.options.tempDir
         });
         const results = [];
+        const failures = [];
         let manifestVersion = "";
 
         for (const platform of platforms) {
-          const download = await downloadReleaseBundle({
-            platform,
-            releaseBaseUrl: releaseSource.releaseBaseUrl,
-            tempDir: parsed.options.tempDir,
-            cacheDir: parsed.options.cacheDir
-          });
+          try {
+            const download = await downloadReleaseBundle({
+              platform,
+              releaseBaseUrl: releaseSource.releaseBaseUrl,
+              tempDir: parsed.options.tempDir,
+              cacheDir: parsed.options.cacheDir
+            });
 
-          manifestVersion = download.manifest.version;
-          const result = await installBundle({
-            bundleDir: download.bundleDir,
-            platform,
-            targetDir: parsed.options.targetDir,
-            cwd,
-            env: context.env,
-            registerClaudePlugin: true
-          });
+            manifestVersion = download.manifest.version;
+            const result = await installBundle({
+              bundleDir: download.bundleDir,
+              platform,
+              targetDir: parsed.options.targetDir,
+              cwd,
+              env: context.env,
+              registerClaudePlugin: true
+            });
 
-          results.push({
-            ...result,
-            fromCache: download.fromCache,
-            cacheReason: download.cacheReason,
-            bundlePath: download.downloadedPlatformDir
-          });
+            results.push({
+              ...result,
+              fromCache: download.fromCache,
+              cacheReason: download.cacheReason,
+              bundlePath: download.downloadedPlatformDir
+            });
+          } catch (error) {
+            failures.push(formatFailure(platform, error));
+          }
         }
 
         writeResult(context.stdout, parsed.options.json, {
@@ -127,9 +139,11 @@ export async function runCli(argv, context) {
           releaseBaseUrl: releaseSource.releaseBaseUrl,
           manifestVersion,
           installed: results,
-          platformCount: results.length
+          failed: failures,
+          platformCount: results.length,
+          failureCount: failures.length
         });
-        return 0;
+        return failures.length > 0 ? 1 : 0;
       }
       case "release": {
         const result = await buildReleaseArtifacts({
@@ -282,5 +296,35 @@ function writeResult(stream, asJson, payload) {
     return;
   }
 
+  if (payload.installed && payload.failed) {
+    stream.write(formatInstallSummary(payload));
+    return;
+  }
+
   stream.write(`${JSON.stringify(payload, null, 2)}\n`);
+}
+
+function formatInstallSummary(payload) {
+  const succeeded = payload.installed.map((result) => result.platform);
+  const failed = payload.failed.map((failure) => `${failure.platform} (${failure.message})`);
+  return [
+    "Installation summary",
+    `Succeeded: ${succeeded.length > 0 ? succeeded.join(", ") : "none"}`,
+    `Failed: ${failed.length > 0 ? failed.join(", ") : "none"}`
+  ].join("\n") + "\n";
+}
+
+function formatFailure(platform, error) {
+  return {
+    platform,
+    message: singleLineError(error)
+  };
+}
+
+function singleLineError(error) {
+  return String(error?.message ?? error)
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join(" ");
 }
