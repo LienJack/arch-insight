@@ -1,75 +1,75 @@
-# <仓库名称> 源码导览
+# <Repo Name> Source Code Overview
 
-> 分析对象：
-> 分析日期：
-> 研究范围：
-> 参考来源与版本锚点：
-> 暂缓范围 / 已知证据缺口：
+> Analysis subject:
+> Analysis date:
+> Research scope:
+> Reference sources & version anchors:
+> Deferred scope / known evidence gaps:
 
-## 项目定位
+## Project Positioning
 
-用 2-4 段讲清：
+Use 2-4 paragraphs to explain:
 
-- 这个仓库本质上是什么系统/工具/库
-- 它解决的核心问题
-- 它的核心价值和适用场景
-- 一句话：读者看完这篇导览会获得什么
+- What type of system/tool/library this repo essentially is
+- The core problem it solves
+- Its core value and applicable scenarios
+- One line: what the reader will gain from this overview
 
-## 仓库结构导航
+## Repo Structure Navigation
 
 ```
-仓库名/
-├── 关键目录1/        # 职责说明
-├── 关键目录2/        # 职责说明
-├── 关键文件1.ext     # 职责说明
+repo-name/
+├── key-directory-1/        # Responsibility description
+├── key-directory-2/        # Responsibility description
+├── key-file-1.ext          # Responsibility description
 └── ...
 ```
 
-分层说明（按架构层次，不是按字母序）：
+Layered explanation (by architectural layer, not alphabetical):
 
-- **层级名称**：包含哪些目录/文件，负责什么
-- （重复上述模式，2-4 层即可）
+- **Layer name**: which directories/files it contains, what it's responsible for
+- (repeat the pattern above, 2-4 layers is sufficient)
 
-## 关键模块
+## Key Modules
 
-| 模块 | 职责 | 入口文件 | 关键数据结构 / 状态 | 关键依赖 | 证据 |
+| Module | Responsibility | Entry File | Key Data Structures / State | Key Dependencies | Evidence |
 | --- | --- | --- | --- | --- | --- |
 | | | | | | |
 
-每个模块用 1-2 句补充说明其设计意图。
+Supplement each module with 1-2 sentences explaining its design intent.
 
-## 主流程
+## Main Flow
 
-从入口到输出的完整链路：
+Complete chain from entry to output:
 
-1. **起点**：`path/to/entry.ext` — 触发条件与输入
-2. **关键步骤**：每一步说明发生了什么、在哪发生、核心调用关系、数据/状态变化
-3. **终点**：输出什么、写到哪
+1. **Start**: `path/to/entry.ext` — trigger condition and input
+2. **Key steps**: for each step, explain what happens, where it happens, core call relationships, data/state changes
+3. **End**: what is output, where it lands
 
-每一步标注关键文件路径；关键步骤优先补行号。
+Annotate key file paths at each step; prioritize supplementing key steps with line numbers.
 
-## 设计要点
+## Design Notes
 
-> 此节仅写真正影响理解仓库的设计选择，不做展开评论。如果判断缺乏源码依据，标注为"推断"或省略。
+> This section only includes design choices that truly affect understanding of the repo. Do not expand commentary. If a judgment lacks source evidence, label as "inference" or omit.
 
-（可选，按需保留 1-3 条）
+(Optional, keep 1-3 items as needed)
 
-## Sources 与证据索引
+## Sources & Evidence Index
 
-集中列出文中所有关键判断的源码路径依据：
+Centrally list source code path evidence for all key judgments in the text:
 
 - 
 - 
 - 
 
-如有必要，再单独列出：
+If needed, separately list:
 
-- 推断：
-- 待验证：
+- Inferred:
+- Pending verification:
 
-## 下一步阅读路径
+## Next-Step Reading Paths
 
-读者看完这篇导览后，建议按以下顺序深入：
+After reading this overview, it is recommended to dive deeper in this order:
 
 1. 
 2. 

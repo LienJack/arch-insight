@@ -1,15 +1,15 @@
-# 可借鉴模式
+# Borrowable Patterns
 
-## 最值得借走的模式
+## Patterns Most Worth Borrowing
 
-| 模式 | 它解决的问题 | 为什么值得学 | 适用前提 | 借走时的注意事项 |
+| Pattern | Problem It Solves | Why Worth Learning | Applicable Prerequisites | Notes When Borrowing |
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
 
-## 不要机械照搬的部分
+## Parts NOT to Mechanically Copy
 
 - 
 
-## 更适合哪些团队或项目阶段
+## Better Suited for Which Teams or Project Stages
 
 - 

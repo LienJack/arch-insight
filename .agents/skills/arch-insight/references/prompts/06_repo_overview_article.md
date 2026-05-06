@@ -1,86 +1,85 @@
 # 06 Repo Overview Article Prompt
 
-你现在要交付的是一篇"中文源码导览"文章，帮助读者快速建立仓库地图，而不是一篇叙事化深度评论。
+What you are about to deliver is a "source code overview" article that helps readers quickly build a repository map, not a narrative deep commentary.
 
-## 进入本阶段前必须继承的输入契约
+## Input Contract You Must Inherit Before Entering This Stage
 
-源码导览也必须继承前序阶段结论，而不是重新按目录浏览一遍：
+The source code overview must also inherit prior stage conclusions, not browse through directories afresh:
 
-1. `01_repo_intake` 的研究范围、来源、版本锚点与暂缓区
-2. `02_design_philosophy_brain_dump` 的核心模块、主流程、关键边界
-3. 如已启用 `03_ecosystem_atlas`，补充关键跨边界关系与风险提示
+1. `01_repo_intake` research scope, sources, version anchors, and deferred areas
+2. `02_design_philosophy_brain_dump` core modules, main flow, key boundaries
+3. If `03_ecosystem_atlas` was enabled, supplement key cross-boundary relationships and risk notes
 
-导览文章的重点是“帮助读者快速定向”，不是取消前面的分析成果。
+The overview article's emphasis is "helping readers quickly orient", not cancelling prior analysis results.
 
-## 阶段目标
+## Stage Goals
 
-1. 用简洁开篇说明项目定位、核心价值和适用场景。
-2. 给出可扫描的仓库结构导航：目录分层、关键模块表、主流程说明。
-3. 每个重要判断必须附带源码路径或文档证据。
-4. 结尾给出清晰的下一步阅读路径。
+1. Use a concise opening to explain project positioning, core value, and applicable scenarios.
+2. Provide scannable repo structure navigation: directory layering, key module table, main flow explanation.
+3. Every important judgment must carry source code path or document evidence.
+4. End with clear next-step reading paths.
 
-## 强制约束
+## Mandatory Constraints
 
-- 默认中文输出，面向中文工程师自然表达。
-- 不要输出"主报告 + 五附件"结构。
-- 不要写长篇观点推进或连续抒发式评论。
-- 不要按目录树顺序复读代码，只标注真正关键的路径。
-- 不要只有判断没有证据；无法找到源码依据的判断应标注为推断或直接省略。
+- Do NOT output a "main report + five appendices" structure.
+- Do NOT write long thesis progressions or continuous expressive commentary.
+- Do NOT re-read code in directory tree order; only annotate truly critical paths.
+- Do NOT have judgments without evidence; judgments that cannot find source evidence should be labeled as inference or directly omitted.
 
-## 模块识别要求（新增强制）
+## Module Identification Requirements (New Mandatory)
 
-不要把“模块 = 顶层目录”当成默认前提。写关键模块前，先按以下视角切片：
+Do not treat "module = top-level directory" as the default premise. Before writing key modules, first slice through these lenses:
 
-1. 业务功能
-2. 数据流阶段
-3. 职责变更边界
+1. Business function
+2. Data flow stages
+3. Responsibility change boundaries
 
-最终进入导览的“关键模块”，应该是能帮助读者快速建立心智模型的职责单元，而不是纯目录清单。
+The "key modules" that ultimately enter the overview should be responsibility units that help readers quickly build a mental model, not a raw directory listing.
 
-## 风格契约（写作前先确认）
+## Style Contract (Confirm Before Writing)
 
-在正文前先形成并遵守：
+Form and adhere to the following before writing the body:
 
-- 受众：工程师 / 想快速了解仓库的人
-- 语气：导览式、事实优先、清晰克制
-- 密度：信息密集但可扫描（使用表格、分层列表、短段落）
-- 证据：关键判断附源码路径，集中放在 Sources 小节或文内标注
-- 主流程和关键模块优先附 `path:line` 级证据
-- 禁止项：长评论弧线、无证据判断、英文默认输出、目录 dump、故事化标题串联
+- Audience: engineers / people who want to quickly understand the repo
+- Tone: overview-style, fact-first, clear and restrained
+- Density: information-dense but scannable (use tables, layered lists, short paragraphs)
+- Evidence: key judgments carry source code paths, concentrated in a Sources section or inline annotations
+- Main flow and key modules prioritize `path:line`-level evidence
+- Prohibitions: long commentary arcs, evidence-free judgments, directory dumps, story-style headline threading
 
-## 证据与判断边界
+## Evidence & Judgment Boundaries
 
-请明确区分：
+Please clearly distinguish:
 
-- `事实`：可由源码 / 文档 / 配置直接验证
-- `推断`：由多处线索归纳出来
-- `待验证`：当前证据不足，不应当写成结论
+- `Fact`: directly verifiable from source code / docs / config
+- `Inference`: induced from multiple clues
+- `Pending Verification`: current evidence insufficient, should not be written as a conclusion
 
-对关键模块和主流程，优先给真实路径，最好附行号。
+For key modules and the main flow, prioritize giving real paths, preferably with line numbers.
 
-## 推荐结构
+## Recommended Structure
 
-1. **项目定位**（2-4 段）：这个仓库是什么、解决什么问题、核心价值在哪
-2. **仓库结构导航**：目录树分层说明（只列出关键目录/文件，标注职责）
-3. **关键模块**（表格）：模块名、职责、入口文件、关键数据结构、依赖关系、证据
-4. **主流程**：从入口到输出的完整链路，每一步标注关键文件、调用关系和数据/状态变化
-5. **设计要点**（可选、克制）：只写真正影响理解的设计选择，不做展开评论
-6. **Sources 与证据索引**：集中列出文中所有关键判断的源码路径依据
-7. **下一步阅读路径**：读者看完这篇后最该读什么（文件、文档、测试）
+1. **Project Positioning** (2-4 paragraphs): what this repo is, what problem it solves, where its core value lies
+2. **Repo Structure Navigation**: directory tree layered explanation (only list key directories/files, annotate responsibilities)
+3. **Key Modules** (table): module name, responsibility, entry file, key data structures, dependencies, evidence
+4. **Main Flow**: complete chain from entry to output, annotate key files, call relationships, and data/state changes at each step
+5. **Design Notes** (optional, restrained): only write design choices that truly affect understanding; don't expand commentary
+6. **Sources & Evidence Index**: centrally list source code path evidence for all key judgments in the text
+7. **Next-Step Reading Paths**: what the reader should read next after this overview (files, docs, tests)
 
-## 质量闸门
+## Quality Gates
 
-提交前自检：
+Self-check before submission:
 
-1. 开篇是否让读者快速知道"这个仓库是什么、值不值得看"？
-2. 是否能用结构导航和模块表 30 秒定位到目标信息？
-3. 主流程是否带关键文件路径，而不是纯文字描述？
-4. 关键判断是否有 Sources 索引可追溯？
-5. 是否避免了长篇评论和故事化推进？
-6. 结尾是否给出了明确的下一步阅读路径？
-7. 关键模块是否不是简单目录 dump，而是职责切片后的结果？
+1. Does the opening quickly tell the reader "what this repo is and whether it's worth reading"?
+2. Can the reader locate target information within 30 seconds using the structure navigation and module table?
+3. Does the main flow carry key file paths, not just textual description?
+4. Are key judgments traceable via a Sources index?
+5. Are long commentary and narrative-driven progression avoided?
+6. Does the ending provide clear next-step reading paths?
+7. Are key modules not a simple directory dump but the result of responsibility slicing?
 
-## 产物要求
+## Output Requirements
 
-- 默认输出：`outputs/REPO_OVERVIEW_ARTICLE.md`
-- 可选附录：`outputs/REPO_OVERVIEW_SOURCES.md`
+- Default output: `outputs/REPO_OVERVIEW_ARTICLE.md`
+- Optional appendix: `outputs/REPO_OVERVIEW_SOURCES.md`

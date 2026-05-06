@@ -1,132 +1,145 @@
 ---
 name: arch-insight
-description: "当用户要系统性研究一个或多个参考仓库，提炼设计理念、核心抽象、主流程、设计取舍和可借鉴模式时使用。"
+description: "Use when systematically studying one or more reference repositories to extract design philosophy, core abstractions, main flows, design tradeoffs, and borrowable patterns."
 ---
 
 # arch-insight
 
-面向“源码思想解读与设计参考判断”的分析 skill。它把 `repomix` 上下文准备、分阶段脑图探索、生态级扩展视角与叙事化架构报告风格收束成一条更适合团队工程师复用的研究路径。默认中文输出，除非用户明确要求其他语言。
+An analysis skill for "source code philosophy interpretation & design reference assessment." It combines `repomix` context preparation, phased mental-model exploration, ecosystem-level expansion perspectives, and narrative architecture report styling into a research path suitable for team engineers to reuse.
 
-## 先做交付形态判定（强制）
+## Output Language Detection (Mandatory)
 
-在任何分析开始前，先判定用户要的是哪种交付，不得跳过：
+Before any analysis begins, determine the output language based on the user's input language:
 
-1. `分析包模式`（主报告 + 5 附件）
-2. `文章模式 - 深度解读`（单篇叙事长文、有观点、强调设计借鉴与迁移判断）
-3. `文章模式 - 源码导览`（中文仓库百科、事实密集、结构可扫描）
+1. **User writes in Chinese** → Output all documents in Simplified Chinese (zh-CN)
+2. **User writes in English** → Output all documents in English
+3. **User writes in Japanese** → Output all documents in Japanese
+4. **Unclear / mixed / ambiguous** → Ask the user: "Which language would you like the output in? (English / 中文 / 日本語)"
 
-判定规则：
+This applies to ALL output: reports, articles, templates, drafts, and inline responses. Do NOT default to any language — always detect from user input or ask explicitly.
 
-- 用户提到”像某篇文章那样””博客风格””可发布长文””观点文章””不要模板包”，默认走 `文章模式 - 深度解读`。
-- 用户提到“我想参考这个项目做自己的架构设计”“这套设计哪里能借、哪里不能照搬”“帮我做迁移判断”，默认走 `文章模式 - 深度解读`。
-- 用户提到”overview””仓库导览””源码地图””仓库百科”，或提供了源码导览风格样例链接，走 `文章模式 - 源码导览`。
-- 用户明确提到”主报告 + 附件””模板产物””拆分文档”，走 `分析包模式`。
-- 未明确时，先按用户话术做最小推断，不要默认回落到分析包。
+Supported output languages: English, Simplified Chinese (zh-CN), Japanese.
 
-## 风格对齐闸门（强制）
+## Delivery Mode Determination (Mandatory)
 
-若用户提供风格样例（链接、标题、截图、段落），在写正文前先形成 `风格契约`：
+Before any analysis begins, determine which delivery mode the user wants. Do not skip:
 
-- 文章受众是谁（工程师/架构师/团队）
-- 语气（克制、批判、教学、故事化 / 导览式、事实优先）
-- 结构密度（章节粒度、图文比例、是否保留表格）
-- 证据呈现方式（文内路径引用、脚注、附录 / 源码路径标注、Sources 小节）
-- 禁止项（模板腔、流水账、目录复述 / 长评论弧线、无证据判断、英文输出）
+1. `Analysis Package` (main report + 5 appendices)
+2. `Article - Deep Dive` (single narrative long-form article, opinionated, emphasizes design lessons & migration assessment)
+3. `Article - Repo Overview` (repository guide, fact-dense, scannable structure)
 
-如果风格契约与默认模板冲突，以风格契约优先。
+Decision rules:
 
-针对源码导览模式，默认风格契约方向应偏向：事实密集、结构可扫描（表格/分层树）、源码路径证据、下一步阅读导航，而不是故事化长评论。
+- User mentions "like that article", "blog style", "publishable long-form", "opinion piece", "no template pack" → default to `Article - Deep Dive`.
+- User mentions "I want to reference this project for my own architecture design", "where can this design be borrowed, where can't it", "help me assess migration" → default to `Article - Deep Dive`.
+- User mentions "overview", "repo tour", "source map", "repository guide", or provides an overview-style sample link → default to `Article - Repo Overview`.
+- User explicitly mentions "main report + appendices", "template output", "split documents" → default to `Analysis Package`.
+- When unclear, make a minimal inference from the user's wording. Do not default to Analysis Package.
 
-## 什么时候使用
+## Style Alignment Gate (Mandatory)
 
-- 用户要研究一个仓库为什么这样设计，而不只是看代码怎么写。
-- 用户要把一个或多个参考仓库当作“自己项目设计参考”，判断哪些模式可借鉴、适用条件和迁移风险。
-- 用户要从开源项目或内部项目里提炼可借鉴的抽象、模式、主流程和取舍。
-- 用户要做源码 onboarding、设计复盘、学习型架构解读或正式分析报告。
-- 用户要一份中文源码导览/仓库百科，快速建立仓库地图和阅读路径。
+If the user provides a style sample (link, title, screenshot, paragraph), form a `Style Contract` before writing:
 
-不适合：
+- Who is the audience (engineers/architects/team)
+- Tone (restrained, critical, pedagogical, narrative-driven / overview-style, fact-first)
+- Structural density (section granularity, diagram-to-text ratio, whether tables are kept)
+- Evidence presentation (in-text path references, footnotes, appendix / source path annotations, Sources section)
+- Prohibitions (template-speak, stream-of-consciousness, table-of-contents rehashing / long commentary arcs, evidence-free judgments, wrong-language output)
 
-- 单文件解释、普通报错排查、代码 review、简单函数讲解。
-- 默认就做生态级尽调；多仓输入在本 skill 中默认用于“对照式设计参考”，不是自动升级为生态咨询。
+If the Style Contract conflicts with default templates, the Style Contract takes priority.
 
-## 最短路径
+For Repo Overview mode, the default Style Contract direction should lean toward: fact-dense, scannable structure (tables/layered trees), source path evidence, next-step reading navigation — not narrative long commentary.
 
-先读 `references/RUNNER.md`，再按交付模式选择路径：
+## When to Use
 
-### A. 分析包模式（默认技术研究路径）
+- User wants to study why a repository was designed a certain way, not just how the code is written.
+- User wants to treat one or more reference repos as "design reference for my own project", assessing which patterns are borrowable, under what conditions, and with what migration risks.
+- User wants to extract borrowable abstractions, patterns, main flows, and tradeoffs from open-source or internal projects.
+- User wants source code onboarding, design review, learning-oriented architecture interpretation, or formal analysis reports.
+- User wants a repository overview / source guide to quickly build a mental map and reading path.
+
+Not suitable for:
+
+- Single file explanation, general error diagnosis, code review, simple function walkthrough.
+- Do NOT default to ecosystem-level deep investigation; multi-repo input in this skill defaults to "comparative design reference", not automatic upgrade to ecosystem consulting.
+
+## Shortest Path
+
+Read `references/RUNNER.md` first, then choose the path based on delivery mode:
+
+### A. Analysis Package (default technical research path)
 
 1. `references/prompts/01_repo_intake.md`
 2. `references/prompts/02_design_philosophy_brain_dump.md`
 3. `references/prompts/04_architecture_report.md`
 
-如果 intake 判断这是 monorepo、多服务或平台生态，再补：
+If intake determines this is a monorepo, multi-service, or platform ecosystem, add:
 
 4. `references/prompts/03_ecosystem_atlas.md`
 
-### B. 文章模式 - 深度解读（叙事长文路径）
+### B. Article - Deep Dive (narrative long-form path)
 
 1. `references/prompts/01_repo_intake.md`
 2. `references/prompts/02_design_philosophy_brain_dump.md`
 3. `references/prompts/05_narrative_article.md`
 
-若是复杂生态，再在 2 和 3 之间补：
+For complex ecosystems, insert between 2 and 3:
 
 4. `references/prompts/03_ecosystem_atlas.md`
 
-### C. 文章模式 - 源码导览（中文仓库百科路径）
+### C. Article - Repo Overview (repository guide path)
 
 1. `references/prompts/01_repo_intake.md`
 2. `references/prompts/02_design_philosophy_brain_dump.md`
 3. `references/prompts/06_repo_overview_article.md`
 
-若是复杂生态，再在 2 和 3 之间补：
+For complex ecosystems, insert between 2 and 3:
 
 4. `references/prompts/03_ecosystem_atlas.md`
 
-## 你最终要交付什么
+## What You Will Deliver
 
-`分析包模式` 的默认产物是：
+`Analysis Package` default outputs:
 
-- 一份主报告：`references/templates/ARCHITECTURE_REPORT.md`
-- 一组学习附件：
+- One main report: `references/templates/ARCHITECTURE_REPORT.md`
+- A set of learning appendices:
   - `references/templates/DESIGN_PHILOSOPHY.md`
   - `references/templates/CORE_ABSTRACTIONS.md`
   - `references/templates/MAIN_FLOW.md`
   - `references/templates/TRADEOFFS.md`
   - `references/templates/BORROWABLE_PATTERNS.md`
 
-`文章模式 - 深度解读` 的默认产物是：
+`Article - Deep Dive` default outputs:
 
-- 一篇单文：`references/templates/NARRATIVE_ARTICLE.md`
-- 可选附录：证据路径清单（非必拆分）
+- One standalone article: `references/templates/NARRATIVE_ARTICLE.md`
+- Optional appendix: evidence path index (not required to be split out)
 
-`文章模式 - 源码导览` 的默认产物是：
+`Article - Repo Overview` default outputs:
 
-- 一篇单文：`references/templates/REPO_OVERVIEW_ARTICLE.md`
-- 可选附录：Sources 与证据路径索引（非必拆分）
+- One standalone article: `references/templates/REPO_OVERVIEW_ARTICLE.md`
+- Optional appendix: Sources & evidence path index (not required to be split out)
 
-## 核心原则
+## Core Principles
 
-1. 先理解作者在解决什么问题，再解释代码怎么组织。
-2. 先找最能体现系统哲学的主流程，再看目录树。
-3. 先识别核心抽象和边界，再讨论实现细节。
-4. 每个重要判断尽量给代码路径依据。
-5. 每个设计结论都尽量回答收益、代价、替代方案和边界。
-6. 把上下文打包工具当成上下文准备手段，不是分析替代品。
-7. 报告要教会读者一些东西，而不是把 README 改写得更长。
+1. Understand what problem the author was solving before explaining how the code is organized.
+2. Find the main flow that best reveals the system's philosophy before looking at the directory tree.
+3. Identify core abstractions and boundaries before discussing implementation details.
+4. Provide code path evidence for every important judgment.
+5. For every design conclusion, address benefit, cost, alternatives, and boundaries.
+6. Treat context packing tools as context preparation means, not analysis substitutes.
+7. Reports should teach the reader something, not just rewrite the README at greater length.
 
-## Codex 使用建议
+## Codex Usage Recommendations
 
-- 优先用 `rg`、`ls`、`sed`、精读关键文件来建立事实。
-- 先判定交付形态，再开始组织材料；不要先产模板包再“二次改写”成长文。
-- 仓库很大时，先做 intake 和文件筛选，再决定是否需要上下文打包。
-- 使用 `repomix` 时优先走“小步筛选”：
-  1. 先查看 token 分布树：`npx repomix@latest --token-count-tree ...`
-  2. 用 include / ignore 或 stdin 精选文件：`--include` / `--ignore` / `--stdin`
-  3. 再决定是否压缩或拆分输出：`--compress` / `--split-output`
-- GitHub URL / `owner/repo` 输入默认走 `Remote First`，并在 intake 记录状态：`remote attempted` / `remote succeeded` / `fallback triggered` / `blocked`。
-- 远端失败或证据不足时，按最小化浅克隆回退（`--depth=1` + 关键路径优先）；仓库读权限不可用时标记 `blocked`，不承诺 clone 可恢复。
-- 不要默认使用 subagent；只有用户明确要求时才委派。
-- 输出时使用真实路径、真实抽象名、真实调用关系，避免空泛判断。
-- 参考来源支持本地路径、GitHub URL、`owner/repo` shorthand、branch、tag、commit；intake 里必须记录来源与版本锚点。
+- Prefer `rg`, `ls`, `sed`, and close reading of key files to establish facts.
+- Determine delivery mode first, then organize materials; do not produce a template pack and then "rewrite" it into a long-form article.
+- For large repositories, do intake and file filtering first, then decide if context packing is needed.
+- When using `repomix`, prefer "small-step filtering":
+  1. First check token distribution tree: `npx repomix@latest --token-count-tree ...`
+  2. Use include / ignore or stdin to select files: `--include` / `--ignore` / `--stdin`
+  3. Then decide whether to compress or split output: `--compress` / `--split-output`
+- GitHub URL / `owner/repo` input defaults to `Remote First`, and record status in intake: `remote attempted` / `remote succeeded` / `fallback triggered` / `blocked`.
+- When remote fails or evidence is insufficient, fallback to minimal shallow clone (`--depth=1` + key paths first); mark `blocked` when repo read access is unavailable.
+- Do not default to using subagents; only delegate when the user explicitly requests it.
+- Use real paths, real abstraction names, and real call relationships in output. Avoid vague judgments.
+- Reference sources support local paths, GitHub URLs, `owner/repo` shorthand, branch, tag, commit; intake must record source and version anchor.

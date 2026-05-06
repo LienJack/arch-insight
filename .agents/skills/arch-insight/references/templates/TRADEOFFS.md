@@ -1,18 +1,18 @@
-# 设计取舍
+# Design Tradeoffs
 
-| 设计点 | 当前方案 | 好处 | 代价 | 替代方案 | 判断 |
+| Design Point | Current Approach | Benefit | Cost | Alternative | Judgment |
 | --- | --- | --- | --- | --- | --- |
 |  |  |  |  |  |  |
 
-## 补充字段（每个取舍尽量回答）
+## Supplementary Fields (Address for Each Tradeoff Where Possible)
 
-- 这个复杂度为什么会被放在这里
-- 关键证据路径是什么
-- 这项判断属于 `事实 / 推断 / 待验证` 哪一类
-- 什么前提不成立时，这个方案可能开始失效
+- Why this complexity was placed here
+- What the key evidence path is
+- Whether this judgment belongs to `Fact / Inference / Pending Verification`
+- Under what premises failing, this approach might start to break down
 
-## 写作提醒
+## Writing Reminders
 
-- 不要只写“优点”和“缺点”，要写为什么会有这些代价。
-- 替代方案要现实可行，不要写理论最优。
-- 每个取舍最后要给出判断：当前方案是否合理，在哪些场景下可能失效。
+- Don't just write "pros" and "cons" — write why these costs exist.
+- Alternatives should be realistically viable, not theoretically optimal.
+- Each tradeoff should close with a judgment: is the current approach reasonable, and under what scenarios might it fail.

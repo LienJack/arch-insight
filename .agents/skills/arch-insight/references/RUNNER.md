@@ -1,55 +1,55 @@
 # arch-insight Runner
 
-这份文档是 `arch-insight` 的执行手册。它把仓库统一收束成一个清晰产品契约：默认服务“单仓源码思想解读 + 多仓对照式设计参考”，重点帮助工程师从源码里学设计理念、核心抽象、主流程、设计取舍和可迁移模式。
+This document is the execution manual for `arch-insight`. It distills the repository into a clear product contract: default service is "single-repo source code philosophy interpretation + multi-repo comparative design reference", focused on helping engineers learn design philosophy, core abstractions, main flows, design tradeoffs, and transferable patterns from source code.
 
-## 一句话用法
+## One-Line Usage
 
-先做“交付形态判定”（分析包 / 深度解读文章 / 源码导览），再用 `01_repo_intake.md` 定边界并记录参考来源锚点、`02_design_philosophy_brain_dump.md` 建脑图；复杂生态补 `03_ecosystem_atlas.md`；最后根据模式走 `04_architecture_report.md`（分析包）、`05_narrative_article.md`（深度解读）或 `06_repo_overview_article.md`（源码导览）。
+First perform "delivery mode determination" (Analysis Package / Deep Dive Article / Repo Overview), then use `01_repo_intake.md` to set boundaries and record reference source anchors, `02_design_philosophy_brain_dump.md` to build the mental model; for complex ecosystems add `03_ecosystem_atlas.md`; finally follow the mode to use `04_architecture_report.md` (Analysis Package), `05_narrative_article.md` (Deep Dive), or `06_repo_overview_article.md` (Repo Overview).
 
-需要上下文材料时，默认直接使用官方 `repomix`：
+When context material is needed, default to the official `repomix`:
 
 ```bash
 npx repomix@latest --help
 ```
 
-如果本机已经安装了 `repomix`，下文示例里的 `npx repomix@latest` 可以直接替换成 `repomix`。
+If `repomix` is already installed locally, the `npx repomix@latest` examples below can be replaced with `repomix`.
 
-## 能力来源映射
+## Capability Source Mapping
 
-这个 skill 显式保留四类外部来源的职责映射。维护时不要把它们混成模糊“灵感来源”，而要把每个阶段为什么存在说清楚：
+This skill explicitly preserves the responsibility mapping of four external sources. When maintaining, do not blur them into vague "inspiration sources" — instead clarify why each stage exists:
 
-| 来源能力 | 原始价值 | 在本 skill 中的位置 | 使用边界 |
+| Source Capability | Original Value | Position in This Skill | Usage Boundary |
 | --- | --- | --- | --- |
-| `repomix` 上下文打包能力 | 打包仓库、统计 token、生成 AI-friendly 上下文 | `01_repo_intake.md` 的上下文策略，必要时服务于 `02` | 只做上下文准备，不替代设计判断 |
-| 分阶段脑图分析提示策略 | 分阶段浏览代码库，先整体再局部，形成系统脑图 | `02_design_philosophy_brain_dump.md` | 用来找主流程、核心抽象、设计原则和下一步深挖点 |
-| 生态级扩展分析方法 | 多仓、多服务、企业级依赖流、数据流、安全和 CI/CD 视角 | `03_ecosystem_atlas.md` | 只在复杂生态里启用，不设为默认路径 |
-| 叙事化架构报告方法 | `Why > What`、架构叙事、Mermaid 图、设计取舍和正式报告 | `04_architecture_report.md` 与模板体系 | 负责最终报告质量，不复制它更重的整套流程 |
+| `repomix` context packing | Pack repos, count tokens, generate AI-friendly context | Context strategy in `01_repo_intake.md`, serving `02` when needed | Context prep only, not a substitute for design judgment |
+| Phased mental-model analysis strategy | Browse codebase in phases, first holistic then local, forming a system mental model | `02_design_philosophy_brain_dump.md` | Used to find main flows, core abstractions, design principles, and next deep-dive targets |
+| Ecosystem-level expansion analysis | Multi-repo, multi-service, enterprise dependency flows, data flows, security and CI/CD perspectives | `03_ecosystem_atlas.md` | Only enabled for complex ecosystems, not set as default path |
+| Narrative architecture report method | `Why > What`, architecture narrative, Mermaid diagrams, design tradeoffs and formal reports | `04_architecture_report.md` and template system | Responsible for final report quality, does not copy its heavier full workflow |
 
-拼装原则：
+Assembly principles:
 
-1. 上下文打包能力解决“怎么准备上下文”。
-2. Design philosophy brain dump 解决“系统真正靠什么站起来，以及作者反复坚持什么设计原则”。
-3. Ecosystem atlas 解决“什么时候需要从单仓视角升级到生态视角”。
-4. Architecture report 与模板体系解决“怎么把事实写成能教会读者的正式解读”。
+1. Context packing capability handles "how to prepare context".
+2. Design philosophy brain dump handles "what the system really stands on, and what design principles the author repeatedly insists on".
+3. Ecosystem atlas handles "when to upgrade from single-repo perspective to ecosystem perspective".
+4. Architecture report and template system handle "how to turn facts into a formal interpretation that teaches the reader".
 
-## 默认路径与扩展路径
+## Default Paths and Extension Paths
 
-### 路径 A：分析包（主报告 + 学习附件）
+### Path A: Analysis Package (Main Report + Learning Appendices)
 
-适用于需要结构化沉淀、后续检索复用、团队知识库归档的场景。
+Suitable for scenarios requiring structured retention, subsequent retrieval and reuse, and team knowledge base archiving.
 
-执行顺序：
+Execution order:
 
 1. `references/prompts/01_repo_intake.md`
 2. `references/prompts/02_design_philosophy_brain_dump.md`
 3. `references/prompts/04_architecture_report.md`
 
-建议中间产物：
+Recommended intermediate outputs:
 
 - `drafts/01-intake.md`
 - `drafts/02-design-philosophy-brain-dump.md`
 
-建议最终产物：
+Recommended final outputs:
 
 - `outputs/ARCHITECTURE_REPORT.md`
 - `outputs/DESIGN_PHILOSOPHY.md`
@@ -58,97 +58,97 @@ npx repomix@latest --help
 - `outputs/TRADEOFFS.md`
 - `outputs/BORROWABLE_PATTERNS.md`
 
-### 路径 B：文章模式 - 深度解读（叙事长文）
+### Path B: Article - Deep Dive (Narrative Long-Form)
 
-适用于用户明确要“像技术博客/专栏那样”的成文交付，或明确要“参考别人项目做自己设计判断”，而不是模板包。
+Suitable when the user explicitly wants a finished article "like a tech blog / column", or explicitly wants to "reference someone else's project for their own design decisions", rather than a template pack.
 
-执行顺序：
+Execution order:
 
 1. `references/prompts/01_repo_intake.md`
 2. `references/prompts/02_design_philosophy_brain_dump.md`
-3. （复杂生态可选）`references/prompts/03_ecosystem_atlas.md`
+3. (complex ecosystem, optional) `references/prompts/03_ecosystem_atlas.md`
 4. `references/prompts/05_narrative_article.md`
 
-建议产物：
+Recommended outputs:
 
 - `outputs/NARRATIVE_ARTICLE.md`
-- 可选：文末附”证据路径索引”
+- Optional: "Evidence Path Index" appended at the end
 
-质量闸门（写作前必须通过）：
+Quality gates (must pass before writing):
 
-1. 是否已给出风格契约（受众、语气、密度、证据方式、禁止项）？
-2. 是否先有明确论点，再组织材料（而不是从目录讲起）？
-3. 是否把”设计意图 -> 机制实现 -> 代价风险”串成主线？
-4. 是否显式产出可借鉴设计点，并写明适用条件、不适用场景和迁移注意事项？
-5. 多仓输入时，是否形成共同模式、差异选择、适用背景和局部启发范围？
-6. 是否避免模板腔与流水账？
+1. Has a style contract been established (audience, tone, density, evidence format, prohibitions)?
+2. Is there a clear thesis first, then materials organized around it (rather than starting from the directory)?
+3. Is "design intent → mechanism implementation → cost risk" woven into the main thread?
+4. Are borrowable design points explicitly produced, with applicable conditions, inapplicable scenarios, and migration notes?
+5. For multi-repo input: are common patterns, divergent choices, applicable contexts, and local inspiration scope formed?
+6. Is template-speak and stream-of-consciousness avoided?
 
-说明：深度解读可吸收 `references/templates/BORROWABLE_PATTERNS.md` 的问题意识，但不得退化成“主报告 + 五附件”或 checklist 填空。
+Note: Deep Dive may absorb the question awareness from `references/templates/BORROWABLE_PATTERNS.md`, but must not degrade into "main report + 5 appendices" or checklist filling.
 
-### 路径 C：文章模式 - 源码导览（仓库百科）
+### Path C: Article - Repo Overview (Repository Guide)
 
-适用于用户要一份中文源码仓库导览，快速建立仓库地图和阅读路径。
+Suitable when the user wants a source code repository tour to quickly build a repo map and reading path.
 
-执行顺序：
+Execution order:
 
 1. `references/prompts/01_repo_intake.md`
 2. `references/prompts/02_design_philosophy_brain_dump.md`
-3. （复杂生态可选）`references/prompts/03_ecosystem_atlas.md`
+3. (complex ecosystem, optional) `references/prompts/03_ecosystem_atlas.md`
 4. `references/prompts/06_repo_overview_article.md`
 
-建议产物：
+Recommended outputs:
 
 - `outputs/REPO_OVERVIEW_ARTICLE.md`
-- 可选：`outputs/REPO_OVERVIEW_SOURCES.md`
+- Optional: `outputs/REPO_OVERVIEW_SOURCES.md`
 
-质量闸门（写作前必须通过）：
+Quality gates (must pass before writing):
 
-1. 开篇是否让读者快速知道”这个仓库是什么、值不值得看”？
-2. 是否能用结构导航和模块表 30 秒定位到目标信息？
-3. 主流程是否带关键文件路径，而不是纯文字描述？
-4. 关键判断是否有 Sources 索引可追溯？
-5. 是否避免了长篇评论和故事化推进？
-6. 结尾是否给出了明确的下一步阅读路径？
+1. Does the opening quickly tell the reader "what this repo is and whether it's worth reading"?
+2. Can the reader locate target information within 30 seconds using the structure navigation and module table?
+3. Does the main flow carry key file paths, not just textual description?
+4. Are key judgments traceable via a Sources index?
+5. Are long commentary and narrative-driven progression avoided?
+6. Does the ending provide clear next-step reading paths?
 
-### 路径 D：大仓库 / 上下文受限
+### Path D: Large Repository / Context-Constrained
 
-适用于仓库很大、上下文窗口有限、需要先做文件筛选或打包。
+Suitable when the repository is large, the context window is limited, and file filtering or packing is needed first.
 
-执行顺序：
+Execution order:
 
 1. `references/prompts/01_repo_intake.md`
-2. 根据 intake 结论决定是否做上下文打包或精选文件集
+2. Based on intake conclusions, decide whether to do context packing or select a focused file set
 3. `references/prompts/02_design_philosophy_brain_dump.md`
 4. `references/prompts/04_architecture_report.md`
 
-额外要求：
+Additional requirements:
 
-- 先识别最值得学习的主流程与抽象，再决定打包哪些文件。
-- 如果要把材料交给其他模型，优先交精选文件集，而不是整仓无差别压缩。
+- First identify the main flows and abstractions most worth learning, then decide which files to pack.
+- If handing materials to another model, prefer handing a curated file set rather than an undifferentiated full-repo compression.
 
-推荐命令顺序：
+Recommended command sequence:
 
 ```bash
-# 1) 先看 token 树，确认范围（默认 o200k_base）
+# 1) First check the token tree to confirm scope (default o200k_base)
 npx repomix@latest --token-count-tree --include "prompts/**/*,templates/**/*"
 
-# 2) 再做范围打包（支持 stdin 精选，stdin 选择优先）
+# 2) Then pack the scoped content (stdin selection supported, stdin takes priority)
 printf "README.md\nRUNNER.md\nprompts/01_repo_intake.md\n" | npx repomix@latest --stdin -o outputs/repo-context.xml
 
-# 3) 体量大时做分片/压缩
+# 3) For large volumes, split/compress
 npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --compress -o outputs/repo-context.xml
 ```
 
-### 路径 E：Monorepo / 多服务 / 平台生态
+### Path E: Monorepo / Multi-Service / Platform Ecosystem
 
-执行顺序：
+Execution order:
 
 1. `references/prompts/01_repo_intake.md`
 2. `references/prompts/02_design_philosophy_brain_dump.md`
 3. `references/prompts/03_ecosystem_atlas.md`
 4. `references/prompts/04_architecture_report.md`
 
-建议最终产物：
+Recommended final outputs:
 
 - `outputs/ARCHITECTURE_REPORT.md`
 - `outputs/DESIGN_PHILOSOPHY.md`
@@ -156,173 +156,173 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 - `outputs/MAIN_FLOW.md`
 - `outputs/TRADEOFFS.md`
 - `outputs/BORROWABLE_PATTERNS.md`
-- 可选补充生态附件，例如依赖图、跨边界主链说明、重力中心清单
+- Optional supplementary ecosystem appendices, e.g., dependency graph, cross-boundary main chain description, gravity center inventory
 
-### 路径 F：知识沉淀 / Onboarding
+### Path F: Knowledge Retention / Onboarding
 
-适用于想给新同事、后续 AI session 或长期知识库复用的分析。
+Suitable for analysis intended for new colleagues, future AI sessions, or long-term knowledge base reuse.
 
-执行顺序：
+Execution order:
 
 1. `references/prompts/01_repo_intake.md`
 2. `references/prompts/02_design_philosophy_brain_dump.md`
-3. 按复杂度决定是否补 `references/prompts/03_ecosystem_atlas.md`
+3. Based on complexity, decide whether to add `references/prompts/03_ecosystem_atlas.md`
 4. `references/prompts/04_architecture_report.md`
-5. 用模板把稳定结论拆成主报告和学习附件
+5. Use templates to split stable conclusions into main report and learning appendices
 
-关键要求：
+Key requirements:
 
-- 后续读者不需要重看聊天记录也能接着研究。
-- 每个重要结论尽量带路径依据。
-- 把“仍需验证”的判断留在 `drafts/`，不要混进正式产物。
+- Future readers should be able to continue researching without replaying the chat history.
+- Every important conclusion should carry path evidence where possible.
+- Keep "still-needs-verification" judgments in `drafts/`, not mixed into formal outputs.
 
-## 分阶段执行
+## Phased Execution
 
-### Stage 0：交付形态判定（新增强制阶段）
+### Stage 0: Delivery Mode Determination (new mandatory stage)
 
-目标：
+Goal:
 
-- 判定本轮产物是 `分析包`、`文章模式 - 深度解读` 还是 `文章模式 - 源码导览`。
-- 若有样例，提炼风格契约（受众、语气、密度、证据呈现、禁止项）；overview/仓库导览风格样例默认导向源码导览模式。
-- 源码导览模式关注事实密度、结构可扫描性、源码证据和阅读导航；深度解读模式关注观点推进、设计取舍和批判性判断。
+- Determine whether this round's output is `Analysis Package`, `Article - Deep Dive`, or `Article - Repo Overview`.
+- If samples are available, extract a style contract (audience, tone, density, evidence presentation, prohibitions); overview/repo tour style samples default toward Repo Overview mode.
+- Repo Overview mode focuses on fact density, structural scannability, source evidence, and reading navigation; Deep Dive mode focuses on thesis progression, design tradeoffs, and critical judgment.
 
-停止条件：
+Stop conditions:
 
-- 已确定模式并写明理由。
-- 已明确“本轮不做的交付形态”（例如：本轮不拆 6 份模板附件）。
+- Mode is determined and reasons are stated.
+- "Delivery modes NOT for this round" are explicitly stated (e.g., this round does not split into 6 template appendices).
 
-### Step 1：Intake
+### Step 1: Intake
 
-使用 `references/prompts/01_repo_intake.md`。
+Use `references/prompts/01_repo_intake.md`.
 
-目标：
+Goal:
 
-- 判定研究对象、项目类型和分析边界。
-- 记录每个参考来源（本地路径 / GitHub URL / `owner/repo`）及版本锚点（branch/tag/commit）。
-- 远程来源默认按 `Remote First -> Auto Fallback -> Minimal Clone Fallback` 执行，并在 intake 记录远端采集状态：`remote attempted` / `remote succeeded` / `fallback triggered` / `blocked`。
-- 版本锚点要写清来源：用户指定、仓库默认主分支、tag、commit 或未能确认。
-- 找到最值得先读的 3 到 5 个入口。
-- 判断默认走 `01 -> 02 -> 04` 还是升级到 `01 -> 02 -> 03 -> 04`。
-- 判断是否需要上下文打包、文件筛选、子系统切片。
-- 对大型远程仓库先产出范围策略，再决定 include / ignore / `--compress` / `--split-output`。
+- Determine the research subject, project type, and analysis boundaries.
+- Record each reference source (local path / GitHub URL / `owner/repo`) and version anchor (branch/tag/commit).
+- Remote sources default to `Remote First -> Auto Fallback -> Minimal Clone Fallback` execution, and record remote collection status in intake: `remote attempted` / `remote succeeded` / `fallback triggered` / `blocked`.
+- Version anchor must clearly state the source: user-specified, repo default main branch, tag, commit, or unconfirmed.
+- Find the 3 to 5 most worthwhile entry points to read first.
+- Determine whether to default to `01 -> 02 -> 04` or upgrade to `01 -> 02 -> 03 -> 04`.
+- Determine whether context packing, file filtering, or subsystem slicing is needed.
+- For large remote repos, first produce a scope strategy, then decide include / ignore / `--compress` / `--split-output`.
 
-停止条件：
+Stop conditions:
 
-- 能说清本轮范围和暂缓范围。
-- 能说清项目类型及判断依据。
-- 能说清每个来源的版本锚点与访问限制（若缺失需显式写明）。
-- 能说清远端链路是否成功、是否触发 fallback、触发原因、回退后范围与剩余边界。
-- 已知道后续分析路径。
+- Can clearly state this round's scope and deferred scope.
+- Can clearly state the project type and basis for judgment.
+- Can clearly state each source's version anchor and access constraints (if missing, explicitly note).
+- Can clearly state whether the remote link succeeded, whether fallback was triggered, the trigger reason, post-fallback scope, and remaining boundaries.
+- The subsequent analysis path is known.
 
-### Step 2：Design Philosophy Brain Dump
+### Step 2: Design Philosophy Brain Dump
 
-使用 `references/prompts/02_design_philosophy_brain_dump.md`。
+Use `references/prompts/02_design_philosophy_brain_dump.md`.
 
-目标：
+Goal:
 
-- 找到最能体现系统哲学的主流程。
-- 找到真正决定系统形状的核心抽象和骨架模块。
-- 区分核心骨架、适配层、工具层和噪音层。
-- 形成 2 到 5 条可验证的设计取舍或设计原则假设。
+- Find the main flow that best reveals the system's philosophy.
+- Find the core abstractions and skeleton modules that truly determine the system's shape.
+- Distinguish core skeleton, adaptation layer, utility layer, and noise layer.
+- Form 2 to 5 verifiable design tradeoff or design principle hypotheses.
 
-停止条件：
+Stop conditions:
 
-- 已形成可靠的系统脑图。
-- 能分清系统主线和局部复杂度。
-- 能解释“作者为什么要这样设计”，而不只是“代码怎么组织”。
+- A reliable system mental model has been formed.
+- Can distinguish system mainline from local complexity.
+- Can explain "why the author designed it this way", not just "how the code is organized".
 
-### Step 3：Ecosystem Atlas
+### Step 3: Ecosystem Atlas
 
-只有复杂生态才使用 `references/prompts/03_ecosystem_atlas.md`。
+Only use `references/prompts/03_ecosystem_atlas.md` for complex ecosystems.
 
-目标：
+Goal:
 
-- 找关键实体、依赖关系、数据流、调用流和部署边界。
-- 识别权限边界、安全边界、数据所有权和团队边界。
-- 找生态重力中心、系统级耦合点和演进风险。
+- Find key entities, dependencies, data flows, call flows, and deployment boundaries.
+- Identify permission boundaries, security boundaries, data ownership, and team boundaries.
+- Find ecosystem gravity centers, system-level coupling points, and evolution risks.
 
-停止条件：
+Stop conditions:
 
-- 知道生态真正的关键单元是什么。
-- 知道复杂度集中在哪里。
-- 知道未来最可能先从哪里出问题。
+- Know what the truly critical units of the ecosystem are.
+- Know where the complexity is concentrated.
+- Know where problems are most likely to emerge first in the future.
 
-### Step 4：Architecture Report
+### Step 4: Architecture Report
 
-仅 `分析包模式` 使用 `references/prompts/04_architecture_report.md`。
+Only `Analysis Package` mode uses `references/prompts/04_architecture_report.md`.
 
-目标：
+Goal:
 
-- 把前面阶段的事实和判断收束成正式源码解读报告。
-- 写清项目定位、整体架构、核心模块、关键流程、设计取舍、风险与总体评价。
-- 让读者看完后能带走可复用的学习资产，而不是只带走一份总结。
+- Converge the facts and judgments from prior stages into a formal source code interpretation report.
+- Write clearly about project positioning, overall architecture, core modules, key flows, design tradeoffs, risks, and overall assessment.
+- Let readers walk away with reusable learning assets, not just a summary.
 
-停止条件：
+Stop conditions:
 
-- 讲清系统解决的问题。
-- 讲清至少一条主流程。
-- 识别真正的核心抽象与核心模块。
-- 展开至少 2 个具体设计取舍。
-- 给出至少 1 组诚实风险判断。
+- Clearly explain the problem the system solves.
+- Clearly explain at least one main flow.
+- Identify true core abstractions and core modules.
+- Unpack at least 2 specific design tradeoffs.
+- Provide at least 1 honest risk assessment.
 
-### Step 5：Narrative Article（深度解读）
+### Step 5: Narrative Article (Deep Dive)
 
-仅 `文章模式 - 深度解读` 使用 `references/prompts/05_narrative_article.md`。
+Only `Article - Deep Dive` mode uses `references/prompts/05_narrative_article.md`.
 
-目标：
+Goal:
 
-- 交付一篇可直接阅读/发布的叙事化技术长文。
-- 保留代码证据与路径依据，但不采用模板拆分文档形态。
-- 主线必须是：问题定义 -> 架构意图 -> 关键机制 -> 设计取舍 -> 风险判断 -> 总体评价。
+- Deliver a narrative technical long-form article that can be read/published directly.
+- Retain code evidence and path citations, but do not use the template-split document format.
+- The main thread must be: problem definition → architecture intent → key mechanisms → design tradeoffs → risk assessment → overall evaluation.
 
-停止条件：
+Stop conditions:
 
-- 开头 3 段内讲清“为什么值得读”。
-- 至少 1 条主流程被讲透，且有证据路径支撑。
-- 至少 2 处取舍有“收益 + 代价 + 边界”。
-- 明确 1 条批判性判断，不只赞美。
+- Within the first 3 paragraphs, clearly convey "why this is worth reading".
+- At least 1 main flow is thoroughly explained with evidence path support.
+- At least 2 tradeoffs have "benefit + cost + boundary".
+- At least 1 critical judgment is explicit, not just praise.
 
-### Step 6：Repo Overview Article（源码导览）
+### Step 6: Repo Overview Article
 
-仅 `文章模式 - 源码导览` 使用 `references/prompts/06_repo_overview_article.md`。
+Only `Article - Repo Overview` mode uses `references/prompts/06_repo_overview_article.md`.
 
-目标：
+Goal:
 
-- 交付一篇中文源码仓库导览，帮助读者快速建立仓库地图。
-- 优先服务可扫描性：项目定位、结构导航、关键模块表、主流程、Sources 索引和下一步阅读路径。
-- 降低主观评论密度，判断服务导览而非成为文章主线。
+- Deliver a source code repository overview that helps readers quickly build a repo map.
+- Prioritize scannability: project positioning, structural navigation, key module table, main flow, Sources index, and next-step reading paths.
+- Reduce subjective commentary density; judgment serves navigation, not the article's main thread.
 
-停止条件：
+Stop conditions:
 
-- 开篇讲清项目定位与核心价值。
-- 能用结构导航和模块表快速定位关键信息。
-- 主流程带关键文件路径，不只是文字描述。
-- 关键判断有 Sources 索引可追溯。
-- 结尾给出明确的下一步阅读路径。
+- Opening clearly states project positioning and core value.
+- Reader can quickly locate key information using structure navigation and module table.
+- Main flow carries key file paths, not just textual description.
+- Key judgments are traceable via a Sources index.
+- Ending provides clear next-step reading paths.
 
-## 输出契约
+## Output Contract
 
-目标不是把分析越写越多，而是按所选模式输出正确形态。
+The goal is not to write more and more analysis, but to output the correct form according to the chosen mode.
 
 ### drafts/
 
-适合放：
+Suitable for:
 
-- 范围界定
-- 系统脑图
-- 模块候选
-- 设计原则假设
-- 疑点和待验证判断
+- Scope definition
+- System mental model
+- Module candidates
+- Design principle hypotheses
+- Doubts and pending verification judgments
 
-推荐最小文件：
+Recommended minimum files:
 
 - `drafts/01-intake.md`
 - `drafts/02-design-philosophy-brain-dump.md`
-- 复杂生态补 `drafts/03-ecosystem-overview.md`
+- For complex ecosystems: `drafts/03-ecosystem-overview.md`
 
-### outputs/（分析包模式）
+### outputs/ (Analysis Package mode)
 
-推荐文件：
+Recommended files:
 
 - `outputs/ARCHITECTURE_REPORT.md`
 - `outputs/DESIGN_PHILOSOPHY.md`
@@ -331,21 +331,21 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 - `outputs/TRADEOFFS.md`
 - `outputs/BORROWABLE_PATTERNS.md`
 
-### outputs/（文章模式 - 深度解读）
+### outputs/ (Article - Deep Dive mode)
 
 - `outputs/NARRATIVE_ARTICLE.md`
-- 可选：`outputs/NARRATIVE_EVIDENCE_INDEX.md`
+- Optional: `outputs/NARRATIVE_EVIDENCE_INDEX.md`
 
-### outputs/（文章模式 - 源码导览）
+### outputs/ (Article - Repo Overview mode)
 
 - `outputs/REPO_OVERVIEW_ARTICLE.md`
-- 可选：`outputs/REPO_OVERVIEW_SOURCES.md`
+- Optional: `outputs/REPO_OVERVIEW_SOURCES.md`
 
-如果只是一次窄范围聊天分析，可以省略文件产物，但最终回答仍应包含范围说明、主流程摘要、核心抽象、设计取舍和风险判断。
+If the scope is just a narrow chat analysis, file outputs can be omitted, but the final answer should still include scope description, main flow summary, core abstractions, design tradeoffs, and risk assessment.
 
-## 模板速记
+## Template Quick Reference
 
-需要落文档时，优先使用 `references/templates/` 里的真实模板文件，而不是再临时发明第二套结构：
+When documents need to be produced, prefer using the real template files in `references/templates/` rather than inventing a second competing structure:
 
 - `references/templates/ARCHITECTURE_REPORT.md`
 - `references/templates/DESIGN_PHILOSOPHY.md`
@@ -354,127 +354,127 @@ npx repomix@latest --include "prompts/**/*,templates/**/*" --split-output 1mb --
 - `references/templates/TRADEOFFS.md`
 - `references/templates/BORROWABLE_PATTERNS.md`
 
-这些模板分别回答不同问题：
+These templates each answer different questions:
 
-- 主报告解释系统整体与总体判断
-- Design philosophy 解释作者反复坚持什么原则
-- Core abstractions 解释系统自己的“语言”是什么
-- Main flow 解释哪条链路最能暴露架构意图
-- Tradeoffs 解释收益、代价和替代方案
-- Borrowable patterns 解释其他团队真正能借走什么
+- Main report explains the system overall and overall judgment
+- Design philosophy explains what principles the author repeatedly insists on
+- Core abstractions explains what the system's own "language" is
+- Main flow explains which path best reveals architectural intent
+- Tradeoffs explains benefits, costs, and alternatives
+- Borrowable patterns explains what other teams can genuinely take away
 
-不要把它们写成同一份长报告的不同抄写版本。
+Do not write them as different transcription versions of the same long report.
 
-文章模式 - 深度解读 使用：
+Article - Deep Dive uses:
 
 - `references/templates/NARRATIVE_ARTICLE.md`
 
-不要把文章模式强行拆回 6 份模板附件。
+Do not forcibly split the article mode back into 6 template appendices.
 
-文章模式 - 源码导览 使用：
+Article - Repo Overview uses:
 
 - `references/templates/REPO_OVERVIEW_ARTICLE.md`
 
-不要把源码导览写成叙事化深度评论长文。
+Do not turn the repo overview into a narrative deep commentary long-form article.
 
-## 示例质量锚点
+## Sample Quality Anchor
 
-`examples/sample-analysis.md` 用一个紧凑示例展示目标语气、结构和判断力度。它不是唯一答案模板，但应帮助维护者快速判断：
+`examples/sample-analysis.md` demonstrates target tone, structure, and judgment strength in a compact example. It is not the one true answer template, but should help maintainers quickly assess:
 
-- 这份分析有没有讲清 `Why > What`
-- 主流程是否真的体现了系统哲学
-- 设计取舍有没有写出代价
-- 学习附件之间是否职责清晰
+- Whether the analysis explains `Why > What`
+- Whether the main flow genuinely reveals system philosophy
+- Whether design tradeoffs have costs written out
+- Whether learning appendices have clear distinct responsibilities
 
-## 文章模式回归检查清单
+## Article Mode Regression Checklist
 
-此清单用于手动验证两种文章模式不会互相漂移。每次修改文章相关 prompt / template / 路由规则后，对照检查：
+This checklist is for manually verifying that the two article modes do not drift into each other. After each modification to article-related prompts / templates / routing rules, check against:
 
-### 深度解读 vs 源码导览 区分检查
+### Deep Dive vs. Repo Overview Distinction Check
 
-| 维度 | 深度解读（通过条件） | 源码导览（通过条件） |
+| Dimension | Deep Dive (pass condition) | Repo Overview (pass condition) |
 | --- | --- | --- |
-| 开篇 | 3 段内讲清"为什么值得读"，给出观点 | 3 段内讲清项目定位与核心价值，不展开评论 |
-| 结构可扫描性 | 章节推进自然，允许连续段落叙事 | 有明显的信息层级（表格/分层列表/短段落），30 秒可定位到目标信息 |
-| 主观评论密度 | 高：有观点推进、设计取舍分析、批判性判断 | 低：判断仅服务导览理解，主线不走评论推进 |
-| 证据呈现 | 关键判断附代码路径，分散在文中 | 关键判断附代码路径，且有集中的 Sources 索引 |
-| 结尾 | 给出总体评价（有判断力的一句话） | 给出下一步阅读路径（具体文件/文档/测试） |
+| Opening | Within 3 paragraphs, convey "why worth reading" and state a thesis | Within 3 paragraphs, convey project positioning and core value, without extended commentary |
+| Structural scannability | Section progression is natural; continuous narrative paragraphs are acceptable | Has clear information hierarchy (tables/layered lists/short paragraphs); 30 seconds to locate target information |
+| Subjective commentary density | High: thesis progression, design tradeoff analysis, critical judgment | Low: judgment only serves navigation understanding; main thread does not run on commentary progression |
+| Evidence presentation | Key judgments carry code paths, distributed throughout the text | Key judgments carry code paths, with a centralized Sources index |
+| Ending | Provides overall assessment (a judgmental one-liner) | Provides next-step reading paths (specific files/docs/tests) |
 
-### 源码导览典型失败模式
+### Repo Overview Typical Failure Modes
 
-以下症状表示源码导览退化成了深度解读：
+The following symptoms indicate the repo overview has degraded into a deep dive:
 
-- 开篇连续 5+ 段观点推进后才出现仓库结构信息
-- 缺少模块表或分层结构导航，以连续散文段落为主
-- 大量"令人惊叹""非常巧妙""设计精良"等评价性语言
-- 没有集中的 Sources 索引或证据路径
-- 结尾是总体评价而非下一步阅读路径
+- Opening has 5+ paragraphs of thesis progression before any repo structure information appears
+- Missing module table or layered structure navigation; dominated by continuous prose paragraphs
+- Heavy use of evaluative language like "breathtaking", "incredibly clever", "beautifully designed"
+- No centralized Sources index or evidence paths
+- Ending is an overall assessment rather than next-step reading paths
 
-以下症状表示源码导览过于空洞：
+The following symptoms indicate the repo overview is too hollow:
 
-- 只有目录复述，没有关键模块的设计意图说明
-- 主流程缺少关键文件路径
-- 所有判断都标注为"推断"而没有任何源码依据
+- Only directory rehashing, without design intent explanation for key modules
+- Main flow missing key file paths
+- All judgments labeled as "inferred" without any source evidence
 
-### 对比参考
+### Comparison Reference
 
-`docs/test/compound-engineering-工作流如何提升-llm-编码质量-深度解读.md` 是当前深度解读模式的输出样例，可作为源码导览不应长成什么样的对比参照。
+`docs/test/compound-engineering-工作流如何提升-llm-编码质量-深度解读.md` is a current output sample of the Deep Dive mode, usable as a comparison reference for what the Repo Overview should NOT grow into.
 
-文章模式的示例产出（深度解读、源码导览各一）属于后续跟进工作，当前 `examples/sample-analysis.md` 仅覆盖分析包模式。
+Article mode example outputs (one each for Deep Dive and Repo Overview) are follow-up work; currently `examples/sample-analysis.md` only covers the Analysis Package mode.
 
-## 参考来源与版本锚点检查
+## Reference Source & Version Anchor Checklist
 
-每次涉及远程仓库输入时，手动确认：
+For each session involving remote repo input, manually confirm:
 
-1. Intake 是否记录来源类型（本地 / URL / `owner/repo`）与版本锚点（branch/tag/commit）。
-2. Intake 是否记录远端采集状态：`remote attempted` / `remote succeeded` / `fallback triggered` / `blocked`。
-3. 是否明确了访问限制（公开可读、权限不足、网络受限），并区分“远端链路失败可回退”与“仓库读权限不可用需阻塞”。
-4. 多仓输入是否逐仓记录启发范围（主参考 / 对照参考 / 边界案例）。
-5. 深度解读正文是否把来源与锚点纳入分析对象说明，而不是省略为“某开源仓库”。
+1. Does intake record source type (local / URL / `owner/repo`) and version anchor (branch/tag/commit).
+2. Does intake record remote collection status: `remote attempted` / `remote succeeded` / `fallback triggered` / `blocked`.
+3. Are access constraints explicitly stated (publicly readable, insufficient permissions, network restricted), with distinction between "remote link failed, can fallback" and "repo read access unavailable, must block".
+4. For multi-repo input, is the inspiration scope recorded per repo (primary reference / comparative reference / boundary case).
+5. Does the Deep Dive article body incorporate sources and anchors into the analysis subject description, rather than omitting them as "some open source repo".
 
-## 上下文打包使用原则
+## Context Packing Usage Principles
 
-上下文打包工具是上下文准备工具，不是分析工具。
+Context packing tools are context preparation tools, not analysis tools.
 
-适合使用：
+Suitable for:
 
-- 仓库很大，直接阅读成本高。
-- 需要把精选材料交给上下文较弱的模型。
-- 需要离线沉淀一份 AI-friendly 材料。
+- The repo is large and direct reading costs are high.
+- Curated materials need to be handed to a model with a weaker context window.
+- An AI-friendly material file needs to be retained offline.
 
-不建议一开始就用：
+Not recommended to start with:
 
-- 仓库不大，直接 `rg`、`ls`、`sed` 更快。
-- 还没识别核心入口和主流程。
-- 真正需要的是设计判断，而不是上下文搬运。
+- The repo is not large; direct `rg`, `ls`, `sed` is faster.
+- Core entry points and main flows have not yet been identified.
+- What's really needed is design judgment, not context transport.
 
-正确顺序：
+Correct order:
 
-1. 先 intake。
-2. 判断最值得学习的入口和主流程。
-3. 再决定是否做上下文打包、筛哪些文件、是否压缩。
+1. Intake first.
+2. Determine the most worthwhile entry points and main flows to study.
+3. Then decide whether to do context packing, which files to filter, and whether to compress.
 
-远程仓库补充：
+Remote repo supplement:
 
-- URL 或 shorthand 输入默认先走 `--remote`（Remote First），不是先 clone。
-- branch/tag/commit 默认用 `--remote-branch` 记录版本锚点；缺省时以仓库默认主分支或用户语境明确分支为锚点并注明来源。
-- 远端失败（打包失败、远端鉴权失败、归档下载失败且无法恢复）且仓库仍可读时，自动回退到最小化 clone。
-- 远端成功但证据不足（关键文件缺失、token/打包约束导致核心片段缺失、无法建立源码路径到结论证据链）时，自动回退到最小化 clone。
-- 仓库读权限本身不可用时，必须标记 `blocked`，不得承诺 clone 可恢复。
-- 回退默认采用浅克隆与关键路径优先，按证据缺口逐步扩范围，不进入完整历史审计。
+- URL or shorthand input defaults to `--remote` first (Remote First), not clone first.
+- branch/tag/commit defaults to using `--remote-branch` to record version anchor; when absent, use the repo's default main branch or the user-context explicit branch as anchor, and note the source.
+- When remote fails (packing failed, remote auth failed, archive download failed and unrecoverable) and the repo is still readable, auto-fallback to minimal clone.
+- When remote succeeds but evidence is insufficient (key files missing, token/packing constraints causing core fragment loss, unable to establish source-path-to-conclusion evidence chain), auto-fallback to minimal clone.
+- When repo read access itself is unavailable, must mark as `blocked`; do not promise clone can recover.
+- Fallback defaults to shallow clone with key paths prioritized, progressively expanding scope based on evidence gaps; do not enter full history audit.
 
-`repomix` 参数要点（当前默认路径）：
+`repomix` parameter highlights (current default path):
 
-- `--include` / `--ignore`：控制文件范围
-- `--stdin`：从标准输入读取文件列表，直接处理这些文件
-- `--token-count-tree`：仅输出 token 分布，不产出打包文件
-- `--split-output <size>`：按体量切分为多个编号输出文件
-- `--compress`：提取更适合分析的代码结构，而不是输出 gzip 文件
-- `-o` / `--output`：指定输出路径；默认文件名是 `repomix-output.xml`
-- `--token-count-encoding <encoding>`：默认是 `o200k_base`，只有需要兼容其他 tokenizer 时再显式覆盖
+- `--include` / `--ignore`: control file scope
+- `--stdin`: read file list from stdin, process these files directly
+- `--token-count-tree`: output token distribution only, no pack file produced
+- `--split-output <size>`: split into multiple numbered output files by size
+- `--compress`: extract code structure better suited for analysis, not output a gzip file
+- `-o` / `--output`: specify output path; default filename is `repomix-output.xml`
+- `--token-count-encoding <encoding>`: default is `o200k_base`; only override explicitly when compatibility with another tokenizer is needed
 
-## 维护规则
+## Maintenance Rules
 
-1. 不再新增或恢复第二套重叠的仓库研究 skill，也不要重新引入本地打包 CLI 主路径。
-2. 任何路径、模板和产物调整，统一改这里和 `references/prompts/`、`references/templates/`。
-3. 若需要兼容旧名称或旧产物名，必须显式标注为历史兼容，不要让它继续充当默认故事。
+1. Do not add or restore a second overlapping repo research skill, and do not re-introduce local packing CLI as the main path.
+2. Any path, template, and output adjustments should be uniformly made here and in `references/prompts/`, `references/templates/`.
+3. If compatibility with old names or old output names is needed, explicitly mark as historical compatibility; do not let it continue serving as the default story.
