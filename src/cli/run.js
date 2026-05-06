@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { cancel, confirm, intro, isCancel, log, multiselect, outro, spinner } from "@clack/prompts";
 
@@ -87,14 +89,17 @@ export async function runCli(argv, context) {
           throw new Error("--target-dir requires exactly one --platform.");
         }
 
-        const releaseBaseUrl = parsed.options.releaseBaseUrl ?? defaultReleaseBaseUrl(context.env);
+        const releaseSource = await resolveReleaseSource({
+          explicitReleaseBaseUrl: parsed.options.releaseBaseUrl,
+          tempDir: parsed.options.tempDir
+        });
         const results = [];
         let manifestVersion = "";
 
         for (const platform of platforms) {
           const download = await downloadReleaseBundle({
             platform,
-            releaseBaseUrl,
+            releaseBaseUrl: releaseSource.releaseBaseUrl,
             tempDir: parsed.options.tempDir,
             cacheDir: parsed.options.cacheDir
           });
@@ -119,7 +124,7 @@ export async function runCli(argv, context) {
 
         writeResult(context.stdout, parsed.options.json, {
           command: parsed.command,
-          releaseBaseUrl,
+          releaseBaseUrl: releaseSource.releaseBaseUrl,
           manifestVersion,
           installed: results,
           platformCount: results.length
@@ -238,11 +243,32 @@ async function assertBundleDir(bundleDir, platform) {
   return bundleDir;
 }
 
-function defaultReleaseBaseUrl(env) {
-  const repoOwner = env.REPO_OWNER ?? "LienJack";
-  const repoName = env.REPO_NAME ?? "arch-insight";
-  const ref = env.REF ?? "main";
-  return `https://raw.githubusercontent.com/${repoOwner}/${repoName}/${ref}/dist/release`;
+async function resolveReleaseSource({ explicitReleaseBaseUrl, tempDir }) {
+  if (explicitReleaseBaseUrl) {
+    return { releaseBaseUrl: explicitReleaseBaseUrl };
+  }
+
+  const sourceDir = bundledSourceDir();
+  const releaseDir = tempDir
+    ? path.resolve(tempDir, "release")
+    : await fs.mkdtemp(path.join(os.tmpdir(), "arch-insight-release-"));
+
+  const releaseBaseUrl = stripTrailingSlash(pathToFileURL(releaseDir).href);
+  await buildReleaseArtifacts({
+    sourceDir,
+    outputDir: releaseDir,
+    baseUrl: releaseBaseUrl
+  });
+
+  return { releaseBaseUrl };
+}
+
+function bundledSourceDir() {
+  return path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..", ".agents");
+}
+
+function stripTrailingSlash(url) {
+  return url.endsWith("/") ? url.slice(0, -1) : url;
 }
 
 function writeResult(stream, asJson, payload) {
