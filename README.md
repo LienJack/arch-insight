@@ -1,39 +1,104 @@
 # arch-insight
 
-`arch-insight` 现在以 `.agents/` 作为唯一权威源，再从这套 `Claude` 兼容插件源生成 `Claude`、`Codex`、`Gemini` 三个平台 bundle，并提供两条正式安装入口：
+`arch-insight` 现在以 `.agents/` 作为唯一权威源，再从这套 `Claude` 兼容插件源生成 `Claude`、`Codex`、`Gemini`、`OpenCode`、`Pi`、`Kiro`、`Cursor` 七个平台 bundle，并提供统一的跨平台安装入口。
 
-- npm 分发包入口：`npx arch-insight install --platform <claude|codex|gemini>`
-- shell 入口：`curl -fsSL .../scripts/install.sh | ARCH_INSIGHT_PLATFORM=<platform> bash`
+- 推荐入口（交互选择平台）：`npx arch-insight install-release`
+- 推荐入口（非交互多平台）：`npx arch-insight install-release --platform codex --platform claude`
+- 更新入口：`npx arch-insight update --platform <claude|codex|gemini|opencode|pi|kiro|cursor>`
+- 本地源码入口：`npx arch-insight install --platform <claude|codex|gemini|opencode|pi|kiro|cursor>`
+- 本仓库脚本入口：`node scripts/install.mjs`
 
 维护主路径已经迁移到 [`.agents`](./.agents)；根目录旧入口已移除。
 
 ## 多平台安装
 
-### npm / npx / pnpm dlx / bunx
+### 命令矩阵（Windows / macOS / Linux）
+
+| 场景 | Windows (PowerShell/cmd) | macOS/Linux |
+| --- | --- | --- |
+| Release 安装（交互选择平台，推荐） | `npx arch-insight install-release` | `npx arch-insight install-release` |
+| Release 安装（非交互多平台） | `npx arch-insight install-release --platform codex --platform claude` | `npx arch-insight install-release --platform codex --platform claude` |
+| Release 安装（OpenCode + Pi + Kiro + Cursor） | `npx arch-insight install-release --platform opencode --platform pi --platform kiro --platform cursor` | `npx arch-insight install-release --platform opencode --platform pi --platform kiro --platform cursor` |
+| Release 安装（推荐） | `npx arch-insight install-release --platform codex` | `npx arch-insight install-release --platform codex` |
+| 已安装用户更新（推荐） | `npx arch-insight update --platform codex` | `npx arch-insight update --platform codex` |
+| 本地源码安装 | `npx arch-insight install --platform codex` | `npx arch-insight install --platform codex` |
+| 仓库脚本安装（交互选择平台） | `node scripts/install.mjs` | `node scripts/install.mjs` |
+| 本地测试安装（先本地构建 release 再安装） | `npm run install:test-local -- --platform codex` | `npm run install:test-local -- --platform codex` |
+
+推荐优先使用 `npx arch-insight ...` 或 `node scripts/install.mjs ...` 这条 Node 链路，不依赖 `bash`、`tar`、`python3`。
+
+如果要在本机验证 release 安装链路但不依赖远端发布地址，可以使用：
 
 ```bash
-npx arch-insight install --platform codex
-pnpm dlx arch-insight install --platform claude
-bunx arch-insight install --platform gemini
+npm run install:test-local -- --platform codex
 ```
 
-### curl | sh
+该脚本会先构建 `dist/local-release`，再用 `file://.../dist/local-release` 执行 `install-release`。
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/install.sh | ARCH_INSIGHT_PLATFORM=codex bash
-curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/install.sh | ARCH_INSIGHT_PLATFORM=claude bash
-curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/install.sh | ARCH_INSIGHT_PLATFORM=gemini bash
-```
+当包里没有预构建 `dist` 时，CLI 会自动从 `.agents/` 构建所需 bundle，再安装到本机目标目录。
 
-### 兼容入口：给用户一键安装到 Codex
-
-用户在终端执行下面这条命令即可安装到 `~/.codex/skills/arch-insight`：
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/LienJack/arch-insight/main/scripts/install-codex-skill.sh | bash
-```
+如果命令里不传 `--platform`，CLI 会进入交互模式并支持一次多选平台安装。
+如果需要无交互（CI / 脚本化），可重复传入 `--platform`。
 
 安装完成后重启对应平台。
+
+### 安装后自动可见（当前实现）
+
+- Claude：`install-release --platform claude` 会自动执行本地 marketplace 注册 + `claude plugin install`，安装后可在 `claude plugin list --json` 看到 `arch-insight@arch-insight-local`。
+- Codex：安装到 `~/.codex/skills/arch-insight/`，入口 `SKILL.md` 写入完成后即可在新会话中被发现。
+- Gemini：安装到 `~/.gemini/skills/arch-insight/`，入口 `SKILL.md` 与 `RUNNER.md` 会同时写入，重启会话后可见。
+
+安装结果 JSON 中新增 `visibilityCheck` 字段：
+
+- `command`：可直接复制执行的可见性校验命令
+- `ok`：安装后检查是否通过
+- `failureHint`：失败时下一步建议
+- Gemini 额外提供 `conflictDetected`（同名覆盖冲突）和 `resolvedLocation`（当前实际生效路径）
+- OpenCode：安装到 `~/.config/opencode/skills/arch-insight/`，入口 `SKILL.md` 写入完成后即可在新会话中被发现。
+- Pi：安装到 `~/.pi/agent/skills/arch-insight/`，入口 `SKILL.md` 写入完成后即可在新会话中被发现。
+- Kiro：安装到 `~/.kiro/skills/arch-insight/`，入口 `SKILL.md` 写入完成后即可在新会话中被发现。
+- Cursor：安装到 `~/.cursor/plugins/local/arch-insight/`，同时写入 `.cursor-plugin/plugin.json` 与 skills 目录。
+
+## 更新 skill
+
+如果你已经安装过 `arch-insight`，推荐用 `update` 命令做增量更新（语义上更清晰）：
+
+```bash
+npx arch-insight update --platform codex
+```
+
+等价别名：
+
+```bash
+npx arch-insight upgrade --platform codex
+```
+
+说明：
+
+- `update`/`upgrade` 与 `install-release` 使用同一条发布安装链路
+- 会从 release manifest 拉取对应平台最新 bundle，然后覆盖安装到本地 skill 目录
+- 可选参数与 `install-release` 一致：`--release-base-url`、`--target-dir`、`--temp-dir`
+- 更新完成后建议重启对应平台，确保新版本生效
+
+## 发布
+
+发布产物统一输出到 `dist/release/`，可通过下面命令生成：
+
+```bash
+npm run build:release
+npm run release:prepare
+```
+
+其中：
+
+- `npm run build:release` 会生成 release bundles 和 `install-manifest.json`
+- `npm run release:prepare` 是对外发布前的统一脚本入口，默认也写入 `dist/release/`
+
+如需给安装器写入公开地址，可在执行前设置：
+
+```bash
+ARCH_INSIGHT_RELEASE_BASE_URL="https://raw.githubusercontent.com/LienJack/arch-insight/main/dist/release" npm run release:prepare
+```
 
 `arch-insight` 是一个面向团队工程师的源码研究 skill，用来把“看一个或多个参考仓库”收束成“学到它为什么这样设计、哪些抽象值得借鉴、哪些场景不该照搬、迁移时要警惕什么”。
 
@@ -147,13 +212,10 @@ npx repomix@latest --include ".agents/skills/arch-insight/references/prompts/**/
 
 如果你只是想要“下次继续问时能直接复用”的最省事方式，直接用仓库内脚本：
 
-```bash
-# 生成一个更轻量、适合重复复用的上下文包
-./scripts/build-repomix-context.sh
-
-# 需要更大范围时再用 full
-./scripts/build-repomix-context.sh full
-```
+| 场景 | Windows (PowerShell/cmd) | macOS/Linux |
+| --- | --- | --- |
+| 轻量上下文包 | `node scripts/build-repomix-context.mjs` | `node scripts/build-repomix-context.mjs` |
+| full 上下文包 | `node scripts/build-repomix-context.mjs full` | `node scripts/build-repomix-context.mjs full` |
 
 默认行为：
 

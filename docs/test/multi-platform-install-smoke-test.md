@@ -3,7 +3,7 @@
 本文档用于在更贴近真实用户目录的环境里，手工确认 `arch-insight` 的三平台安装链路可用，重点验证：
 
 - 权威源生成的 bundle 能被 `Claude`、`Codex`、`Gemini` 正常消费
-- npm CLI 安装链路与 `curl | sh` 安装链路都能落到真实平台目录
+- npm CLI 安装链路与 Node 脚本安装链路都能落到真实平台目录
 - 安装后不仅有 `.agents/skills/arch-insight/SKILL.md`，也有运行时需要的 `.agents/skills/arch-insight/references/RUNNER.md`、`.agents/skills/arch-insight/references/templates/`、`.agents/skills/arch-insight/references/prompts/`
 
 ## 预备条件
@@ -17,9 +17,6 @@ node ./bin/arch-insight.js release --output-dir dist/release --base-url https://
 
 - 本机可用：
   - `node >= 20`
-  - `bash`
-  - `tar`
-  - `python3`
 
 ## 目录基线
 
@@ -82,7 +79,7 @@ test -f ~/.gemini/skills/arch-insight/references/templates/ARCHITECTURE_REPORT.m
 test -f ~/.gemini/skills/arch-insight/references/prompts/01_repo_intake.md
 ```
 
-## Smoke Test B: curl | sh 安装链路
+## Smoke Test B: Node 脚本安装链路
 
 先生成正式 release 产物：
 
@@ -93,9 +90,8 @@ node ./bin/arch-insight.js release --output-dir dist/release --base-url file://$
 ### B1. Claude
 
 ```bash
-ARCH_INSIGHT_PLATFORM=claude \
 ARCH_INSIGHT_RELEASE_BASE_URL=file://$(pwd)/dist/release \
-bash ./scripts/install.sh
+node ./scripts/install.mjs --platform claude
 ```
 
 检查：
@@ -107,9 +103,8 @@ test -f ~/.claude/plugins/local/arch-insight/.claude-plugin/plugin.json
 ### B2. Codex
 
 ```bash
-ARCH_INSIGHT_PLATFORM=codex \
 ARCH_INSIGHT_RELEASE_BASE_URL=file://$(pwd)/dist/release \
-bash ./scripts/install.sh
+node ./scripts/install.mjs --platform codex
 ```
 
 检查：
@@ -122,9 +117,8 @@ test -f ~/.codex/skills/arch-insight/references/RUNNER.md
 ### B3. Gemini
 
 ```bash
-ARCH_INSIGHT_PLATFORM=gemini \
 ARCH_INSIGHT_RELEASE_BASE_URL=file://$(pwd)/dist/release \
-bash ./scripts/install.sh
+node ./scripts/install.mjs --platform gemini
 ```
 
 检查：
@@ -158,15 +152,15 @@ test -f ~/.gemini/skills/arch-insight/references/RUNNER.md
 
 - 只有 `.agents/skills/arch-insight/SKILL.md`，但没有 `.agents/skills/arch-insight/references/RUNNER.md` 或 `.agents/skills/arch-insight/references/templates/`
 - Codex / Gemini 安装后找不到 prompt 目录
-- shell 链路报 `install-manifest.json` 或 tarball 缺失
-- shell 链路实际依赖 `npm` / `npx`
+- Node 脚本链路报 `install-manifest.json` 或 tarball 缺失
+- Node 脚本链路实际依赖 `bash`
 - 根目录兼容入口与 `.agents` 权威源内容漂移
 
 ## 记录建议
 
 每次 smoke test 建议至少记录：
 
-- 安装入口：npm CLI 还是 shell
+- 安装入口：npm CLI 还是 Node 脚本
 - 平台：Claude / Codex / Gemini
 - 实际检查过的目标目录
 - 是否能成功读取 `.agents/skills/arch-insight/SKILL.md`、`.agents/skills/arch-insight/references/RUNNER.md`、模板、prompt

@@ -16,6 +16,45 @@ test("未知平台会返回清晰错误", () => {
     () => parseArgs(["install", "--platform", "unknown"]),
     /Unsupported platform/
   );
+  assert.throws(
+    () => parseArgs(["install-release", "--platform", "unknown"]),
+    /Unsupported platform/
+  );
+  assert.throws(
+    () => parseArgs(["update", "--platform", "unknown"]),
+    /Unsupported platform/
+  );
+  assert.throws(
+    () => parseArgs(["upgrade", "--platform", "unknown"]),
+    /Unsupported platform/
+  );
+});
+
+test("update/upgrade 命令会被正确解析", () => {
+  const update = parseArgs(["update", "--platform", "codex"]);
+  const upgrade = parseArgs(["upgrade", "--platform", "codex"]);
+
+  assert.equal(update.command, "update");
+  assert.deepEqual(update.options.platforms, ["codex"]);
+  assert.equal(upgrade.command, "upgrade");
+  assert.deepEqual(upgrade.options.platforms, ["codex"]);
+});
+
+test("新平台参数可被 CLI 正确解析", () => {
+  const parsed = parseArgs([
+    "install",
+    "--platform",
+    "opencode",
+    "--platform",
+    "pi",
+    "--platform",
+    "kiro",
+    "--platform",
+    "cursor"
+  ]);
+
+  assert.equal(parsed.command, "install");
+  assert.deepEqual(parsed.options.platforms, ["opencode", "pi", "kiro", "cursor"]);
 });
 
 test("bin 层能把参数传到 run.js", async () => {

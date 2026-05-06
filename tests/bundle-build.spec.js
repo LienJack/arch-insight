@@ -8,14 +8,14 @@ import { buildBundles } from "../src/build/build-bundles.js";
 
 const SOURCE_DIR = path.resolve(".agents");
 
-test("同一套源可稳定生成三平台 bundle", async () => {
+test("同一套源可稳定生成七平台 bundle", async () => {
   const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), "arch-insight-build-"));
   const result = await buildBundles({
     sourceDir: SOURCE_DIR,
     outputDir
   });
 
-  assert.equal(result.length, 3);
+  assert.equal(result.length, 7);
 
   const claudeManifest = await fs.readFile(
     path.join(outputDir, "claude", ".claude-plugin", "plugin.json"),
@@ -29,10 +29,30 @@ test("同一套源可稳定生成三平台 bundle", async () => {
     path.join(outputDir, "gemini", "gemini-extension.json"),
     "utf8"
   );
+  const opencodeManifest = await fs.readFile(
+    path.join(outputDir, "opencode", "opencode-plugin.json"),
+    "utf8"
+  );
+  const piManifest = await fs.readFile(
+    path.join(outputDir, "pi", "pi-plugin.json"),
+    "utf8"
+  );
+  const kiroManifest = await fs.readFile(
+    path.join(outputDir, "kiro", "kiro-plugin.json"),
+    "utf8"
+  );
+  const cursorManifest = await fs.readFile(
+    path.join(outputDir, "cursor", ".cursor-plugin", "plugin.json"),
+    "utf8"
+  );
 
   assert.match(claudeManifest, /"name": "arch-insight"/);
   assert.match(codexManifest, /"skills": "\.\/skills\/"/);
   assert.match(geminiManifest, /"gemini-extension\.json"|\"skills\"/);
+  assert.match(opencodeManifest, /"name": "arch-insight"/);
+  assert.match(piManifest, /"name": "arch-insight"/);
+  assert.match(kiroManifest, /"name": "arch-insight"/);
+  assert.match(cursorManifest, /"name": "arch-insight"/);
 });
 
 test("未知构建目标不会产出半成品", async () => {

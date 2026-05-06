@@ -8,16 +8,30 @@
   },
   "files": [
     "bin",
-    "plugins",
+    ".agents",
     "scripts",
     "src"
   ],
   "scripts": {
     "test": "node --test tests/*.spec.js",
     "build:bundles": "node ./bin/arch-insight.js build",
-    "build:release": "node ./bin/arch-insight.js release"
+    "build:release": "node ./bin/arch-insight.js release",
+    "release:prepare": "node ./scripts/release.js",
+    "install:codex": "node ./scripts/install.mjs --platform codex",
+    "install:claude": "node ./scripts/install.mjs --platform claude",
+    "install:gemini": "node ./scripts/install.mjs --platform gemini",
+    "install:opencode": "node ./scripts/install.mjs --platform opencode",
+    "install:pi": "node ./scripts/install.mjs --platform pi",
+    "install:kiro": "node ./scripts/install.mjs --platform kiro",
+    "install:cursor": "node ./scripts/install.mjs --platform cursor",
+    "install:test-local": "node ./scripts/install-local-test.mjs",
+    "context:repomix": "node ./scripts/build-repomix-context.mjs"
   },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "@clack/prompts": "^1.3.0",
+    "commander": "^14.0.3"
   }
 }

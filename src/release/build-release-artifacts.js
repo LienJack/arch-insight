@@ -1,13 +1,9 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { execFile } from "node:child_process";
-import { promisify } from "node:util";
 
 import { buildBundles } from "../build/build-bundles.js";
 import { loadPluginSource } from "../source/load-plugin-source.js";
 import { buildReleaseManifest } from "./manifest.js";
-
-const execFileAsync = promisify(execFile);
 
 export async function buildReleaseArtifacts({
   sourceDir,
@@ -23,16 +19,18 @@ export async function buildReleaseArtifacts({
 
   const bundleRecords = [];
   for (const result of buildResults) {
-    const fileName = `arch-insight-${source.manifest.version}-${result.platform}.tar.gz`;
-    const tarballPath = path.join(outputDir, fileName);
-
-    await execFileAsync("tar", ["-czf", tarballPath, "-C", bundlesDir, result.platform]);
+    const bundleIndex = await buildBundleIndex(path.join(bundlesDir, result.platform));
+    await fs.writeFile(
+      path.join(bundlesDir, result.platform, "bundle-index.json"),
+      JSON.stringify(bundleIndex, null, 2) + "\n",
+      "utf8"
+    );
 
     bundleRecords.push({
       platform: result.platform,
-      tarball: fileName,
-      url: baseUrl ? `${baseUrl.replace(/\/$/, "")}/${fileName}` : fileName,
-      bundleRoot: result.platform
+      bundleDir: `bundles/${result.platform}`,
+      url: baseUrl ? `${baseUrl.replace(/\/$/, "")}/bundles/${result.platform}` : `bundles/${result.platform}`,
+      fileCount: bundleIndex.files.length
     });
   }
 
@@ -50,4 +48,31 @@ export async function buildReleaseArtifacts({
   );
 
   return manifest;
+}
+
+async function buildBundleIndex(bundleRoot) {
+  const files = [];
+
+  async function walk(currentDir) {
+    const dirents = await fs.readdir(currentDir, { withFileTypes: true });
+    for (const dirent of dirents) {
+      const absolutePath = path.join(currentDir, dirent.name);
+      if (dirent.isDirectory()) {
+        await walk(absolutePath);
+        continue;
+      }
+
+      if (dirent.name === "bundle-index.json") {
+        continue;
+      }
+
+      files.push({
+        path: path.relative(bundleRoot, absolutePath).replaceAll(path.sep, "/")
+      });
+    }
+  }
+
+  await walk(bundleRoot);
+  files.sort((left, right) => left.path.localeCompare(right.path));
+  return { files };
 }

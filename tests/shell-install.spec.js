@@ -11,7 +11,7 @@ import { buildReleaseArtifacts } from "../src/release/build-release-artifacts.js
 const execFileAsync = promisify(execFile);
 const SOURCE_DIR = path.resolve(".agents");
 
-test("shell 链路不依赖 npm 也能完成安装", async () => {
+test("install.mjs 链路不依赖 npm 也能完成安装", async () => {
   const workspace = await fs.mkdtemp(path.join(os.tmpdir(), "arch-insight-shell-"));
   const releaseDir = path.join(workspace, "release");
   const homeDir = path.join(workspace, "home");
@@ -23,7 +23,7 @@ test("shell 链路不依赖 npm 也能完成安装", async () => {
     baseUrl: `file://${releaseDir}`
   });
 
-  await execFileAsync("bash", [path.resolve("scripts/install.sh")], {
+  await execFileAsync(process.execPath, [path.resolve("scripts/install.mjs")], {
     cwd: process.cwd(),
     env: {
       ...process.env,
@@ -38,4 +38,9 @@ test("shell 链路不依赖 npm 也能完成安装", async () => {
     "utf8"
   );
   assert.match(skillFile, /# arch-insight/);
+
+  const releaseIndex = JSON.parse(
+    await fs.readFile(path.join(releaseDir, "bundles", "codex", "bundle-index.json"), "utf8")
+  );
+  assert.ok(releaseIndex.files.some((file) => file.path === "skills/arch-insight/SKILL.md"));
 });

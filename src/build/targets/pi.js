@@ -1,21 +1,18 @@
-export function buildClaudeBundle(source) {
+export function buildPiBundle(source) {
   const manifest = {
     name: source.manifest.name,
     version: source.manifest.version,
     description: source.manifest.description,
-    author: source.manifest.author,
-    homepage: source.manifest.homepage,
-    repository: source.manifest.repository,
-    license: source.manifest.license,
-    keywords: source.manifest.keywords ?? [],
-    skills: source.manifest.skills ?? "./skills"
+    skills: {
+      directory: "./skills"
+    }
   };
 
   return {
-    platform: "claude",
+    platform: "pi",
     files: [
       {
-        path: ".claude-plugin/plugin.json",
+        path: "pi-plugin.json",
         content: JSON.stringify(manifest, null, 2) + "\n"
       },
       ...source.skillEntries.map((entry) => ({

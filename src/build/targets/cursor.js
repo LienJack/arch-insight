@@ -1,4 +1,4 @@
-export function buildClaudeBundle(source) {
+export function buildCursorBundle(source) {
   const manifest = {
     name: source.manifest.name,
     version: source.manifest.version,
@@ -12,10 +12,10 @@ export function buildClaudeBundle(source) {
   };
 
   return {
-    platform: "claude",
+    platform: "cursor",
     files: [
       {
-        path: ".claude-plugin/plugin.json",
+        path: ".cursor-plugin/plugin.json",
         content: JSON.stringify(manifest, null, 2) + "\n"
       },
       ...source.skillEntries.map((entry) => ({
