@@ -1,6 +1,6 @@
 {
   "name": "arch-insight",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Analyze repositories as design systems and distill philosophy, abstractions, flows, tradeoffs, and borrowable patterns.",
   "display_name": "arch-insight",
   "author": {

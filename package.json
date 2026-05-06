@@ -1,10 +1,10 @@
 {
   "name": "arch-insight",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Multi-platform distribution tooling for the arch-insight skill.",
   "type": "module",
   "bin": {
-    "arch-insight": "./bin/arch-insight.js"
+    "arch-insight": "bin/arch-insight.js"
   },
   "files": [
     "bin",
