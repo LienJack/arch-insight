@@ -1,90 +1,90 @@
-# <项目名> 源码解读报告
+# <Project Name> Source Code Interpretation Report
 
-> 分析版本：
-> 分析日期：
-> 技术栈：
-> 研究范围：
-> 参考来源与版本锚点：
-> 暂缓范围 / 已知证据缺口：
+> Analysis version:
+> Analysis date:
+> Tech stack:
+> Research scope:
+> Reference sources & version anchors:
+> Deferred scope / known evidence gaps:
 
-## 1. 项目定位与核心价值
+## 1. Project Positioning & Core Value
 
-这个项目表面上是一个 `<技术标签>`，但本质上是在解决 `<更深层问题>`：它把 `<输入或约束>` 转换成 `<稳定输出或能力>`，并通过 `<核心机制>` 让这件事可以持续扩展。
+On the surface, this project appears to be a `<technical label>`, but in essence it solves a `<deeper problem>`: it converts `<input or constraint>` into `<stable output or capability>`, and through `<core mechanism>` makes this sustainably extensible.
 
-## 2. 整体架构
+## 2. Overall Architecture
 
-先给系统总地图，再解释控制权如何流动、复杂度集中在哪里。
+First provide a general system map, then explain how control authority flows and where complexity is concentrated.
 
 ```mermaid
 flowchart TD
-    A[输入入口] --> B[第一次分发]
-    B --> C[核心抽象 / 核心模块]
-    C --> D[外部边界]
-    D --> E[结果]
+    A[Input Entry] --> B[First Dispatch]
+    B --> C[Core Abstraction / Core Module]
+    C --> D[External Boundary]
+    D --> E[Result]
 ```
 
-## 3. 核心抽象与模块体系
+## 3. Core Abstractions & Module System
 
-只列真正核心的抽象和模块。每个都回答：
+Only list truly core abstractions and modules. For each, answer:
 
-- 它为什么存在
-- 它掌握什么边界
-- 它是在吸收复杂度，还是在扩散复杂度
-- 它和其他模块的契约是什么
-- 它依赖的关键数据结构 / 配置 / 状态是什么
-- 它在主流程中的位置是什么
+- Why it exists
+- What boundary it controls
+- Whether it absorbs complexity or spreads complexity
+- What its contract is with other modules
+- What key data structures / config / state it depends on
+- What its position is in the main flow
 
-建议用表格先收束，再按 2-4 个最关键模块下钻：
+It is recommended to first consolidate with a table, then deep-dive 2-4 most critical modules:
 
-| 模块 / 抽象 | 全局角色 | 关键边界 | 关键数据结构 / 状态 | 相邻模块契约 | 关键证据 | 判断标签 |
+| Module / Abstraction | Global Role | Key Boundary | Key Data Structures / State | Adjacent Module Contract | Key Evidence | Judgment Label |
 | --- | --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  | `事实 / 推断 / 待验证` |
+|  |  |  |  |  |  | `Fact / Inference / Pending Verification` |
 
-## 4. 关键流程拆解
+## 4. Key Flow Breakdown
 
-至少讲透一条主流程。重点说明：
+Thoroughly explain at least one main flow. Focus on:
 
-- 输入如何进入系统
-- 第一次控制权切换在哪里
-- 核心决策在哪里发生
-- 外部世界在哪里进入系统
-- 哪些地方发生关键数据 / 状态变化
-- 每一步的关键证据路径是什么
+- How input enters the system
+- Where the first control handoff happens
+- Where core decisions happen
+- Where the external world enters the system
+- Where key data / state changes occur
+- What the key evidence path is for each step
 
-## 5. 设计取舍深度解析
+## 5. Design Tradeoff Deep Analysis
 
-至少展开 2 到 4 个具体取舍：
+Unpack at least 2 to 4 concrete tradeoffs:
 
-| 设计点 | 当前方案 | 替代方案 | 收益 | 代价 | 判断 |
+| Design Point | Current Approach | Alternative | Benefit | Cost | Judgment |
 | --- | --- | --- | --- | --- | --- |
 |  |  |  |  |  |  |
 
-## 6. 风险、问题与改进建议
+## 6. Risks, Problems & Improvement Suggestions
 
-指出真实架构风险：复杂度错位、公共层失控、边界失效、隐式约定过多、扩展机制难约束等。
+Point out real architecture risks: misplaced complexity, shared layer loss of control, boundary failure, too many implicit conventions, extension mechanisms becoming hard to constrain, etc.
 
-## 7. 值得借走的模式
+## 7. Patterns Worth Borrowing
 
-明确指出：
+Explicitly point out:
 
-- 什么模式值得借
-- 它适合什么前提
-- 借走时要注意什么代价
+- What pattern is worth borrowing
+- What prerequisites it suits
+- What costs to watch out for when borrowing
 
-## 8. 总体评价
+## 8. Overall Assessment
 
-用一句有判断力的话收尾：这套系统最值得学什么，最值得警惕什么，下一步最该看哪里。
+Close with one judgmental line: what this system is most worth learning, what to be most vigilant about, where to look next.
 
-## 9. 证据与判断边界（可选附录）
+## 9. Evidence & Judgment Boundaries (Optional Appendix)
 
-### 关键证据路径索引
-
-- 
-
-### 推断性判断
+### Key Evidence Path Index
 
 - 
 
-### 待验证问题
+### Inferential Judgments
+
+- 
+
+### Pending Verification
 
 - 

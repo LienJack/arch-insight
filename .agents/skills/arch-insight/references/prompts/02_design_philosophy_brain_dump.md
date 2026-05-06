@@ -1,98 +1,98 @@
 # 02 Design Philosophy Brain Dump Ultimate Prompt
 
-你现在进入代码仓库的第一轮深度理解阶段。你的任务不是立刻写最终报告，而是像接手陌生项目的 Staff Engineer 一样，在有限时间内建立一张高密度、可验证、以设计理念为中心的系统脑图。
+You are now entering the first round of deep understanding of a code repository. Your task is not to immediately write a final report, but to act like a Staff Engineer taking over an unfamiliar project — to establish, within a limited time, a high-density, verifiable, design-philosophy-centered system mental model.
 
-你必须先回答一个问题：
+You must first answer one question:
 
-> 这套系统真正靠什么设计选择站起来？
+> What design choices does this system truly stand on?
 
-如果你最后只是读了很多文件、列了很多模块，但没有找到“作者反复坚持的抽象和原则”，那这一阶段就失败了。
-
----
-
-## 进入本阶段前必须继承的输入契约
-
-先读取并继承 `01_repo_intake` 的结论，不得静默改写边界：
-
-1. 本轮分析对象与覆盖范围
-2. 来源与版本锚点（本地路径 / URL / `owner/repo` + branch/tag/commit）
-3. 本轮暂缓区与噪音区
-4. 上下文准备策略与已知证据缺口
-5. 待验证假设（如果 intake 已提出）
-
-如果你发现新的强证据足以推翻 intake 判断，必须显式写出：
-
-- 被修正的原判断是什么
-- 新证据是什么
-- 为什么修正是必要的
-
-不要在没有说明的情况下扩大分析范围。
+If you end up only reading many files and listing many modules, but haven't found "the abstractions and principles the author repeatedly insists on", then this stage has failed.
 
 ---
 
-## 你的阶段目标
+## Input Contract You Must Inherit Before Entering This Stage
 
-1. 判断这个系统到底在解决什么问题
-2. 找到最能体现系统哲学的主流程
-3. 找到真正决定系统形状的核心抽象和骨架模块
-4. 区分骨架模块、适配层、工具层和噪音层
-5. 判断项目反复出现的设计原则
-6. 给出下一轮最值得深挖的模块、边界和设计取舍假设
+First read and inherit the conclusions of `01_repo_intake`. Do not silently rewrite boundaries:
 
----
+1. This round's analysis subject and coverage scope
+2. Sources and version anchors (local path / URL / `owner/repo` + branch/tag/commit)
+3. This round's deferred areas and noise areas
+4. Context preparation strategy and known evidence gaps
+5. Pending verification hypotheses (if intake already proposed any)
 
-## 你的核心原则
+If you discover new strong evidence sufficient to overturn intake judgments, you must explicitly state:
 
-1. 先看“流”，再看“树”。
-2. 先找控制权，再找实现细节。
-3. 先区分主次，再决定深挖哪里。
-4. 不要被大文件、复杂文件或目录数量误导。
-5. 你此刻的责任不是“覆盖全部”，而是“建立正确脑图并看见作者意图”。
+- What original judgment is being corrected
+- What the new evidence is
+- Why the correction is necessary
 
----
-
-## 先做模块切片，再做模块评价
-
-不要按目录自然分块。先尝试用以下 3 个视角切出候选模块，再决定哪些才是真核心：
-
-1. 按业务功能切
-   谁负责接输入、谁负责解释规则、谁负责协调执行、谁负责接外部世界。
-2. 按数据流阶段切
-   数据在哪里进入、变形、决策、落地、对外输出。
-3. 按职责变更边界切
-   哪些区域会因为同一种原因一起变化，哪些只是被动配套层。
-
-只有同时在“系统形状”“主流程控制”“复杂度承载”上都重要的模块，才应该进入核心模块名单。
+Do not expand the analysis scope without explanation.
 
 ---
 
-## 这一阶段最常见的失败方式
+## Your Stage Goals
 
-- 把复杂系统误读成目录树
-- 按目录顺序读文件，却没有形成系统主线
-- 把局部复杂度误判成全局核心
-- 只复述 README，不形成自己的系统判断
-- 列了很多模块，但分不出谁是真骨架、谁是配套层
-- 讲了“是什么”，却没讲“为什么这样设计”
+1. Determine what problem this system is actually solving
+2. Find the main flow that best reveals the system's philosophy
+3. Find the core abstractions and skeleton modules that truly determine the system's shape
+4. Distinguish skeleton modules, adaptation layers, utility layers, and noise layers
+5. Judge the design principles that repeatedly appear in the project
+6. Provide modules, boundaries, and design tradeoff hypotheses most worth deep-diving in the next round
 
 ---
 
-## 你必须优先寻找的东西
+## Your Core Principles
 
-### 1. 主流程入口
+1. Look at "flows" first, then "trees".
+2. Find control authority first, then implementation details.
+3. Distinguish primary from secondary first, then decide where to deep-dive.
+4. Don't be misled by large files, complex files, or directory counts.
+5. Your responsibility right now is not "cover everything", but "build an accurate mental model and see the author's intent".
 
-找出系统从哪里开始接收输入：
+---
 
-- HTTP / RPC 请求入口
-- CLI 命令入口
-- 任务调度入口
-- 编译 / 构建入口
-- 插件注册入口
-- 消息消费入口
+## Slice Modules First, Then Evaluate Modules
 
-### 2. 第一次控制权切换点
+Don't bucket by natural directory divisions. First try slicing candidate modules through these 3 lenses, then decide which are truly core:
 
-也就是系统第一次真正开始“决定怎么走”的地方：
+1. **Slice by business function**
+   Who receives input, who interprets rules, who coordinates execution, who interfaces with the external world.
+2. **Slice by data flow stages**
+   Where data enters, transforms, gets decided upon, lands, and outputs externally.
+3. **Slice by responsibility change boundaries**
+   Which areas change together for the same reason, which are merely passive supporting layers.
+
+Only modules that are important across "system shape", "main flow control", and "complexity bearing" should enter the core module list.
+
+---
+
+## The Most Common Failure Modes for This Stage
+
+- Misreading a complex system as a directory tree
+- Reading files in directory order without forming a system mainline
+- Misjudging local complexity as global core
+- Only paraphrasing README without forming your own system judgment
+- Listing many modules without distinguishing who is the real skeleton vs. supporting layers
+- Talking about "what" without explaining "why it was designed this way"
+
+---
+
+## What You Must Prioritize Finding
+
+### 1. Main Flow Entry Points
+
+Find where the system starts receiving input:
+
+- HTTP / RPC request entry
+- CLI command entry
+- Task scheduling entry
+- Compilation / build entry
+- Plugin registration entry
+- Message consumption entry
+
+### 2. First Control Handoff Point
+
+The place where the system first truly starts "deciding which way to go":
 
 - router
 - dispatcher
@@ -102,254 +102,254 @@
 - registry
 - controller
 
-### 3. 核心规则所在层
+### 3. Where Core Rules Live
 
-找出真正决定系统行为的规则放在哪里：
+Find where the rules that truly determine system behavior are placed:
 
-- 领域层
-- 策略层
-- 插件骨架
-- 类型系统
-- 编排层
+- Domain layer
+- Policy layer
+- Plugin skeleton
+- Type system
+- Orchestration layer
 
-### 4. 现实世界接触边界
+### 4. Real-World Contact Boundaries
 
-找出系统在哪里接触外部世界：
+Find where the system touches the external world:
 
-- 存储
-- 网络
-- 文件系统
-- 外部 API
-- 消息中间件
-- 容器 / 平台 / 运行时
-
----
-
-## 你必须对每个核心模块完成的 4 项分析
-
-对每个进入“核心模块候选”的模块，至少回答下面 4 个问题：
-
-1. 核心数据结构
-   这个模块维护、转换或依赖哪些关键对象、类型、配置、状态或 schema？
-2. 执行流程
-   它在主流程里何时被调用、由谁触发、向谁继续分发？
-3. 设计决策
-   作者为什么把这类复杂度放在这里？这里体现了什么取舍？
-4. 模块依赖与协同契约
-   它依赖哪些上游 / 下游模块？通过什么接口、事件、配置、协议或共享状态协作？
-
-如果一个模块无法回答这 4 项中的至少 3 项，它大概率还不配叫“核心模块”。
+- Storage
+- Network
+- File system
+- External APIs
+- Message middleware
+- Container / platform / runtime
 
 ---
 
-## 证据契约（新增强制）
+## The 4 Analyses You Must Complete for Each Core Module
 
-本阶段不是自由感想。关键判断必须尽量绑定到可核验的源码证据。
+For each module entering the "core module candidate" list, answer at minimum these 4 questions:
 
-### 证据最小格式
+1. **Core data structures**
+   What key objects, types, configs, states, or schemas does this module maintain, transform, or depend on?
+2. **Execution flow**
+   When is it called in the main flow, by whom is it triggered, to whom does it continue dispatching?
+3. **Design decisions**
+   Why did the author place this type of complexity here? What tradeoff does this reflect?
+4. **Module dependencies & collaboration contracts**
+   Which upstream/downstream modules does it depend on? Through what interfaces, events, configs, protocols, or shared state do they collaborate?
 
-- 文件路径：`path/to/file.ext`
-- 优先补行号：`path/to/file.ext:12` 或 `path/to/file.ext:12-34`
-- 如果是调用关系，尽量给出“从哪里到哪里”
-- 如果是跨模块协作，尽量指出接口、注册点、配置点或共享状态位置
-
-### 判断标签
-
-对重要结论，明确区分：
-
-- `事实`：可直接由代码 / 文档 / 配置验证
-- `推断`：由多处事实归纳出来，但源码没有直接明说
-- `待验证`：当前证据不完整，需在后续阶段确认
-
-不要把推断写成既成事实。
+If a module cannot answer at least 3 of these 4 items, it likely does not yet qualify as a "core module".
 
 ---
 
-## 你必须尝试判断的 6 个维度
+## Evidence Contract (New Mandatory)
 
-### 1. 项目一句话定位
+This stage is not free-form impressions. Key judgments must be bound to verifiable source code evidence wherever possible.
 
-- 它到底是什么类型的系统
-- 它最核心的价值主张是什么
-- 它靠什么核心机制实现
+### Minimum Evidence Format
 
-### 2. 核心抽象
+- File path: `path/to/file.ext`
+- Prefer supplementing with line numbers: `path/to/file.ext:12` or `path/to/file.ext:12-34`
+- For call relationships, wherever possible give "from where to where"
+- For cross-module collaboration, wherever possible point out interfaces, registration points, config points, or shared state locations
 
-- 哪些接口、对象、概念被反复使用
-- 哪些抽象是系统自己的“语言”
-- 哪些抽象最值得外部读者学习
+### Judgment Labels
 
-### 3. 主流程
+For important conclusions, clearly distinguish:
 
-- 最有代表性的请求流 / 数据流 / 任务流是什么
-- 哪一段最体现架构设计意图
+- `Fact`: can be directly verified by code / docs / config
+- `Inference`: induced from multiple facts, but not directly stated in source code
+- `Pending Verification`: current evidence is incomplete, needs confirmation in subsequent stages
 
-### 4. 设计原则
-
-项目更偏向哪类哲学：
-
-- 显式优于隐式
-- 约定优于配置
-- 插件优先
-- 类型驱动
-- 数据驱动
-- 可扩展性优先
-- 性能优先
-- 平台化优先
-
-### 5. 设计取舍假设
-
-- 作者明显在偏向什么
-- 这些偏向带来了什么收益
-- 可能付出了什么代价
-
-### 6. 复杂度分布
-
-系统复杂度到底长在哪里：
-
-- 框架骨架
-- 领域规则
-- 配置系统
-- 兼容层
-- 基础设施边界
-- 插件 / 扩展机制
+Do not write inferences as established facts.
 
 ---
 
-## 你必须输出的内容
+## 6 Dimensions You Must Attempt to Judge
 
-### 1. 项目一句话定位
+### 1. One-Line Project Positioning
 
-用一句话说清：
+- What type of system it is
+- What its core value proposition is
+- What core mechanism it relies on to achieve this
 
-- 它是什么
-- 它解决什么问题
-- 它靠什么核心机制实现
+### 2. Core Abstractions
 
-### 2. 最值得学习的核心抽象
+- Which interfaces, objects, concepts are used repeatedly
+- Which abstractions are the system's own "language"
+- Which abstractions are most worth learning for external readers
 
-指出 3 到 7 个真正值得记住的抽象，并解释为什么。
+### 3. Main Flow
 
-### 3. 主流程摘要
+- What is the most representative request flow / data flow / task flow
+- Which segment best reveals architectural design intent
 
-用 5 到 10 句话讲清一条最有代表性的主流程。
+### 4. Design Principles
 
-### 4. 反复出现的设计原则
+Which philosophy does the project lean toward:
 
-说明这个项目反复坚持什么原则，以及依据是什么。
+- Explicit over implicit
+- Convention over configuration
+- Plugin-first
+- Type-driven
+- Data-driven
+- Extensibility-first
+- Performance-first
+- Platform-first
 
-### 5. 核心模块候选
+### 5. Design Tradeoff Hypotheses
 
-按职责列出，不按目录列出。每个模块说明为什么它重要，并至少补：
+- What is the author clearly favoring
+- What benefits do these preferences bring
+- What costs may have been paid
 
-- 这个模块在整个系统中的角色
-- 如果去掉它，系统会失去什么能力
-- 它是否更像骨架模块、适配层还是支撑层
+### 6. Complexity Distribution
 
-### 6. 关键边界与抽象
+Where does the system's complexity actually live:
 
-指出最关键的：
-
-- 入口边界
-- 控制边界
-- 状态边界
-- 扩展边界
-
-### 7. 值得继续验证的设计取舍假设
-
-列出 2 到 5 条当前判断，供后续正式报告验证。
-
-### 8. 模块级证据档案
-
-对 2 到 5 个核心模块，输出简版 dossier。每个 dossier 至少包含：
-
-- 模块名
-- 全局角色
-- 四项分析摘要（数据结构 / 执行流程 / 设计决策 / 依赖契约）
-- 关键证据路径
-- 当前标签（事实 / 推断 / 待验证）
+- Framework skeleton
+- Domain rules
+- Configuration system
+- Compatibility layers
+- Infrastructure boundaries
+- Plugin / extension mechanisms
 
 ---
 
-## 推荐输出格式
+## What You Must Output
 
-### 继承边界
+### 1. One-Line Project Positioning
 
-- 继承自 intake 的分析范围：
-- 本阶段不扩大覆盖的区域：
-- 来源与版本锚点：
-- 当前仍存在的证据缺口：
+In one sentence state:
 
-### 项目一句话定位
+- What it is
+- What problem it solves
+- What core mechanism it relies on to achieve it
 
-`<一句话判断>`
+### 2. Core Abstractions Most Worth Learning
 
-### 最值得学习的核心抽象
+Point out 3 to 7 abstractions truly worth remembering, and explain why.
 
-1. `<抽象 A>`：为什么重要
-2. `<抽象 B>`：为什么重要
-3. `<抽象 C>`：为什么重要
+### 3. Main Flow Summary
 
-### 主流程摘要
+In 5 to 10 sentences explain one most representative main flow.
 
-`<一段高密度主流程解释>`
+### 4. Recurring Design Principles
 
-### 反复出现的设计原则
+Explain what principles this project repeatedly insists on, and what the evidence is.
 
-- `<原则 1>`：仓库内依据
-- `<原则 2>`：仓库内依据
+### 5. Core Module Candidates
 
-### 核心模块候选
+List by responsibility, not by directory. For each module, explain why it matters, and at minimum supplement:
 
-1. `<模块 A>`：为什么重要
-2. `<模块 B>`：为什么重要
-3. `<模块 C>`：为什么重要
+- This module's role in the overall system
+- If removed, what capability the system would lose
+- Whether it is more like a skeleton module, adaptation layer, or supporting layer
 
-### 关键边界与抽象
+### 6. Key Boundaries & Abstractions
 
-- 入口边界：
-- 控制边界：
-- 状态边界：
-- 扩展边界：
+Point out the most critical:
 
-### 需要继续验证的设计取舍假设
+- Entry boundaries
+- Control boundaries
+- State boundaries
+- Extension boundaries
 
-1. `<假设 1>`
-2. `<假设 2>`
-3. `<假设 3>`
+### 7. Design Tradeoff Hypotheses Worth Further Verification
 
-### 核心模块证据档案
+List 2 to 5 current judgments for subsequent formal report verification.
 
-1. `<模块 A>`
-   - 全局角色：
-   - 核心数据结构：
-   - 执行流程位置：
-   - 设计决策：
-   - 模块依赖与契约：
-   - 关键证据：
-   - 标签：`事实 / 推断 / 待验证`
+### 8. Module-Level Evidence Dossiers
 
-2. `<模块 B>`
-   - 全局角色：
-   - 核心数据结构：
-   - 执行流程位置：
-   - 设计决策：
-   - 模块依赖与契约：
-   - 关键证据：
-   - 标签：`事实 / 推断 / 待验证`
+For 2 to 5 core modules, output a summary dossier. Each dossier at minimum contains:
+
+- Module name
+- Global role
+- Four analysis summaries (data structures / execution flow / design decisions / dependency contracts)
+- Key evidence paths
+- Current label (Fact / Inference / Pending Verification)
 
 ---
 
-## 强制约束
+## Recommended Output Format
 
-不要这样做：
+### Inherited Boundaries
 
-- 把目录结构抄一遍就当脑图
-- 只列模块，不解释它们如何共同体现系统哲学
-- 只夸抽象优雅，不写可能代价
-- 把局部复杂实现误判成系统骨架
-- 只给文件路径，不说明这些路径如何支撑你的结论
-- 把“模块 = 目录”当成默认前提
-- 不区分事实、推断和待验证假设
+- Analysis scope inherited from intake:
+- Areas not expanded in this stage:
+- Sources and version anchors:
+- Currently remaining evidence gaps:
 
-这一阶段的价值不在于“知道更多文件”，而在于“看见作者的设计语言和这些设计真正想优化什么”。
+### One-Line Project Positioning
+
+`<one-sentence judgment>`
+
+### Core Abstractions Most Worth Learning
+
+1. `<Abstraction A>`: why important
+2. `<Abstraction B>`: why important
+3. `<Abstraction C>`: why important
+
+### Main Flow Summary
+
+`<a high-density main flow explanation>`
+
+### Recurring Design Principles
+
+- `<Principle 1>`: evidence within the repo
+- `<Principle 2>`: evidence within the repo
+
+### Core Module Candidates
+
+1. `<Module A>`: why important
+2. `<Module B>`: why important
+3. `<Module C>`: why important
+
+### Key Boundaries & Abstractions
+
+- Entry boundary:
+- Control boundary:
+- State boundary:
+- Extension boundary:
+
+### Design Tradeoff Hypotheses Needing Further Verification
+
+1. `<Hypothesis 1>`
+2. `<Hypothesis 2>`
+3. `<Hypothesis 3>`
+
+### Core Module Evidence Dossiers
+
+1. `<Module A>`
+   - Global role:
+   - Core data structures:
+   - Execution flow position:
+   - Design decisions:
+   - Module dependencies & contracts:
+   - Key evidence:
+   - Label: `Fact / Inference / Pending Verification`
+
+2. `<Module B>`
+   - Global role:
+   - Core data structures:
+   - Execution flow position:
+   - Design decisions:
+   - Module dependencies & contracts:
+   - Key evidence:
+   - Label: `Fact / Inference / Pending Verification`
+
+---
+
+## Mandatory Constraints
+
+Do NOT do the following:
+
+- Copy the directory structure and call it a mental model
+- Only list modules without explaining how they together embody the system philosophy
+- Only praise abstractions as elegant without writing possible costs
+- Misjudge locally complex implementations as the system skeleton
+- Only give file paths without explaining how those paths support your conclusions
+- Treat "module = directory" as the default premise
+- Fail to distinguish facts, inferences, and pending verification hypotheses
+
+The value of this stage is not "knowing more files", but "seeing the author's design language and what these designs are truly optimizing for".

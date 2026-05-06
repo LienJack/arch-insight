@@ -1,28 +1,28 @@
-# 核心抽象
+# Core Abstractions
 
-## 最值得记住的抽象
+## Abstractions Most Worth Remembering
 
-| 抽象 | 全局角色 | 为什么重要 | 关键边界 | 关键数据结构 / 状态 | 相邻契约 | 相关路径 | 判断标签 |
+| Abstraction | Global Role | Why Important | Key Boundary | Key Data Structures / State | Adjacent Contract | Related Paths | Judgment Label |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-|  |  |  |  |  |  |  | `事实 / 推断 / 待验证` |
+|  |  |  |  |  |  |  | `Fact / Inference / Pending Verification` |
 
-## 抽象之间的关系
+## Relationships Between Abstractions
 
-说明这些抽象如何共同构成系统自己的“语言”。
+Explain how these abstractions together form the system's own "language".
 
-## 抽象的协作方式
+## How Abstractions Collaborate
 
-说明这些抽象如何在主流程里协同：
+Explain how these abstractions work together in the main flow:
 
-- 谁接住输入
-- 谁做第一次分发
-- 谁持有关键状态或规则
-- 谁接触外部边界
+- Who catches input
+- Who does the first dispatch
+- Who holds key state or rules
+- Who touches external boundaries
 
-## 最值得学习的点
+## Points Most Worth Learning
 
 - 
 
-## 最容易误读的点
+## Points Most Prone to Misreading
 
 - 

@@ -1,98 +1,98 @@
-# <文章标题>
+# <Article Title>
 
-> 分析对象：
-> 分析日期：
-> 研究范围：
-> 参考来源与版本锚点：
-> 暂缓范围 / 已知证据缺口：
+> Analysis subject:
+> Analysis date:
+> Research scope:
+> Reference sources & version anchors:
+> Deferred scope / known evidence gaps:
 
-## 开场：为什么值得读
+## Opening: Why Worth Reading
 
-用 2-4 段讲清：
+Use 2-4 paragraphs to explain:
 
-- 这个项目真正解决的问题
-- 为什么它的设计值得学习
-- 读者看完会获得什么
+- The problem this project truly solves
+- Why its design is worth learning
+- What the reader will gain
 
-## 一、项目真实定位
+## I. Project's Real Positioning
 
-不要复述 README。讲清：
+Don't rehash the README. Explain:
 
-- 它本质上是什么系统
-- 它的架构重心在哪里
-- 它和“看起来类似的工具”关键区别是什么
+- What type of system it essentially is
+- Where its architectural center of gravity is
+- What its key differentiators are from "seemingly similar tools"
 
-## 二、架构主线与控制权流动
+## II. Architecture Mainline & Control Flow
 
-给一张简图（可选），然后用文字讲透：
+Provide a simple diagram (optional), then use text to thoroughly explain:
 
-- 输入在哪里进入
-- 第一次控制权切换在哪里
-- 核心决策发生在哪里
-- 外部边界在哪里
+- Where input enters
+- Where the first control handoff happens
+- Where core decisions happen
+- Where the external boundary lies
 
-## 三、最关键的机制（2-5 个）
+## III. The Most Critical Mechanisms (2-5)
 
-每个机制都回答：
+For each mechanism, answer:
 
-- 机制是什么
-- 为什么重要
-- 代码依据（路径）
-- 重要处优先补 `path:line`
-- 它吸收了什么复杂度
-- 它依赖的关键数据结构 / 状态 / 配置是什么
-- 它在主流程中的位置是什么
-- 它与其他模块如何协作
+- What the mechanism is
+- Why it matters
+- Code evidence (path)
+- Prioritize `path:line` for important points
+- What complexity it absorbs
+- What key data structures / state / config it depends on
+- What its position is in the main flow
+- How it collaborates with other modules
 
-## 四、设计取舍（必须有代价）
+## IV. Design Tradeoffs (Must Include Costs)
 
-至少 2 个取舍，每个都写：
+At least 2 tradeoffs. For each, write:
 
-- 当前方案
-- 替代方案
-- 收益
-- 代价
-- 适用边界
+- Current approach
+- Alternative approach
+- Benefit
+- Cost
+- Applicable boundary
 
-## 五、设计参考与迁移判断（可借鉴但不照搬）
+## V. Design Reference & Migration Assessment (Borrowable But Not Copiable)
 
-至少 2 个“可借鉴设计点”，每个都回答：
+At least 2 "borrowable design points". For each, answer:
 
-- 设计点是什么
-- 它解决了什么问题
-- 为什么值得参考
-- 适合什么项目背景
-- 什么场景不建议照搬
-- 迁移时要优先验证什么（数据边界 / 负载特征 / 团队约束 / 运维条件）
+- What the design point is
+- What problem it solves
+- Why it's worth referencing
+- What project contexts it suits
+- What scenarios it's NOT recommended to copy
+- What to prioritize verifying during migration (data boundaries / load characteristics / team constraints / operational conditions)
 
-如果输入包含多个参考仓库，再补一段“对照结论”：
+If the input includes multiple reference repos, add a "Comparative Conclusions" section:
 
-- 共同模式（不同仓库都在坚持什么）
-- 差异选择（为什么做出不同权衡）
-- 适用背景（各自在哪类场景更成立）
-- 局部启发范围（哪些只适合局部借鉴）
+- Common patterns (what different repos all insist on)
+- Divergent choices (why different tradeoffs were made)
+- Applicable contexts (which is more valid in which type of scenario)
+- Local inspiration scope (which points are only suitable for partial borrowing)
 
-## 六、风险与改进建议
+## VI. Risks & Improvement Suggestions
 
-至少 1-3 个真实风险：
+At least 1-3 real risks:
 
-- 风险成因
-- 可能后果
-- 改进建议
+- Risk cause
+- Possible consequences
+- Improvement suggestions
 
-## 七、总体评价
+## VII. Overall Assessment
 
-用一句有判断力的话收尾：
+Close with one judgmental line:
 
-- 最值得学的是什么
-- 最值得警惕的是什么
-- 下一步最该深入哪里
+- What is most worth learning
+- What to be most vigilant about
+- Where to dive deeper next
 
-## 附：关键证据路径（可选）
+## Appendix: Key Evidence Paths (Optional)
 
 - 
 
-## 附：推断与待验证（可选）
+## Appendix: Inferences & Pending Verification (Optional)
 
-- 推断：
-- 待验证：
+- Inferred:
+- Pending verification:

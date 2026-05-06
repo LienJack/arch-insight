@@ -1,272 +1,272 @@
 # 04 Architecture Report Ultimate Prompt
 
-你现在要写的不是笔记、不是目录说明、也不是聊天总结，而是一份真正能给工程师、Tech Lead、架构师或后续 AI session 使用的正式源码解读报告。
+What you are about to write is not notes, not a directory explanation, and not a chat summary. It is a formal source code interpretation report that can genuinely be used by engineers, Tech Leads, architects, or future AI sessions.
 
-这份报告必须让读者在不重读整仓代码的前提下：
+This report must enable the reader, without re-reading the entire repo code, to:
 
-1. 建立正确系统心智模型
-2. 看懂真正重要的抽象、模块和边界
-3. 理解至少一条关键主流程
-4. 理解核心设计取舍
-5. 对系统优点、风险和演进方向形成自己的判断
-6. 知道哪些思想和模式值得借走
+1. Build a correct system mental model
+2. Understand the truly important abstractions, modules, and boundaries
+3. Understand at least one key main flow
+4. Understand core design tradeoffs
+5. Form their own judgment on the system's strengths, risks, and evolution direction
+6. Know which ideas and patterns are worth borrowing
 
-如果你的报告只是“把看到的东西整理一下”，那还不够。你必须组织观点，而不是只组织材料。
-
----
-
-## 进入本阶段前必须继承的输入契约
-
-正式报告必须显式继承前序阶段结论，而不是重新自由发挥：
-
-1. `01_repo_intake` 的研究范围、来源、版本锚点、暂缓区和访问限制
-2. `02_design_philosophy_brain_dump` 的核心抽象、主流程、模块级判断和待验证假设
-3. 如已启用 `03_ecosystem_atlas`，还要继承跨边界关系、重力中心和系统级风险
-
-如果报告对前序结论做了修正，必须说明修正依据。
+If your report is just "organizing what you've seen", that's not enough. You must organize opinions, not just materials.
 
 ---
 
-## 你的阶段目标
+## Input Contract You Must Inherit Before Entering This Stage
 
-把前面阶段得到的观察、事实、主流程理解、设计原则判断和生态判断，收束成一份结构化、可阅读、可复用、带判断力的正式报告，并明确拆出学习附件。
+The formal report must explicitly inherit prior stage conclusions, not freely reinvent:
 
----
+1. `01_repo_intake` research scope, sources, version anchors, deferred areas, and access constraints
+2. `02_design_philosophy_brain_dump` core abstractions, main flow, module-level judgments, and pending verification hypotheses
+3. If `03_ecosystem_atlas` was enabled, also inherit cross-boundary relationships, gravity centers, and system-level risks
 
-## 报告必须回答的 7 个问题
-
-1. 这个系统到底在解决什么问题？
-2. 它真正的系统边界和核心抽象是什么？
-3. 它最关键的流程是如何跑通的？
-4. 哪些设计决策最关键？
-5. 这些决策的收益、代价和替代方案分别是什么？
-6. 它当前最值得警惕的风险和技术债是什么？
-7. 其他工程师真正能从这里学到什么？
+If the report corrects prior stage conclusions, you must explain the basis for the correction.
 
 ---
 
-## 写作原则
+## Your Stage Goals
 
-1. 不要把草稿拼起来，要重新组织叙事。
-2. 不要把 README 改写成报告。
-3. 不要按目录平铺，要按系统逻辑组织章节。
-4. 每个重要模块都要回到整体系统里解释。
-5. 每个重要判断都尽量给代码路径依据；如果用了外部资料，要明确标出。
-6. 至少展开 2 到 4 个真正具体的设计取舍。
-7. 至少给出 1 处明确的批判性判断，而不是纯赞美。
-8. 全文优先回答 `Why > What`。
+Converge the observations, facts, main flow understanding, design principle judgments, and ecosystem judgments from prior stages into a structured, readable, reusable, judgment-bearing formal report, and explicitly split out learning appendices.
 
 ---
 
-## 证据契约（新增强制）
+## 7 Questions the Report Must Answer
 
-正式报告允许有观点，但不能失去可验证性。
-
-### 关键判断的证据要求
-
-- 核心判断尽量附真实源码路径
-- 重要流程、接口、状态边界优先附 `path:line` 级证据
-- 如果结论来自多处归纳，明确说明这是 `推断`
-- 如果某处仍不确定，明确标记为 `待验证`，不要装作已确认
-
-### 模块级最低解释要求
-
-每个进入正文的核心模块，至少回答：
-
-- 它在整个系统中的角色
-- 它吸收了什么复杂度
-- 它与相邻模块的契约是什么
-- 它如何体现整体设计哲学
-
-不要把核心模块写成“目录简介”。
+1. What problem is this system actually solving?
+2. What are its true system boundaries and core abstractions?
+3. How does its most critical flow actually run through?
+4. Which design decisions are most critical?
+5. What are the benefits, costs, and alternatives for each of these decisions?
+6. What are the risks and technical debt most worth being vigilant about right now?
+7. What can other engineers genuinely learn from this?
 
 ---
 
-## 你的叙事主线应该是什么
+## Writing Principles
 
-建议优先按照以下顺序组织：
-
-1. 项目定位与核心价值
-2. 整体架构
-3. 核心抽象与模块体系
-4. 关键流程拆解
-5. 设计取舍深度解析
-6. 风险、问题与改进建议
-7. 值得借走的模式
-8. 总体评价
-
-你可以调整，但必须保证：
-
-- 先给地图，再下钻
-- 先讲主线，再讲细节
-- 先讲为什么重要，再讲它怎么实现
+1. Don't stitch drafts together — reorganize the narrative.
+2. Don't rewrite the README as a report.
+3. Don't flatten by directory — organize sections by system logic.
+4. Every important module must be explained back into the whole system.
+5. Every important judgment should provide code path evidence wherever possible; if external materials are used, explicitly mark them.
+6. Unpack at least 2 to 4 truly concrete design tradeoffs.
+7. Provide at least 1 explicit critical judgment, not just pure praise.
+8. Throughout the text, prioritize answering `Why > What`.
 
 ---
 
-## 每一节应该怎么写
+## Evidence Contract (New Mandatory)
 
-### 1. 项目定位与核心价值
+The formal report is allowed to have opinions, but cannot lose verifiability.
 
-不要只说“这是一个 X 框架 / Y 工具”。要讲：
+### Evidence Requirements for Key Judgments
 
-- 它真正解决的是什么问题
-- 它为什么值得被单独设计成这样
-- 它的真正架构重心在哪里
+- Core judgments should wherever possible attach real source paths
+- Important flows, interfaces, state boundaries should prioritize `path:line`-level evidence
+- If a conclusion comes from induction across multiple points, explicitly state that this is `Inference`
+- If a point remains uncertain, explicitly mark as `Pending Verification`; don't pretend it's confirmed
 
-### 2. 整体架构
+### Module-Level Minimum Explanation Requirements
 
-给读者一张总地图：
+For each core module entering the body text, at minimum answer:
 
-- 系统分几层
-- 哪几层是骨架
-- 哪条主线最重要
-- 哪些边界最关键
+- Its role in the entire system
+- What complexity it absorbs
+- What its contract is with adjacent modules
+- How it embodies the overall design philosophy
 
-最好有图，但图不是重点。重点是你有没有告诉读者：
-
-- 控制权在哪里流动
-- 复杂度集中在哪里
-
-### 3. 核心抽象与模块体系
-
-不要列太多模块。宁可列少一点，但每个都是真核心。
-
-每个核心抽象或模块至少回答：
-
-- 它为什么存在
-- 它掌握什么关键边界
-- 它是在吸收复杂度，还是在扩散复杂度
-- 它和其他模块的契约是什么
-- 它的关键数据结构 / 配置 / 状态是什么
-- 它在主流程中的位置是什么
-
-### 4. 关键流程拆解
-
-至少讲透一条最有代表性的主流程：
-
-- 请求流
-- 调用流
-- 数据流
-- 任务流
-- 构建流
-
-重点不是调用顺序，而是：
-
-- 谁接住输入
-- 谁第一次分发
-- 谁真正做核心决策
-- 谁接触外部世界
-- 哪个步骤最体现架构意图
-- 数据或状态在何处发生关键变化
-- 关键证据路径是什么
-
-### 5. 设计取舍深度解析
-
-这一节必须写得像“分析”，而不是“赞美”。
-
-每个设计点尽量都回答：
-
-- 当前方案是什么
-- 替代方案是什么
-- 为什么不选替代方案
-- 当前方案带来什么收益
-- 当前方案付出什么代价
-- 这个代价值不值得
-
-### 6. 风险、问题与改进建议
-
-指出真正影响未来演进的问题，例如：
-
-- 复杂度长在不该复杂的层
-- 公共层变成全局重力中心
-- 边界开始失效
-- 隐式约定过多
-- 扩展机制难以约束
-
-### 7. 值得借走的模式
-
-不要泛泛而谈“代码结构清晰”。要明确指出：
-
-- 什么模式值得借
-- 它适合什么前提
-- 借走时要注意什么代价
-- 哪些前提不成立时不要照搬
-
-### 8. 总体评价
-
-最后不要只做摘要，而要给出一句有力度的总体判断。
-
-读者读到这里应该知道：
-
-- 这套系统最值得学的是什么
-- 最值得警惕的是什么
-- 如果继续研究，下一步最该看哪里
+Do not write core modules as "directory introductions".
 
 ---
 
-## 你必须输出的内容
+## What Your Narrative Mainline Should Be
 
-最终报告至少应包含：
+It is recommended to organize in this priority order:
 
-### 1. 项目定位与核心价值
+1. Project positioning & core value
+2. Overall architecture
+3. Core abstractions & module system
+4. Key flow breakdown
+5. Design tradeoff deep analysis
+6. Risks, problems & improvement suggestions
+7. Patterns worth borrowing
+8. Overall assessment
 
-`<1-3 段>`
+You can adjust, but must guarantee:
 
-### 2. 整体架构
-
-`<系统层次 + 一张图 + 解释>`
-
-### 3. 核心抽象与模块体系
-
-`<抽象清单 + 2-4 个核心模块下钻>`
-
-### 4. 关键流程拆解
-
-`<至少一条主流程 + 图 + 文字解释>`
-
-### 5. 设计取舍深度解析
-
-`<至少 2-4 个设计点>`
-
-### 6. 风险、问题与改进建议
-
-`<至少 1-3 个真实问题>`
-
-### 7. 值得借走的模式
-
-`<至少 2-5 个模式或判断>`
-
-### 8. 总体评价
-
-`<一句有判断力的收尾>`
-
-### 9. 证据与判断边界（可放附录）
-
-- 关键证据路径索引
-- 文中哪些判断属于 `推断`
-- 文中哪些区域仍属 `待验证`
+- Give the map first, then drill down
+- Explain the mainline first, then details
+- Explain why it matters first, then how it's implemented
 
 ---
 
-## 强制约束
+## How Each Section Should Be Written
 
-不要这样写：
+### 1. Project Positioning & Core Value
 
-- 逐目录介绍
-- 逐文件复述
-- 没有主流程
-- 没有设计取舍
-- 没有风险判断
-- 没有总体评价
-- 只夸不批判
-- 只给图不给解释
-- 不区分事实、推断、待验证
-- 写了核心模块，却没说明它与主流程和相邻模块的契约
+Don't just say "this is an X framework / Y tool". Explain:
 
-这份报告的真正价值，不在于信息量，而在于它是否帮助读者看见：
+- What problem it truly solves
+- Why it deserves to be independently designed this way
+- Where its true architectural center of gravity lies
 
-- 系统的骨架
-- 复杂度的位置
-- 设计的代价
-- 演进的风险
-- 真正可迁移的思想
+### 2. Overall Architecture
+
+Give the reader a general map:
+
+- How many layers the system has
+- Which layers are the skeleton
+- Which mainline is the most important
+- Which boundaries are the most critical
+
+A diagram is good, but the diagram is not the point. The point is whether you tell the reader:
+
+- Where control authority flows
+- Where complexity is concentrated
+
+### 3. Core Abstractions & Module System
+
+Don't list too many modules. Better to list fewer, but each one is truly core.
+
+For each core abstraction or module, answer at minimum:
+
+- Why it exists
+- What key boundary it controls
+- Whether it absorbs complexity or spreads complexity
+- What its contract is with other modules
+- What its key data structures / config / state are
+- What its position is in the main flow
+
+### 4. Key Flow Breakdown
+
+Thoroughly explain at least one most representative main flow:
+
+- Request flow
+- Call flow
+- Data flow
+- Task flow
+- Build flow
+
+The emphasis is not the call sequence, but:
+
+- Who catches the input
+- Who does the first dispatch
+- Who truly makes the core decisions
+- Who touches the external world
+- Which step best reveals architectural intent
+- Where data or state undergoes key transformation
+- What the key evidence paths are
+
+### 5. Design Tradeoff Deep Analysis
+
+This section must read like "analysis", not "praise".
+
+For each design point, wherever possible answer:
+
+- What the current approach is
+- What the alternatives are
+- Why alternatives weren't chosen
+- What benefits the current approach brings
+- What costs the current approach incurs
+- Whether these costs are worth it
+
+### 6. Risks, Problems & Improvement Suggestions
+
+Point out problems that truly affect future evolution, such as:
+
+- Complexity growing in layers that shouldn't be complex
+- Shared layers becoming global gravity centers
+- Boundaries beginning to fail
+- Too many implicit conventions
+- Extension mechanisms becoming hard to constrain
+
+### 7. Patterns Worth Borrowing
+
+Don't vaguely say "code structure is clear". Explicitly point out:
+
+- What pattern is worth borrowing
+- What prerequisites it suits
+- What costs to watch out for when borrowing
+- When NOT to copy it (which prerequisites failing would make it invalid)
+
+### 8. Overall Assessment
+
+At the end, don't just summarize — give one forceful overall judgment.
+
+The reader should know by this point:
+
+- What this system is most worth learning
+- What to be most vigilant about
+- If continuing to study, where to look next
+
+---
+
+## What You Must Output
+
+The final report should at minimum contain:
+
+### 1. Project Positioning & Core Value
+
+`<1-3 paragraphs>`
+
+### 2. Overall Architecture
+
+`<system layers + a diagram + explanation>`
+
+### 3. Core Abstractions & Module System
+
+`<abstraction inventory + 2-4 core module deep-dives>`
+
+### 4. Key Flow Breakdown
+
+`<at least one main flow + diagram + textual explanation>`
+
+### 5. Design Tradeoff Deep Analysis
+
+`<at least 2-4 design points>`
+
+### 6. Risks, Problems & Improvement Suggestions
+
+`<at least 1-3 real problems>`
+
+### 7. Patterns Worth Borrowing
+
+`<at least 2-5 patterns or judgments>`
+
+### 8. Overall Assessment
+
+`<one judgmental closing line>`
+
+### 9. Evidence & Judgment Boundaries (can go in appendix)
+
+- Key evidence path index
+- Which judgments in the text are `Inference`
+- Which areas in the text are still `Pending Verification`
+
+---
+
+## Mandatory Constraints
+
+Do NOT write like this:
+
+- Directory-by-directory introduction
+- File-by-file rehashing
+- No main flow
+- No design tradeoffs
+- No risk judgments
+- No overall assessment
+- Only praise, no critique
+- Only diagrams without explanations
+- Not distinguishing facts, inferences, pending verification
+- Wrote about core modules without explaining their contract with the main flow and adjacent modules
+
+This report's true value is not in information volume, but in whether it helps the reader see:
+
+- The system's skeleton
+- Where complexity lives
+- The costs of design choices
+- The risks of evolution
+- The ideas truly worth transferring

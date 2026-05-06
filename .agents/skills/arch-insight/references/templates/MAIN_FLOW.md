@@ -1,46 +1,46 @@
-# 主流程
+# Main Flow
 
-## 场景
+## Scenario
 
 -
 
-## 边界继承
+## Boundary Inheritance
 
-- 本流程属于哪轮分析范围：
-- 来源与版本锚点：
-- 本流程未覆盖的相邻边界：
+- Which round's analysis scope this flow belongs to:
+- Sources & version anchors:
+- Adjacent boundaries not covered by this flow:
 
-## Mermaid 草图
+## Mermaid Sketch
 
 ```mermaid
 flowchart TD
-    A[入口] --> B[第一次分发]
-    B --> C[核心决策]
-    C --> D[外部边界]
-    D --> E[结果]
+    A[Entry] --> B[First Dispatch]
+    B --> C[Core Decision]
+    C --> D[External Boundary]
+    D --> E[Result]
 ```
 
-## 文字解读
+## Textual Explanation
 
-1. 从哪里进入系统
-2. 中间经过哪些关键模块
-3. 哪些地方发生控制流或数据形态变化
-4. 哪个步骤最体现架构意图
-5. 最后由谁产出结果
+1. Where it enters the system
+2. Which key modules it passes through
+3. Where control flow or data form changes occur
+4. Which step best reveals architectural intent
+5. Who ultimately produces the result
 
-## 步骤证据表
+## Step Evidence Table
 
-| 步骤 | 发生了什么 | 关键文件 / 行号 | 数据 / 状态变化 | 契约对象 | 判断标签 |
+| Step | What Happens | Key File / Line | Data / State Change | Contract Object | Judgment Label |
 | --- | --- | --- | --- | --- | --- |
-| 入口 |  |  |  |  | `事实 / 推断 / 待验证` |
-| 第一次分发 |  |  |  |  | `事实 / 推断 / 待验证` |
-| 核心决策 |  |  |  |  | `事实 / 推断 / 待验证` |
-| 外部边界 |  |  |  |  | `事实 / 推断 / 待验证` |
+| Entry |  |  |  |  | `Fact / Inference / Pending Verification` |
+| First Dispatch |  |  |  |  | `Fact / Inference / Pending Verification` |
+| Core Decision |  |  |  |  | `Fact / Inference / Pending Verification` |
+| External Boundary |  |  |  |  | `Fact / Inference / Pending Verification` |
 
-## 为什么这条流程最重要
+## Why This Flow Matters Most
 
 - 
 
-## 这条流程暴露的设计取舍
+## Design Tradeoffs Exposed by This Flow
 
 - 

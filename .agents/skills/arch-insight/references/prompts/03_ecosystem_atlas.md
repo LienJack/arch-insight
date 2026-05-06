@@ -1,225 +1,225 @@
 # 03 Ecosystem Atlas Ultimate Prompt
 
-你现在进入生态级分析阶段。注意：这不是默认路径，而是当 intake 已经判断“单仓视角不足以解释系统”时才启用的高级扩展层。
+You are now entering the ecosystem-level analysis stage. Note: this is NOT the default path. It is an advanced extension layer enabled only when intake has already determined that "a single-repo perspective is insufficient to explain the system".
 
-你的任务不再是解释单个仓库，而是像平台架构师、技术尽调负责人或系统地图设计者一样，搞清楚多个仓库、多个服务、多个包、多个基础设施单元之间到底是怎么协同、耦合、发布、扩展和失控的。
+Your task is no longer to explain a single repository, but to act like a platform architect, technical due diligence lead, or system map designer — figuring out how multiple repositories, multiple services, multiple packages, and multiple infrastructure units actually collaborate, couple, release, extend, and lose control.
 
-你的目标不是列出实体，而是解释：
+Your goal is not to list entities, but to explain:
 
-> 这套生态真正的结构是什么，复杂度集中在哪里，未来最可能先从哪里出问题。
-
----
-
-## 进入本阶段前必须继承的输入契约
-
-先继承前序阶段已经确认的内容：
-
-1. `01_repo_intake` 的来源、版本锚点、访问约束和覆盖边界
-2. `02_design_philosophy_brain_dump` 已识别的核心模块、关键边界和待验证假设
-3. 当前哪些区域已确认，哪些仍属证据不足
-
-不要把生态分析写成“重新从头介绍系统”。它是单仓脑图之上的视角升级。
+> What is the real structure of this ecosystem, where is the complexity concentrated, and where are problems most likely to emerge first in the future.
 
 ---
 
-## 使用前提
+## Input Contract You Must Inherit Before Entering This Stage
 
-只有在以下场景才应该进入这一层：
+First inherit what has been confirmed in prior stages:
 
-- monorepo 中存在多个关键 package / app / service
-- 单仓内部已经包含明显的多系统边界
-- 需要判断部署边界、数据边界、安全边界或团队边界
-- 单仓主报告已经无法单独解释复杂度来源
+1. `01_repo_intake` sources, version anchors, access constraints, and coverage boundaries
+2. `02_design_philosophy_brain_dump` identified core modules, key boundaries, and pending verification hypotheses
+3. Which areas are currently confirmed, which still lack sufficient evidence
 
-如果单仓主流程已经足够解释系统形状，不要为了“更完整”而默认启用本阶段。
-
----
-
-## 你的阶段目标
-
-1. 列出代码生态中的关键实体
-2. 找出实体之间的职责边界
-3. 画出依赖流、调用流和数据流
-4. 找出权限边界、安全边界、部署边界和数据边界
-5. 找出生态中的重力中心
-6. 找出系统级耦合点、技术债和未来演进风险
+Do not write the ecosystem analysis as "reintroducing the system from scratch". It is a perspective upgrade atop the single-repo mental model.
 
 ---
 
-## 核心原则
+## Prerequisites
 
-1. 目录结构不等于系统边界。
-2. package 边界不等于运行时边界。
-3. 部署单元、数据所有权、权限边界往往比代码目录更能说明真实架构。
-4. 生态级复杂度通常不是平均分布，而是集中在少数重力中心。
-5. 这一步不是补充信息，而是升级视角。
+Only enter this layer in the following scenarios:
 
----
+- There are multiple key packages / apps / services in a monorepo
+- The single repo internally already contains clear multi-system boundaries
+- Need to assess deployment boundaries, data boundaries, security boundaries, or team boundaries
+- The single-repo main report can no longer independently explain the source of complexity
 
-## 证据契约（新增强制）
-
-生态分析里的关键关系必须尽量落到具体证据上，而不是停留在命名猜测。
-
-### 最低证据要求
-
-- 关键实体尽量给出具体路径
-- 关键依赖尽量指出调用点、导入点、注册点、配置点或 schema 连接点
-- 关键跨边界链路尽量给出一条“起点 -> 中继 -> 落点”的具体路径链
-
-### 判断标签
-
-- `事实`：代码、配置、部署文件、文档里可直接看到
-- `推断`：由命名、结构和多点证据推导出的关系
-- `待验证`：缺乏足够证据，不应写成定论
-
-尤其不要把“代码组织边界”直接当成“部署边界”。
+If the single-repo main flow already sufficiently explains the system shape, do not enable this stage by default just to be "more complete".
 
 ---
 
-## 你必须特别关注的边界
+## Your Stage Goals
 
-### 1. 权限边界
-
-- 认证在哪里发生
-- 授权在哪里发生
-- 权限规则由谁持有
-
-### 2. 数据边界
-
-- 谁拥有核心数据
-- 数据在哪里生成、转换、落地
-- 是否存在数据所有权模糊
-
-### 3. 部署边界
-
-- 哪些是独立部署单元
-- 哪些只是代码组织边界
-- 构建与发布是否反映真实系统边界
-
-### 4. 团队边界
-
-如果代码里能看出来，尽量判断：
-
-- 哪些边界像是按团队职责划分
-- 哪些边界像历史妥协
-- 是否存在组织边界与代码边界不一致
+1. List key entities in the code ecosystem
+2. Find responsibility boundaries between entities
+3. Map out dependency flows, call flows, and data flows
+4. Find permission boundaries, security boundaries, deployment boundaries, and data boundaries
+5. Find gravity centers in the ecosystem
+6. Find system-level coupling points, tech debt, and future evolution risks
 
 ---
 
-## 你必须寻找“生态重力中心”
+## Core Principles
 
-识别下列类型的中心：
-
-- 全局共享 package
-- 平台型基础服务
-- 控制面系统
-- 全局配置或公共 schema
-- 一改就会波及很多仓库的中心模块
-
-然后判断它属于哪一类：
-
-1. 健康中心
-   它本来就应该成为系统支柱。
-
-2. 危险中心
-   它并不是设计目标中的骨架，但在历史演进中被越来越多模块绑定。
+1. Directory structure ≠ system boundary.
+2. Package boundary ≠ runtime boundary.
+3. Deployment units, data ownership, and permission boundaries often explain real architecture better than code directories.
+4. Ecosystem-level complexity is typically not evenly distributed — it concentrates in a few gravity centers.
+5. This step is not supplementary information, but a perspective upgrade.
 
 ---
 
-## 你必须补一条跨边界主链
+## Evidence Contract (New Mandatory)
 
-至少选一条最重要的跨边界链路，明确写出：
+Key relationships in the ecosystem analysis must land on concrete evidence wherever possible, not stay at naming guesses.
 
-1. 起点实体与触发条件
-2. 经过的关键模块 / 服务 / package
-3. 数据或控制权如何跨边界传递
-4. 最终落点在哪里
-5. 哪一段最脆弱，为什么
+### Minimum Evidence Requirements
 
-如果无法落到具体路径或接口，必须标注为 `推断` 或 `待验证`。
+- For key entities, wherever possible give specific paths
+- For key dependencies, wherever possible point out call sites, import points, registration points, config points, or schema connection points
+- For key cross-boundary links, wherever possible give a specific path chain of "start → relay → landing point"
 
----
+### Judgment Labels
 
-## 你必须输出的内容
+- `Fact`: directly visible in code, config, deployment files, docs
+- `Inference`: relationships derived from naming, structure, and multi-point evidence
+- `Pending Verification`: lacking sufficient evidence, should not be written as a conclusion
 
-### 1. 生态总览
-
-用 1 到 3 段话讲清：
-
-- 这套系统由哪些层和哪些关键单元组成
-- 它的整体结构更像什么
-- 为什么单仓视角已经不够
-
-### 2. 关键实体清单
-
-按类别列出真正重要的实体，并说明角色。
-
-### 3. 依赖关系摘要
-
-指出谁依赖谁，哪些依赖健康，哪些依赖危险。
-
-### 4. 数据 / 调用主链
-
-描述一条最重要的跨边界链路，并尽量附关键路径 / 接口 / 配置证据。
-
-### 5. 生态重力中心
-
-指出哪几个实体具有异常高的重要性，并判断其健康度。
-
-### 6. 风险与技术债
-
-明确指出最重的耦合点、最脆的边界、最可能成为未来瓶颈的区域。
+Especially, do not treat "code organization boundaries" directly as "deployment boundaries".
 
 ---
 
-## 推荐输出格式
+## Boundaries You Must Pay Special Attention To
 
-### 生态总览
+### 1. Permission Boundaries
 
-`<1-3 段话>`
+- Where authentication happens
+- Where authorization happens
+- Who holds permission rules
 
-### 关键实体
+### 2. Data Boundaries
 
-| 实体 | 类型 | 职责 | 边界地位 | 备注 |
+- Who owns core data
+- Where data is generated, transformed, landed
+- Whether data ownership is ambiguous
+
+### 3. Deployment Boundaries
+
+- Which are independent deployment units
+- Which are merely code organization boundaries
+- Whether build and release reflect real system boundaries
+
+### 4. Team Boundaries
+
+If discernible from the code, try to judge:
+
+- Which boundaries seem divided by team responsibilities
+- Which boundaries seem like historical compromises
+- Whether organizational boundaries and code boundaries are misaligned
+
+---
+
+## You Must Search for "Ecosystem Gravity Centers"
+
+Identify the following types of centers:
+
+- Globally shared packages
+- Platform-type foundational services
+- Control plane systems
+- Global configuration or shared schemas
+- Central modules where one change ripples to many repos
+
+Then judge which category each falls into:
+
+1. **Healthy center**
+   It was meant to be a system pillar.
+
+2. **Dangerous center**
+   It was not a design-target skeleton, but has become bound by more and more modules through historical evolution.
+
+---
+
+## You Must Supplement One Cross-Boundary Main Chain
+
+Select at least one most important cross-boundary link and explicitly write out:
+
+1. Starting entity and trigger condition
+2. Key modules / services / packages passed through
+3. How data or control crosses boundaries
+4. Where the final landing point is
+5. Which segment is most fragile, and why
+
+If you cannot land on specific paths or interfaces, you must label as `Inference` or `Pending Verification`.
+
+---
+
+## What You Must Output
+
+### 1. Ecosystem Overview
+
+In 1 to 3 paragraphs explain:
+
+- What layers and key units compose this system
+- What its overall structure is more like
+- Why the single-repo perspective is no longer sufficient
+
+### 2. Key Entity Inventory
+
+List truly important entities by category, and explain their roles.
+
+### 3. Dependency Relationship Summary
+
+Point out who depends on whom, which dependencies are healthy, which are dangerous.
+
+### 4. Data / Call Main Chain
+
+Describe one most important cross-boundary link, and wherever possible attach key path / interface / config evidence.
+
+### 5. Ecosystem Gravity Centers
+
+Point out which entities have abnormally high importance, and judge their health.
+
+### 6. Risks & Tech Debt
+
+Explicitly point out the heaviest coupling points, most fragile boundaries, and areas most likely to become future bottlenecks.
+
+---
+
+## Recommended Output Format
+
+### Ecosystem Overview
+
+`<1-3 paragraphs>`
+
+### Key Entities
+
+| Entity | Type | Responsibility | Boundary Status | Notes |
 | --- | --- | --- | --- | --- |
 |  |  |  |  |  |
 
-### 依赖关系摘要
+### Dependency Relationship Summary
 
-- `<依赖关系 1>`
-- `<依赖关系 2>`
-- `<依赖关系 3>`
+- `<Dependency 1>`
+- `<Dependency 2>`
+- `<Dependency 3>`
 
-### 数据 / 调用主链
+### Data / Call Main Chain
 
-`<一条关键跨边界链路>`
+`<one key cross-boundary link>`
 
-- 关键证据：
-- 标签：`事实 / 推断 / 待验证`
+- Key evidence:
+- Label: `Fact / Inference / Pending Verification`
 
-### 生态重力中心
+### Ecosystem Gravity Centers
 
-1. `<中心 A>`：为什么是中心，健康还是危险
-2. `<中心 B>`：为什么是中心，健康还是危险
+1. `<Center A>`: why it's a center, healthy or dangerous
+2. `<Center B>`: why it's a center, healthy or dangerous
 
-### 风险与演进判断
+### Risks & Evolution Judgment
 
-1. `<风险 1>`
-2. `<风险 2>`
-3. `<风险 3>`
+1. `<Risk 1>`
+2. `<Risk 2>`
+3. `<Risk 3>`
 
 ---
 
-## 强制约束
+## Mandatory Constraints
 
-不要这样做：
+Do NOT do the following:
 
-- 把目录树抄一遍就当生态图
-- 只说“有很多服务”
-- 只画图，不下判断
-- 只讲实体，不讲关系
-- 只讲依赖，不讲数据所有权和部署边界
-- 把 package 边界直接等同于运行时边界
-- 不给跨边界主链的具体证据
+- Copy the directory tree and call it an ecosystem map
+- Only say "there are many services"
+- Only draw diagrams without making judgments
+- Only talk about entities without talking about relationships
+- Only talk about dependencies without talking about data ownership and deployment boundaries
+- Equate package boundaries directly with runtime boundaries
+- Fail to provide concrete evidence for cross-boundary main chains
 
-生态分析的价值，不在于“信息更多”，而在于“把复杂系统的真实结构和重力中心讲清楚”。
+The value of ecosystem analysis is not "more information", but "clearly explaining the real structure and gravity centers of a complex system".

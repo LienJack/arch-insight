@@ -1,29 +1,29 @@
-# 设计理念
+# Design Philosophy
 
-## 一句话判断
+## One-Line Judgment
 
-这个项目最核心的设计哲学是：
+This project's most core design philosophy is:
 
-## 反复出现的原则
+## Recurring Principles
 
-1. `<原则 1>`：仓库内依据
-2. `<原则 2>`：仓库内依据
-3. `<原则 3>`：仓库内依据
+1. `<Principle 1>`: evidence within the repo
+2. `<Principle 2>`: evidence within the repo
+3. `<Principle 3>`: evidence within the repo
 
-## 作者在优化什么
+## What the Author Is Optimizing For
 
-- 优先优化的目标：
-- 明显不优先优化的目标：
+- Priority optimization target:
+- Clearly NOT a priority optimization target:
 
-## 这些原则带来的收益
-
-- 
-
-## 这些原则付出的代价
+## Benefits Brought by These Principles
 
 - 
 
-## 适用边界
+## Costs Paid for These Principles
 
-- 在什么前提下这套哲学成立：
-- 在什么情况下可能开始失效：
+- 
+
+## Applicable Boundaries
+
+- Under what premises this philosophy holds:
+- Under what circumstances it might start to fail:

@@ -1,95 +1,95 @@
 # 05 Narrative Article Prompt
 
-你现在要交付的是一篇“可直接阅读和发布”的技术叙事文章，而不是模板化分析包。
+What you are about to deliver is a "directly readable and publishable" technical narrative article, not a templated analysis package.
 
-## 进入本阶段前必须继承的输入契约
+## Input Contract You Must Inherit Before Entering This Stage
 
-先继承前序阶段结论，再进行叙事化重组：
+First inherit prior stage conclusions, then reorganize narratively:
 
-1. `01_repo_intake` 的研究范围、来源、版本锚点与暂缓区
-2. `02_design_philosophy_brain_dump` 的核心机制、主流程、核心模块与待验证假设
-3. 如已启用 `03_ecosystem_atlas`，还要继承跨边界关系和系统级风险
+1. `01_repo_intake` research scope, sources, version anchors, and deferred areas
+2. `02_design_philosophy_brain_dump` core mechanisms, main flow, core modules, and pending verification hypotheses
+3. If `03_ecosystem_atlas` was enabled, also inherit cross-boundary relationships and system-level risks
 
-文章可以重组叙事，但不能丢失这些边界信息。
+The article may reorganize the narrative, but must not lose this boundary information.
 
-## 阶段目标
+## Stage Goals
 
-1. 用开篇 2-4 段说明“这个仓库为什么值得读”。
-2. 给出清晰主线：问题定义 -> 架构意图 -> 关键机制 -> 设计取舍 -> 设计参考与迁移判断 -> 风险判断 -> 总体评价。
-3. 用真实代码路径支撑关键判断，但避免目录复述和逐文件解说。
-4. 保持批判性：至少指出 1-3 个真实风险或边界条件，不把参考项目写成单向正例。
-5. 显式产出可借鉴设计点，并说明适用条件、不适用场景和迁移注意事项。
-6. 多仓输入时形成“共同模式 + 差异选择 + 适用背景 + 局部启发范围”的对照结论，而不是多个单仓摘要拼接。
+1. Use the opening 2-4 paragraphs to explain "why this repo is worth reading".
+2. Provide a clear main thread: problem definition → architecture intent → key mechanisms → design tradeoffs → design reference & migration assessment → risk assessment → overall evaluation.
+3. Support key judgments with real code paths, but avoid directory rehashing and file-by-file explanation.
+4. Maintain critical thinking: point out at least 1-3 real risks or boundary conditions; don't portray reference projects as one-directional positive examples.
+5. Explicitly produce borrowable design points, and explain applicable conditions, inapplicable scenarios, and migration notes.
+6. For multi-repo input, form comparative conclusions of "common patterns + divergent choices + applicable contexts + local inspiration scope", not a concatenation of multiple single-repo summaries.
 
-## 强制约束
+## Mandatory Constraints
 
-- 不要输出“主报告 + 五附件”结构。
-- 不要写成 checklist 或模板填空。
-- 不要按目录树顺序复读代码。
-- 不要只有赞美，必须有代价与边界。
-- 不要把深度解读写成源码导览（仓库地图 / 模块罗列 / Sources 清单主导）。
+- Do NOT output a "main report + five appendices" structure.
+- Do NOT write as a checklist or template fill-in-the-blank.
+- Do NOT re-read code in directory tree order.
+- Do NOT only praise — must include costs and boundaries.
+- Do NOT turn the deep dive into a repo overview (repo map / module listing / Sources-list-dominated).
 
-## 风格契约（写作前先确认）
+## Style Contract (Confirm Before Writing)
 
-在正文前先形成并遵守：
+Form and adhere to the following before writing the body:
 
-- 受众：工程师 / TL / 架构师
-- 语气：克制、清晰、有判断
-- 密度：每节有观点，不堆术语
-- 证据：关键判断附代码路径
-- 重要流程、接口、状态边界优先附 `path:line` 级证据
-- 禁止项：模板腔、流水账、README 改写
-- 多仓输入时补充：每个仓库的来源与版本锚点（本地路径 / URL / `owner/repo` + branch/tag/commit）
+- Audience: engineers / TLs / architects
+- Tone: restrained, clear, has judgment
+- Density: each section has a thesis; no jargon stacking
+- Evidence: key judgments carry code paths
+- Important flows, interfaces, state boundaries prioritize `path:line`-level evidence
+- Prohibitions: template-speak, stream-of-consciousness, README rewriting
+- For multi-repo input, supplement: each repo's source and version anchor (local path / URL / `owner/repo` + branch/tag/commit)
 
-## 证据与判断边界
+## Evidence & Judgment Boundaries
 
-这是一篇文章，但不是摆脱证据的理由。请遵守：
+This is an article, but that's not an excuse to shed evidence. Please adhere to:
 
-- 关键判断尽量绑定真实代码路径
-- 由多处事实归纳出的结论，标注为 `推断`
-- 当前证据不足但值得保留的问题，标注为 `待验证`
-- 不要把“文章语气顺滑”建立在“证据被省略”之上
+- Key judgments should wherever possible bind to real code paths
+- Conclusions induced from multiple facts should be labeled as `Inference`
+- Questions where current evidence is insufficient but worth retaining should be labeled as `Pending Verification`
+- Don't build "article flow smoothness" on top of "evidence being omitted"
 
-## 推荐结构
+## Recommended Structure
 
-1. 开场：为什么这个项目值得研究
-2. 项目真实定位（不是官方 slogan）
-3. 架构主线与控制权流动
-4. 最重要的 2-5 个机制
-5. 设计取舍（收益/代价/边界）
-6. 设计参考与迁移判断（可借鉴点 + 适用边界）
-7. 风险与改进建议
-8. 总体评价（一句有力度的结论）
+1. Opening: why this project is worth studying
+2. Project's real positioning (not the official slogan)
+3. Architecture mainline & control flow
+4. The most important 2-5 mechanisms
+5. Design tradeoffs (benefit/cost/boundary)
+6. Design reference & migration assessment (borrowable points + applicable boundaries)
+7. Risks & improvement suggestions
+8. Overall assessment (one forceful conclusion)
 
-对于“最重要的 2-5 个机制”，每个机制尽量补齐：
+For each of "the most important 2-5 mechanisms", wherever possible supplement:
 
-1. 它依赖的关键数据结构 / 状态 / 配置是什么
-2. 它在主流程中的位置是什么
-3. 它为什么被放在这里
-4. 它与其他模块如何协作
+1. What key data structures / state / config it depends on
+2. What its position is in the main flow
+3. Why it was placed here
+4. How it collaborates with other modules
 
-设计参考与迁移判断段落至少覆盖：
+The design reference & migration assessment section at minimum covers:
 
-1. 这个设计点解决什么问题
-2. 为什么值得参考
-3. 适合什么项目背景
-4. 什么场景不建议照搬
-5. 迁移时要优先验证什么
+1. What problem this design point solves
+2. Why it's worth referencing
+3. What project contexts it suits
+4. What scenarios it's NOT recommended to copy
+5. What to prioritize verifying during migration
 
-## 质量闸门
+## Quality Gates
 
-提交前自检：
+Self-check before submission:
 
-1. 开头是否回答“为什么值得读”？
-2. 是否至少讲透一条主流程？
-3. 是否至少有 2 个取舍分析？
-4. 是否至少给出 2 个可借鉴设计点，并写明适用与不适用边界？
-5. 多仓输入时，是否形成对照式结论（共同模式 / 差异选择 / 适用背景）？
-6. 是否至少有 1 个批判性判断？
-7. 每个重要判断是否有路径依据？
-8. 关键机制是否说清了“数据结构 / 流程位置 / 设计动机 / 协作契约”？
+1. Does the opening answer "why worth reading"?
+2. Is at least one main flow thoroughly explained?
+3. Are there at least 2 tradeoff analyses?
+4. Are there at least 2 borrowable design points with applicable and inapplicable boundaries stated?
+5. For multi-repo input, are comparative conclusions formed (common patterns / divergent choices / applicable contexts)?
+6. Is there at least 1 critical judgment?
+7. Does every important judgment have path evidence?
+8. For key mechanisms, are "data structures / flow position / design motivation / collaboration contracts" explained?
 
-## 产物要求
+## Output Requirements
 
-- 默认输出：`outputs/NARRATIVE_ARTICLE.md`
-- 可选附录：`outputs/NARRATIVE_EVIDENCE_INDEX.md`
+- Default output: `outputs/NARRATIVE_ARTICLE.md`
+- Optional appendix: `outputs/NARRATIVE_EVIDENCE_INDEX.md`
