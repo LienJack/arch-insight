@@ -1,4 +1,8 @@
-# arch-insight
+<p align="center">
+  <img src="assets/logo.svg" alt="arch-insight logo" width="180">
+</p>
+
+# Arch Insight
 
 [English](README.md) | [中文](docs/README.zh-CN.md) | [日本語](docs/README.ja.md)
 

@@ -43,6 +43,7 @@ export function createProgram() {
     .option("--release-base-url <url>", "Public release directory URL that contains install-manifest.json")
     .option("--target-dir <path>", "Override the install destination; only valid for a single platform")
     .option("--temp-dir <path>", "Working directory for downloaded release bundles")
+    .option("--cache-dir <path>", "Persistent cache root for downloaded release bundles")
     .action((options, command) => {
       commandResult(command, "install-release", options);
     });
@@ -54,6 +55,7 @@ export function createProgram() {
     .option("--release-base-url <url>", "Public release directory URL that contains install-manifest.json")
     .option("--target-dir <path>", "Override the install destination; only valid for a single platform")
     .option("--temp-dir <path>", "Working directory for downloaded release bundles")
+    .option("--cache-dir <path>", "Persistent cache root for downloaded release bundles")
     .action((options, command) => {
       commandResult(command, "update", options);
     });
@@ -65,6 +67,7 @@ export function createProgram() {
     .option("--release-base-url <url>", "Public release directory URL that contains install-manifest.json")
     .option("--target-dir <path>", "Override the install destination; only valid for a single platform")
     .option("--temp-dir <path>", "Working directory for downloaded release bundles")
+    .option("--cache-dir <path>", "Persistent cache root for downloaded release bundles")
     .action((options, command) => {
       commandResult(command, "upgrade", options);
     });

@@ -13,7 +13,7 @@
     "src"
   ],
   "scripts": {
-    "test": "node --test tests/*.spec.js",
+    "test": "node --test tests/*.spec.js tests/release-download-cache.spec.js",
     "build:bundles": "node ./bin/arch-insight.js build",
     "build:release": "node ./bin/arch-insight.js release",
     "release:prepare": "node ./scripts/release.js",

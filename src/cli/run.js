@@ -95,7 +95,8 @@ export async function runCli(argv, context) {
           const download = await downloadReleaseBundle({
             platform,
             releaseBaseUrl,
-            tempDir: parsed.options.tempDir
+            tempDir: parsed.options.tempDir,
+            cacheDir: parsed.options.cacheDir
           });
 
           manifestVersion = download.manifest.version;
@@ -108,7 +109,12 @@ export async function runCli(argv, context) {
             registerClaudePlugin: true
           });
 
-          results.push(result);
+          results.push({
+            ...result,
+            fromCache: download.fromCache,
+            cacheReason: download.cacheReason,
+            bundlePath: download.downloadedPlatformDir
+          });
         }
 
         writeResult(context.stdout, parsed.options.json, {
