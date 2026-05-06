@@ -1,0 +1,22 @@
+{
+  "name": "arch-insight",
+  "version": "0.2.0",
+  "description": "Analyze repositories as design systems and distill philosophy, abstractions, flows, tradeoffs, and borrowable patterns.",
+  "display_name": "arch-insight",
+  "author": {
+    "name": "LienJack"
+  },
+  "homepage": "https://github.com/LienJack/arch-insight",
+  "repository": "https://github.com/LienJack/arch-insight",
+  "license": "MIT",
+  "keywords": [
+    "architecture",
+    "analysis",
+    "design",
+    "skill",
+    "codex",
+    "claude",
+    "gemini"
+  ],
+  "skills": "./skills"
+}
